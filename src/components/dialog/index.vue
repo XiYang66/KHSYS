@@ -13,6 +13,7 @@ obj: {
 
 <template>
     <div class="lz-dialog">
+        sfsfsfsfsf
         <el-dialog v-model="props.dialogObject.dialogVisible" :title="props.dialogObject.title"
             :width="props.dialogObject.width" :before-close="close" draggable>
             <slot> </slot>
@@ -27,12 +28,15 @@ obj: {
 </template>
 
 <script setup>
-import { computed, defineEmits, defineProps, defineExpose } from 'vue'
+import { computed, defineEmits, defineProps, defineExpose, onMounted } from 'vue'
 // 引入的props 参数
 const props = defineProps({
     dialogObject: {
         default() {
-            return {}
+            return {
+                dialogVisible: true,
+                isFooter: true
+            }
         },
         type: Object
     },
@@ -46,9 +50,13 @@ const close = () => {
 const success = () => {
     emits('dialogSuccess', false, 'success')
 }
+onMounted(() => {
+    console.log('dialogVue',props.dialogObject)
+})
 </script>
 <style lang="scss" scope>
 .lz-dialog {
+
     .dia-suc {
         margin-left: 16px !important;
     }
