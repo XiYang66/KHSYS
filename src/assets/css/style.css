@@ -1,0 +1,23 @@
+*{
+  text-decoration: none;
+  list-style: none;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+
+/* 字体引入 */
+@font-face {
+  font-family: PangMenZhengDao;
+  src: url("@/assets/font/庞门正道标题体.ttf");
+}

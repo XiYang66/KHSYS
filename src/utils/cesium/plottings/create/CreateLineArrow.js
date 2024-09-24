@@ -1,0 +1,81 @@
+/*
+ * 简单箭头标绘功能-包括直线和曲线
+ */
+import CreateRemindertip from "../thirdPart/ReminderTip";
+import { newSessionid, createBezierPoints } from "../thirdPart/plotCommon";
+import { getCatesian3FromPX } from "../thirdPart/Coordinate";
+
+const CreateLineArrow = (viewer, handler, resultList, options, callback) => {
+  const id = options.id || newSessionid();
+  const color = options.color
+    ? Cesium.Color.fromCssColorString(options.color)
+    : Cesium.Color.ORANGE.withAlpha(0.9);
+  const onground = options.onground || true;
+  if (viewer.entities.getById(id))
+    throw new Error("the id parameter is an unique value");
+  window.toolTip = "左键点击开始绘制";
+  let anchorpoints = [];
+  let polyline = undefined;
+  let linePoints;
+  // 左键点击事件
+  handler.setInputAction((event) => {
+    window.toolTip = "左键添加点，右键撤销，左键双击结束绘制";
+    let pixPos = event.position;
+    let cartesian = getCatesian3FromPX(viewer, pixPos);
+    if (!cartesian) {
+      return;
+    }
+    if (anchorpoints.length == 0) {
+      anchorpoints.push(cartesian);
+    }
+    anchorpoints.push(cartesian);
+  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+  // 鼠标移动事件
+  handler.setInputAction((movement) => {
+    let endPos = movement.endPosition;
+    CreateRemindertip(window.toolTip, endPos, true);
+    if (anchorpoints.length > 0) {
+      if (!Cesium.defined(polyline)) {
+        linePoints = createBezierPoints(anchorpoints);
+        polyline = viewer.entities.add({
+          name: "LineArrow",
+          id: id,
+          polyline: {
+            positions: new Cesium.CallbackProperty(function () {
+              return linePoints;
+            }, false),
+            width: 15,
+            material: new Cesium.PolylineArrowMaterialProperty(color),
+            clampToGround: onground,
+          },
+        });
+        polyline.GeoType = "LineArrow"; //记录对象的类型，用户后续编辑等操作
+        polyline.Editable = true; //代表当前对象可编辑,false状态下不可编辑
+      } else {
+        anchorpoints.pop();
+        let cartesian = getCatesian3FromPX(viewer, endPos);
+        if (!cartesian) {
+          return;
+        }
+        anchorpoints.push(cartesian);
+        linePoints = createBezierPoints(anchorpoints);
+      }
+    }
+  }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+  // 左键双击事件
+  handler.setInputAction((event) => {
+    anchorpoints.pop();
+    anchorpoints.pop(); //因为是双击结束，所以要pop两次，一次是move的结果，一次是单击结果
+    polyline.PottingPoint = Cesium.clone(anchorpoints, true); //记录对象的节点数据，用户后续编辑等操作
+    polyline.EditingPoint = Cesium.clone(anchorpoints, true); //记录复杂对象的编辑的节点数据，用户后续编辑等操作
+    resultList.push(polyline);
+    handler.destroy();
+    CreateRemindertip(window.toolTip, event.position, false);
+    if (typeof callback == "function") callback(polyline);
+  }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+  // 右键摁下事件
+  handler.setInputAction(() => {
+    anchorpoints.pop();
+  }, Cesium.ScreenSpaceEventType.RIGHT_DOWN);
+};
+export default CreateLineArrow;
