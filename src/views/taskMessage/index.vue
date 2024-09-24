@@ -118,6 +118,7 @@ onMounted(() => {
     display: flex;
     justify-content: space-around;
     .left {
+         /* 可以点击 */
         pointer-events: auto;
         width: 350px;
         height: 98%;
@@ -139,6 +140,7 @@ onMounted(() => {
         }
     }
     .right {
+         /* 可以点击 */
         pointer-events: auto;
         width: calc(100% - 370px);
         height: 98%;

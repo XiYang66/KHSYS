@@ -1,29 +1,44 @@
 <template>
   <div class="top">
+    <div class="left">
+      <li v-for="item in routerList.filter(ite => ite.meta.position == 'left')" :class="item.meta.index==state.active?'acitve':''" @click="routerClick(item)">{{ item.name }}</li>
+    </div>
     <span class="titleText">
       考核实验室软件系统
     </span>
+    <div class="right">
+      <li v-for="item in routerList.filter(ite => ite.meta.position == 'right')" :class="item.meta.index==state.active?'acitve':''" @click="routerClick(item)">{{ item.name }}</li>
+    </div>
   </div>
+  <!-- 内容 -->
   <div class="content">
     <router-view />
   </div>
 
-  <CesiumBall/>
+  <CesiumBall />
 
 </template>
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
 import { ref, reactive, onMounted } from 'vue';
-import CesiumBall from '@/views/cesiumBall/index.vue'
+import CesiumBall from '@/components/cesiumBall/index.vue'
 const router = useRouter();
 const route = useRoute();
 let routerList: any = reactive([]);
 
 routerList = router.options.routes;
-
+const state=reactive({
+  active:1,
+})
 onMounted(() => {
 });
+
+const routerClick=(item)=>{
+  router.push(item.path)
+  state.active=item.meta.index
+}
+
 </script>
 <style scoped lang="scss">
 .top {
@@ -38,7 +53,24 @@ onMounted(() => {
   background-size: 100% 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+
+  .left,
+  .right {
+    display: flex;
+    font-family: PangMenZhengDao;
+    color: #FFFFFF;
+
+    li {
+      margin: 0 2px;
+      font-size: 14px;
+      cursor: pointer;
+      &.acitve,
+      &:hover {
+        color: #56ADFF;
+      }
+    }
+  }
 
   .titleText {
     display: inline-block;
@@ -59,6 +91,8 @@ onMounted(() => {
   z-index: 999;
   width: 100%;
   height: calc(100% - 62px);
+  
+   /* 使上面的盒子不拦截点击事件 */
   pointer-events: none;
 }
 </style>
