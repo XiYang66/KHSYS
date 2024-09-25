@@ -65,7 +65,7 @@ $bus.on('contextmenu/closePopup', () => {
 <style lang="scss">
 @import '@/assets/css/global.scss';
 @import '@/assets/css/mixin.scss';
-
+// @import '@/assets/css/element.scss';
 
 .popup {
     @include popupBasic;

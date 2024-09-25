@@ -24,22 +24,29 @@ onMounted(async () => {
         container: 'cesiumContainer',
     });
     await CesiumStoreInit.SET_VIEWER(viewer);
+    loadCzml(viewer);
 
 });
 
 
 const loadCzml = (viewer) => {
-    const czmlUrl = 'models/simpleCZML.czml'; // 替换为你的 CZML 文件路径
-
-    // 创建 CZML 数据源并加载数据
-    const czmlDataSource = new Cesium.CzmlDataSource();
-    czmlDataSource.load(czmlUrl).then(function (dataSource) {
-        viewer.dataSources.add(dataSource);
-        viewer.clock.multiplier = 10; // 加快时间步进速度
-        viewer.zoomTo(dataSource); // 自动缩放到 CZML 对象
-    }).otherwise(function (error) {
-        console.error('CZML 加载错误:', error);
-    });
+    viewer.shouldAnimate = true
+    const czmlUrl = 'models/simpleCZML.czml';
+    viewer.camera.flyHome(0);
+    const czmlDataSource = new Cesium.CzmlDataSource('satellite');
+    const promise = czmlDataSource.load(czmlUrl).then(
+        (datasource) => {
+            viewer.dataSources.add(datasource);
+            viewer.clock.multiplier = 1;
+            if (czmlDataSource.entities.values.length > 0) {
+                viewer.zoomTo(datasource);
+                console.log(datasource.entities.values);
+            } else {
+                console.error('CZML 数据中没有可用的实体');
+            }
+        }).catch(function (error) {
+            window.alert('czml加载error:', error);
+        });
 }
 
 </script>
