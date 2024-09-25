@@ -493,10 +493,10 @@ $border-light: #235b91; // 边框 浅
         color: #fff;
         background: transparent;
         text-shadow:
-            0 0 5px #158eff,
-            0 0 5px #158eff,
-            0 0 5px #158eff,
-            0 0 5px #158eff;
+            0 0 5px $active-color,
+            0 0 5px $active-color,
+            0 0 5px $active-color,
+            0 0 5px $active-color;
         font-size: 16px;
     }
     &.el-divider--horizontal {
