@@ -114,15 +114,17 @@ onMounted(() => {
 <style lang="scss" scoped>
 .xdBox {
     width: 100%;
-    height: 100%;
+    height: 98%;
     display: flex;
     justify-content: space-around;
+
     .left {
-         /* 可以点击 */
+        /* 可以点击 */
         pointer-events: auto;
         width: 350px;
-        height: 98%;
+        height: 100%;
         box-sizing: border-box;
+        background: pink;
         padding: 10px;
         // background-image: url('/src/assets/image/一级.png');
         // background-size: 100% 100%;
@@ -139,14 +141,17 @@ onMounted(() => {
             height: 96% !important;
         }
     }
+
     .right {
-         /* 可以点击 */
+        /* 可以点击 */
         pointer-events: auto;
         width: calc(100% - 370px);
         height: 98%;
+
         .buttonBox {
             height: 5px;
         }
+
         .table {
             height: 95%;
         }

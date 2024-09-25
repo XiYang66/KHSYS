@@ -1,39 +1,60 @@
-// // /* 修改滚动条整体样式 */
-// ::-webkit-scrollbar {
-//     width: 1px;
-// }
+$active-color: #1a7bf9; //激活颜色
 
-// /* 修改滚动条轨道样式 */
-// ::-webkit-scrollbar-track {
-//     // background-color: #06192a;
-//     background: transparent;
-// }
-// ::-webkit-scrollbar-thumb {
-//     /*滚动条里面小方块*/
-//     border-radius: 10px;
-//     height: 20px;
-//     -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-//     // background: #E5E5E5;
-//     // background: rgb(39, 42, 219);
-//     background-color: #21415e;
-// }
+$system-light:  #5b697b; //浅色颜色
+
+$system-middle: #022544; //中 颜色
+
+
+// input 输入框
+.el-input {
+    .el-input__wrapper {
+        background: transparent;
+        background: $system-middle;
+        box-shadow: none;
+        box-shadow: 0 0 0 1px $active-color;
+        &:hover {
+            box-shadow: 0 0 0 1px $active-color;
+        }
+    }
+}
+// 文本域
+.el-textarea {
+    .el-textarea__inner {
+        background-color: $system-middle !important;
+        box-shadow: 0 0 0 1px $active-color inset !important;
+        font-size: 12px;
+    }
+}
+
+// 开关
+.el-switch {
+    .el-switch__core {
+        background-color: $system-middle !important;
+        border-color:$system-light;
+        .el-switch__action{
+            background-color:$system-light;
+        }
+    }
+    &.is-checked {
+        .el-switch__core {
+            background-color: $system-middle !important;
+            border-color:$active-color;
+            .el-switch__action{
+                background-color:$active-color;
+            }
+        }
+    }
+}
 
 /* 弹出框 样式*/
-
 .el-dialog {
     background-color: #06192a !important;
     border: solid 1px #22486a !important;
-    // position: absolute !important;
-    // right: 30px !important;
-    // top: 140px !important;
-    // margin: 0 !important;
-
     .el-dialog__header {
         width: 100%;
         height: 35px;
         display: flex;
         justify-content: space-between;
-        // background: url("@/assets/image/dialog-header.png");
         padding: 0;
         margin: 0;
 
@@ -57,7 +78,6 @@
 
         .el-dialog__title::before {
             content: "";
-            // background: url("@/assets/image/dialg-logo.png");
             background-size: 11px 11px;
             display: inline-block;
             margin-right: 15px;
@@ -68,45 +88,6 @@
     }
     .el-dialog__body {
         height: 600px;
-        .jiejingBox {
-            height: 600px;
-            position: relative;
-            #btn-prev,
-            #btn-next {
-                position: absolute;
-                transform: translateY(-50%);
-                left: 50%;
-                width: 50px;
-                height: 50px;
-                background-color: rgba(255, 255, 255, 0.5);
-                border: none;
-                border-radius: 50%;
-                font-size: 18px;
-                font-weight: bold;
-                color: #333;
-                cursor: pointer;
-            }
-            #btn-prev {
-                top: 10px;
-                transform: rotate(90deg);
-            }
-            #btn-next {
-                bottom: 10px;
-                transform: rotate(-270deg);
-            }
-        }
-        .video-js{
-            height: 100% !important;
-        }
-        // .vjs-poster {
-        //     height: 50% !important;
-        //     width: 100% !important;
-        // }
-        // .vjs-tech {
-        //     height: 50% !important;
-        //     width: 100% !important;
-        // }
-        
     }
 }
 
@@ -143,7 +124,7 @@
 }
 
 // 树控件
-.el-tree{
+.el-tree {
     --el-tree-node-hover-bg-color: transparent !important;
     --el-tree-text-color: #f0f7ff !important;
     background: transparent !important;
@@ -154,15 +135,15 @@
         font-size: 18px;
         margin-top: 8px;
         white-space: normal; //关键代码!!!!!!!!!
-                &.is-current{
-                        >.el-tree-node__content{
-                            background: linear-gradient(to right, transparent 0%, #3375ca 50%, transparent 100%);
-                            >span{
-                                color: #fff;
-                                // font-weight: bold;
-                            }
-                        }
-                    }
+        &.is-current {
+            > .el-tree-node__content {
+                background: linear-gradient(to right, transparent 0%, #3375ca 50%, transparent 100%);
+                > span {
+                    color: #fff;
+                    font-weight: bold;
+                }
+            }
+        }
         /* ^ 所有节点 */
         i.el-tree-node__expand-icon {
             padding: 6px;
@@ -185,15 +166,6 @@
         i.el-tree-node__expand-icon.expanded {
             transform: rotate(0deg); // 取消旋转
             -webkit-transform: rotate(0deg); // 取消旋转
-
-            // &::before {
-            //   font-family: element-ui-icons;
-            //   font-style: normal;
-            //   content: "\e6d8";
-            //   color: #fff;
-            //   border: 1px solid #1d5775;
-            //   border-radius: 2px;
-            // }
         }
         /* / 已展开的父节点 */
 
@@ -221,14 +193,24 @@
                 border: 1px solid #5e7ce0;
             }
         }
-        /* / 复选框 */
 
         .el-tree-node__content {
             height: 100%;
-            // align-items: start;
-            // margin: 5px 0px;
             small {
                 font-size: 13px;
+            }
+            // 自定义样式
+            .tree-node {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                justify-content: space-between;
+                .label {
+                    white-space: nowrap; /* 不换行 */
+                    overflow: hidden; /* 超出部分隐藏 */
+                    text-overflow: ellipsis; /* 使用省略号表示截断 */
+                    width: 70%;
+                }
             }
         }
     }
@@ -268,7 +250,7 @@
             left: 0;
             right: auto;
             border-width: 1px;
-            border-left: 1px dashed #1d5775;
+            border-left: 1px dashed $active-color;
         }
 
         &::after {
@@ -282,7 +264,7 @@
             top: 12px;
             bottom: auto;
             border-width: 1px;
-            border-top: 1px dashed #1d5775;
+            border-top: 1px dashed $active-color;
         }
 
         .el-tree-node__content {
@@ -296,7 +278,6 @@
                 // margin: 0 10px 0 5.5px;
                 margin: 0 10px 0 0px;
             }
-            /* / 复选框 */
         }
 
         .el-tree-node__children {
@@ -343,7 +324,7 @@
     .el-tree-node i.el-tree-node__expand-icon {
         width: 4px !important;
         height: 4px !important;
-        background: #1b5f7e;
+        background: $active-color;
         margin-left: 5px;
         position: relative;
         cursor: pointer;
@@ -383,13 +364,13 @@
     .el-tree-node i.el-tree-node__expand-icon {
         width: 4px !important;
         height: 4px !important;
-        background: #1b5f7e;
+        background: $active-color;
         margin-left: 5px;
         position: relative;
         cursor: pointer;
-        margin-right:7px;
-      }
-      .el-tree-node i.el-tree-node__expand-icon::before {
+        margin-right: 7px;
+    }
+    .el-tree-node i.el-tree-node__expand-icon::before {
         content: "" !important;
         border: none;
         position: absolute;
@@ -398,8 +379,8 @@
         width: 1px;
         height: 10px;
         background: #fff;
-      }
-      .el-tree-node i.el-tree-node__expand-icon::after {
+    }
+    .el-tree-node i.el-tree-node__expand-icon::after {
         content: "" !important;
         border: none;
         position: absolute;
@@ -408,8 +389,8 @@
         width: 10px;
         height: 1px;
         background: #fff;
-      }
-      .el-tree-node i.el-tree-node__expand-icon.expanded::before {
+    }
+    .el-tree-node i.el-tree-node__expand-icon.expanded::before {
         content: "" !important;
         border: none;
         position: absolute;
@@ -418,8 +399,7 @@
         width: 10px;
         height: 1px;
         background: #fff;
-      }
-      
+    }
 }
 
 // 描述列表
