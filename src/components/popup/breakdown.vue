@@ -84,9 +84,7 @@ $color3: white;
 
 
 <style lang="scss" scoped>
-$color1: gray;
-$color2: #0E5894;
-$color3: white;
+@import '@/assets/css/_var.scss';
 
 .breakdown {
     width: 480px;

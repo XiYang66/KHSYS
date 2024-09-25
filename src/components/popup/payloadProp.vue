@@ -1,5 +1,5 @@
 <template>
-    <div class="descriptions payloadProp">
+    <div class="popup-statellite-descriptions payloadProp">
         <div class="main" v-for="(desc, INDEX) in layout">
             <el-descriptions :column="desc.column" :size="size" :style="blockMargin" border style="margin-top: 0;"
                 :key="INDEX">
@@ -97,9 +97,7 @@ const layout = [
 
 
 <style lang="scss" scoped>
-$color1: gray;
-$color2: #0E5894;
-$color3: white;
+@import '@/assets/css/_var.scss';
 
 .content {
     background-color: aquamarine;
@@ -152,7 +150,5 @@ $color3: white;
     font-size: 12px;
 }
 </style>
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>
 

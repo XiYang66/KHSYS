@@ -41,9 +41,8 @@ const url = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.
 
 
 <style lang="scss" scoped>
-$color1: gray;
-$color2: #0E5894;
-$color3: white;
+@import '@/assets/css/_var.scss';
+@import '@/assets/css/mixin.scss';
 
 .payloadData {
     width: 480px;

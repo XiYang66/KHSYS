@@ -1,8 +1,8 @@
 <template>
-    <div class="descriptions">
+    <div class="popup-statellite-descriptions">
         <div class="main" v-for="(desc, INDEX) in layout">
             <el-descriptions :column="desc.column" :size="size" :style="blockMargin" border style="margin-top: 0;"
-                :key="INDEX" :class="{ 'description0': INDEX == 0 }">
+                :key="INDEX" :class="{ 'popup-statellite-description0': INDEX == 0 }">
                 <template #title>
                     <div class=" descrTitle">
                         <span>{{ desc.title }}</span>
@@ -10,7 +10,7 @@
                 </template>
                 <el-descriptions-item v-for="(item, index) in desc.items" :span="item.span" align="right">
                     <template #label>
-                        <div class="label-item" :class="{ 'label-item0': INDEX == 0 }">
+                        <div class="label-item" :class="{ 'label-item-0': INDEX == 0 }">
                             {{ item.label }}
                         </div>
                     </template>
@@ -152,31 +152,33 @@ const layout = [
     }
 
 ]
-
-
 </script>
 
 
 <style lang="scss" scoped>
-$color1: gray;
-$color2: #0E5894;
-$color3: white;
+@import '@/assets/css/_var.scss';
+@import '@/assets/css/mixin.scss';
+
+.descrTitle {
+    color: $color3;
+    font-size: $fontSize;
+}
 
 .label-item {
     color: $color3;
     width: 100px;
-    font-size: 12px;
-    height: 18px;
-    line-height: 18px;
+    font-size: $fontSize;
+    height: $textHeight;
+    line-height: $textHeight;
 }
 
-.label-item0 {
+.label-item-0 {
     width: 60px;
 }
 
 .content-item {
     color: $color3;
-    font-size: 12px;
+    font-size: $fontSize;
     background-color: $color2;
     text-align: left;
     position: relative;
@@ -196,11 +198,6 @@ $color3: white;
             font-size: 10px;
         }
     }
-}
-
-.descrTitle {
-    color: $color3;
-    font-size: 12px;
 }
 </style>
 

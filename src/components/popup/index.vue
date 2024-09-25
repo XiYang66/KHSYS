@@ -46,10 +46,16 @@ const closePopup = () => {
 </script>
 
 <style lang="scss">
-@import '../../assets/css/global.scss';
+@import '@/assets/css/global.scss';
+@import '@/assets/css/mixin.scss';
+
+
+.popup {
+    @include popupBasic;
+}
 
 .head {
-    background-color: rgba(43, 101, 101, 0.601);
+    background: $bg1;
     width: 474px;
     height: 24px;
     position: relative;
@@ -60,23 +66,11 @@ const closePopup = () => {
     }
 
     .title {
-        position: absolute;
-        top: 3px;
-        left: 8px;
-        width: 86px;
-        height: 18px;
-        font-size: 12px;
-        font-weight: 400;
-        color: white;
-        line-height: 18px;
+        @include popupTitle;
     }
 
     .close-btn {
-        position: absolute;
-        top: 4px;
-        left: 450px;
-        width: 16px;
-        height: 16px;
+        @include popupCloseBtn;
     }
 
     .close-btn:hover {

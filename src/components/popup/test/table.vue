@@ -1,5 +1,5 @@
 <template>
-    <div class="descriptions2">
+    <div class="popup-statellite-descriptions2">
         <el-row class="title1 row" :gutter="gutter">
             <el-col :span="24">属性</el-col>
         </el-row>

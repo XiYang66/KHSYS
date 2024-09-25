@@ -1,6 +1,4 @@
-$color1: gray;
-$color2: #0e5894;
-$color3: white;
+@import '@/assets/css/_var.scss';
 
 @mixin popupBasic {
   width: 480px;
@@ -10,4 +8,33 @@ $color3: white;
   font-size: 12px;
   line-height: 18px;
   background-color: $color1;
+}
+@mixin popupMainBasic {
+  width: 100%;
+  height: 474px;
+  font-family: 'Source Han Sans CN';
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  background-color: $color1;
+}
+
+@mixin popupCloseBtn {
+  position: absolute;
+  top: 4px;
+  left: 450px;
+  width: 16px;
+  height: 16px;
+}
+
+@mixin popupTitle {
+  position: absolute;
+  top: 3px;
+  left: 8px;
+  width: 86px;
+  height: 18px;
+  font-size: 12px;
+  font-weight: 400;
+  color: $color3;
+  line-height: 18px;
 }
