@@ -55,12 +55,12 @@ const routes = [
         component: ()=>import('@/views/taskDrill/index.vue'),
         meta: { position: "right", index: 9 }
     },
-    // {
-    //     path: '/popup',
-    //     name: 'popup',
-    //     component: ()=>import('@/views/popup/index.vue'),
-    //     meta: { position: "right", index: 10 }
-    // }
+    {
+        path: '/taskDrill',
+        name: '国产数据库',
+        component: ()=>import('@/views/taskDrill/index.vue'),
+        meta: { position: "right", index: 10 }
+    }
 ];
 
 const router = createRouter({

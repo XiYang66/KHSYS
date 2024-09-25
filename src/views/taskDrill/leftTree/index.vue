@@ -17,7 +17,7 @@
           <template #default="{ node, data }">
             <span class="tree-node">
               <span class="label" @contextmenu="handleClickRight($event, node.label)" @click="handleClick">{{ node.label
-              }}</span>
+                }}</span>
               <div class="image">
                 <el-image :src="connection" style="height: 16px;" fit="cover" />
                 <el-image :src="addone" style="height: 16px;margin: 0 5px;" fit="none" />
@@ -29,7 +29,7 @@
       </el-scrollbar>
     </div>
 
-
+    <!-- 右键菜单 -->
     <div class="contextmenuContainer" v-show="menuVisible">
       <div :style="contextMenuStyle" class="context-menu">
         <ul>
@@ -145,6 +145,7 @@ const fun1 = () => {
 let menuVisible = ref(false), menuX = ref(0), menuY = ref(0)
 let contextMenuStyle = ref({ top: "0px", left: "0px" })
 let nodeLabelClicked
+// 右键菜单定位
 const handleClickRight = (e, v) => { // 显示自定义菜单 // 点击页面其他地方时隐藏菜单
   e.preventDefault()
   nodeLabelClicked = v;
@@ -176,6 +177,8 @@ defineExpose({})
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/css/element.scss';
+
 .leftTree {
   pointer-events: auto;
   width: 350px;
@@ -192,30 +195,38 @@ defineExpose({})
       }
     }
   }
-}
+// 右键菜单
+  .contextmenuContainer {
 
-.contextmenuContainer {}
+    .context-menu {
+      position: fixed;
+      background-color: rgba($color: $system-middle, $alpha: 0.99);
+      border: 1px solid $border-light;
+      box-shadow: 0px 4px 8px rgba($color: $active-color, $alpha: 0.5);
+      z-index: 1000;
+    }
 
-.context-menu {
-  position: fixed;
-  background-color: white;
-  border: 1px solid #ccc;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
+    .context-menu ul {
+      list-style: none;
+      margin: 0;
+    }
 
-.context-menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 10px;
-}
+    .context-menu li {
+      padding: 8px 12px;
+      width: 100px;
+      text-align: center;
+      cursor: pointer;
+      color:#eee;
+      border-bottom: 1px solid $border-light;
+      &:hover {
+      text-shadow:
+            0 0 5px $active-color,
+            0 0 5px $active-color,
+            0 0 5px $active-color,
+            0 0 5px $active-color;
+    }
+    }
 
-.context-menu li {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.context-menu li:hover {
-  background-color: #eee;
+  }
 }
 </style>

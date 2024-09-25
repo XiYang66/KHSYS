@@ -1,7 +1,7 @@
 <template>
     <div class="message">
         <div class="titleBox">
-            <el-image :src="titleIcon" fit="cover" />
+            <el-image :src="titleIcon" fit="cover" lazy />
             <span @click="active(1)" :class="state.active == 1 ? 'active' : ''">卫星概括</span>
             <span @click="active(2)" :class="state.active == 2 ? 'active' : ''">载荷数据</span>
         </div>
@@ -10,18 +10,17 @@
                 <div class="wxgk" v-show="state.active == 1">
                     <p>载荷类型：<span>电子载荷</span></p>
                     <p>卫星状态：<span>正常</span></p>
-
-                    <p class="title">星地/星间链路</p>
+                    <el-divider>星地/星间链路</el-divider>
                     <div ref="LL" class="LL"></div>
 
-                    <p class="title">任务概述</p>
+                    <el-divider>任务概述</el-divider>
                     <p>距下次开机任务(分钟)：<span>666</span></p>
                     <p>剩余任务总时长(小时)：<span>11.737</span></p>
                     <p>任务时刻表：</p>
                     <el-input v-model="state.textarea" :rows="7.5" disabled type="textarea"
                         placeholder="Please input" />
+                    <el-divider>主要参数</el-divider>
 
-                    <p class="title">主要参数</p>
                     <p>载荷开机状态： <el-switch v-model="state.switch" /></p>
                     <p>地影区标志：<span>阳照区</span></p>
                     <div ref="WX" class="WX"></div>
@@ -29,7 +28,7 @@
                 </div>
                 <div class="zhsj" v-show="state.active == 2">
                     <p>探测到目标：<span>3</span></p>
-                    <p class="title">目标名称</p>
+                    <el-divider>目标名称</el-divider>
 
                     <el-tabs v-model="state.activeName" type="card">
                         <el-tab-pane label="电子特性参数" name="first">
@@ -48,7 +47,7 @@
                         </el-tab-pane>
                         <el-tab-pane label="电子特性曲线" name="second">电子特性曲线</el-tab-pane>
                     </el-tabs>
-                    <p class="title">目标名称</p>
+                    <el-divider>目标名称</el-divider>
                     <el-tabs v-model="state.activeName" type="card">
                         <el-tab-pane label="电子特性参数" name="first">
                             <div ref="MK" class="MK"></div>
@@ -119,7 +118,7 @@ const initLL = () => {
     var data = [
         {
             name: "数据中心",
-            symbol:`image://`+Group,
+            symbol: `image://` + Group,
             symbolSize: [100, 100],
             value: [170, 200],
             x: 300,
@@ -130,7 +129,7 @@ const initLL = () => {
             name: "分数据中心一",
             x: 400,
             y: 400,
-            symbol:`image://`+LD,
+            symbol: `image://` + LD,
             symbolSize: [60, 60],
             value: [400, 400],
 
@@ -139,7 +138,7 @@ const initLL = () => {
             name: "分数据中心二",
             x: 400,
             y: 400,
-            symbol:`image://`+LD,
+            symbol: `image://` + LD,
             value: [10, 380],
             symbolSize: [60, 60],
 
@@ -149,7 +148,7 @@ const initLL = () => {
             x: 400,
             y: 400,
             value: [10, 10],
-            symbol:`image://`+LD,
+            symbol: `image://` + LD,
             symbolSize: [60, 60],
 
         },
@@ -896,6 +895,11 @@ defineExpose({})
             color: #FFFFFF;
             background: rgba(21, 142, 255, 0.4);
             padding: 3px 0;
+            // font-family: PangMenZhengDao;
+            font-size: 16px;
+            font-weight:bold;
+            text-shadow: 0 0 5px #158EFF, 0 0 5px #158EFF, 0 0 5px #158EFF, 0 0 5px #158EFF;
+
         }
     }
 
