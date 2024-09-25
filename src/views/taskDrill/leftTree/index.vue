@@ -33,9 +33,9 @@
     <div class="contextmenuContainer" v-show="menuVisible">
       <div :style="contextMenuStyle" class="context-menu">
         <ul>
-          <li @click="handleOptionClick('satellite')">卫星概况</li>
-          <li @click="handleOptionClick('scene')">场景概况</li>
-          <li @click="handleOptionClick('prop')">属性</li>
+          <li @click="handleOptionClick('satellite', nodeLabelClicked)">卫星概况</li>
+          <li @click="handleOptionClick('scene', nodeLabelClicked)">场景概况</li>
+          <li @click="handleOptionClick('prop', nodeLabelClicked)">属性</li>
         </ul>
       </div>
     </div>
@@ -143,9 +143,10 @@ const fun1 = () => {
 }
 let menuVisible = ref(false), menuX = ref(0), menuY = ref(0)
 let contextMenuStyle = ref({ top: "0px", left: "0px" })
+let nodeLabelClicked
 const handleClickRight = (e, v) => { // 显示自定义菜单 // 点击页面其他地方时隐藏菜单
   e.preventDefault()
-  console.log(v);
+  nodeLabelClicked = v;
   menuVisible.value = true;
   menuX.value = e.clientX;
   menuY.value = e.clientY;
@@ -165,9 +166,9 @@ onBeforeUnmount(() => {
   window.removeEventListener('click', contextmenu);
 })
 
-const handleOptionClick = (type) => {
+const handleOptionClick = (type, nodeLabelClicked) => {
   menuVisible.value = false;
-  $bus.emit('contextmenu/openPopup', type)
+  $bus.emit('contextmenu/openPopup', { type, nodeLabelClicked })
 }
 //暴露方法
 defineExpose({})
