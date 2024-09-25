@@ -1,11 +1,11 @@
 <template>
-    <div class="descriptions">
+    <div class="breakdown">
         <div class="main" v-for="(item, INDEX) in layout">
-            <el-row class="title1 row" :gutter="gutter">
+            <el-row class="title row" :gutter="gutter">
                 <el-col :span="24">{{ item.title }}</el-col>
             </el-row>
-            <el-row class="name row" :gutter="gutter" align="right">
-                <el-col class="label col" :span="24">
+            <el-row class="text row" :gutter="gutter" align="right">
+                <el-col class="content col" :span="24">
                     {{ item.content }}
                 </el-col>
             </el-row>
@@ -88,19 +88,26 @@ $color1: gray;
 $color2: #0E5894;
 $color3: white;
 
+.breakdown {
+    width: 480px;
+    font-family: 'Source Han Sans CN';
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    background-color: $color1;
+}
 
-// .el-descriptions__header__body {
-//     .el-descriptions__table.is-bordered {
-//         .el-descriptions__cell.el-descriptions__label.is-bordered-label.is-right {
-//             border: 1px solid #276989 !important;
-//             .label-item {
-//                 color: white;
-//             }
-//         }
-//         .el-descriptions__cell.el-descriptions__content.is-bordered-content.is-right {
-//             .content-item {}
-//         }
-//     }
-// }
+
+
+.title {
+    background-color: $color2;
+    height: 28px;
+    line-height: 28px;
+    color: $color3
+}
+
+.text {
+    padding: 10px;
+}
 </style>
 

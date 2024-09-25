@@ -36,7 +36,6 @@
 </template>
 
 <script setup>
-import table from './table.vue'
 import { onMounted, ref, computed } from 'vue';
 import {
     Check,
@@ -86,7 +85,7 @@ $color3: white;
 
 .taskManage {
     width: 480px;
-    height: 550px;
+    height: 474px;
     background-color: $color1;
 }
 

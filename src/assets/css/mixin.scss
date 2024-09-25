@@ -1,0 +1,13 @@
+$color1: gray;
+$color2: #0e5894;
+$color3: white;
+
+@mixin popupBasic {
+  width: 480px;
+  height: 474px;
+  font-family: 'Source Han Sans CN';
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  background-color: $color1;
+}
