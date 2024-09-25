@@ -1,0 +1,19 @@
+[
+    {
+        "id": "document",
+        "version": "1.0"
+    },
+    {
+        "id": "point1",
+        "name": "Sample Point",
+        "position": {
+            "cartographicDegrees": [114.0, 30.0, 100000.0]  // 经度，纬度，高度
+        },
+        "point": {
+            "color": {
+                "rgba": [255, 0, 0, 255]
+            },
+            "pixelSize": 10
+        }
+    }
+]

@@ -24,7 +24,8 @@ onMounted(async () => {
         container: 'cesiumContainer',
     });
     await CesiumStoreInit.SET_VIEWER(viewer);
-    loadCzml(viewer);
+    // loadCzml(viewer);
+    loadGlb(viewer);
 
 });
 
@@ -32,9 +33,10 @@ onMounted(async () => {
 const loadCzml = (viewer) => {
     viewer.shouldAnimate = true
     const czmlUrl = 'models/simpleCZML.czml';
+    const czmlUrl2 = 'models/test.czml';
     viewer.camera.flyHome(0);
     const czmlDataSource = new Cesium.CzmlDataSource('satellite');
-    const promise = czmlDataSource.load(czmlUrl).then(
+    const promise = czmlDataSource.load(czmlUrl2).then(
         (datasource) => {
             viewer.dataSources.add(datasource);
             viewer.clock.multiplier = 1;
@@ -47,6 +49,27 @@ const loadCzml = (viewer) => {
         }).catch(function (error) {
             window.alert('czml加载error:', error);
         });
+}
+
+const newyork = Cesium.Cartesian3.fromDegrees(-74.012984, 40.705327, 100);
+
+const loadGlb = (viewer) => {// 加载 GLB 模型
+    const model = viewer.scene.primitives.add(Cesium.Model.fromGltf({
+        url: 'models/fightWarship.glb',
+        modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
+            newyork,
+            new Cesium.HeadingPitchRoll(0, 0, 0)
+        ),
+        scale: 10.0
+    }));
+    viewer.camera.flyTo({
+        destination: newyork,
+        orientation: {
+            heading: Cesium.Math.toRadians(90),
+            pitch: Cesium.Math.toRadians(-30),
+            roll: 0.0
+        }
+    });
 }
 
 </script>
