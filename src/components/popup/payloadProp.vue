@@ -1,16 +1,11 @@
 <template>
-    <div class="descriptions">
+    <div class="descriptions payloadProp">
         <div class="main" v-for="(desc, INDEX) in layout">
             <el-descriptions :column="desc.column" :size="size" :style="blockMargin" border style="margin-top: 0;"
-                :key="INDEX" :class="{ 'description0': INDEX == 0 }">
-                <template #title>
-                    <div class=" descrTitle">
-                        <span>{{ desc.title }}</span>
-                    </div>
-                </template>
+                :key="INDEX">
                 <el-descriptions-item v-for="(item, index) in desc.items" :span="item.span" align="right">
                     <template #label>
-                        <div class="label-item" :class="{ 'label-item0': INDEX == 0 }">
+                        <div class="label-item">
                             {{ item.label }}
                         </div>
                     </template>
@@ -21,16 +16,6 @@
                     </div>
                 </el-descriptions-item>
             </el-descriptions>
-            <el-row v-if="desc.title == '控制'">
-                <el-col :span="6">
-                    <el-button type="success" :icon="Check" circle size="small" />
-                    轨迹线显隐
-                </el-col>
-                <el-col :span="12">
-                    <el-button type="success" :icon="Check" circle size="small" />
-                    标签显隐
-                </el-col>
-            </el-row>
         </div>
     </div>
 </template>
@@ -63,97 +48,51 @@ const blockMargin = computed(() => {
 
 const layout = [
     {
-        title: '属性',
+        title: '',
         column: 2,
         items: [
             {
-                label: '卫星名称',
+                label: '方位向带宽(Hz)',
                 span: 3,
-                content: '尖兵十三号03星',
+                content: '4261.141453',
 
             },
             {
-                label: 'Norad-ID',
+                label: '距离向带宽(Hz)',
                 span: 3,
-                content: '99906',
+                content: '654513213',
 
             },
             {
-                label: '载荷类型',
-                span: 1,
-                content: 'SAR',
+                label: '波束半角(度',
+                span: 3,
+                content: '12.8',
 
             },
             {
-                label: '国家',
-                span: 1,
-                content: '中国',
+                label: '脉冲重复频率(Hz)',
+                span: 3,
+                content: '6000',
 
             },
             {
-                label: 'TLE-1',
+                label: '采样率(Hz)',
                 span: 3,
-                content: '1 99906U          21236 00000000   00004175 0000-0  52744-3  0',
+                content: '813435453435',
 
             },
             {
-                label: 'TLE-2',
+                label: '分辨率(米)',
                 span: 3,
-                content: '2 99906U          21236 00000000   00004175 0000-0  52744-3  0',
-
-            }
-        ]
-    },
-    {
-        title: '状态',
-        column: 3,
-        items: [
-            {
-                label: '卫星状态',
-                span: 3,
-                content: '正常',
-                btn: '故障说明',
-            },
-            {
-                label: '惯性系位置(Km)',
-                span: 3,
-                content: '(-1275.93, -3747.65, 5683.59)',
-            },
-            {
-                label: '惯性系速度(Km/s)',
-                span: 3,
-                content: '(0.20,6.31,4.20)',
-            },
-            {
-                label: '本体系姿态角(312)',
-                span: 3,
-                content: '(00.0, 00.0, 00.0)',
+                content: '0.3',
 
             },
-            {
-                label: '姿态角导引律(312)',
-                span: 3,
-                content: '(00.0, 00.0, 00.0)',
-
-            },
-            {
-                label: '载荷开关机',
-                span: 3,
-                content: '关机',
-
-            }
 
         ]
     },
-    {
-        title: '控制',
-        column: 3,
-        items: []
-    }
+
 
 ]
-
-
 </script>
 
 
@@ -161,6 +100,16 @@ const layout = [
 $color1: gray;
 $color2: #0E5894;
 $color3: white;
+
+.content {
+    background-color: aquamarine;
+}
+
+.label.col {
+    text-align: right;
+    padding-left: 0;
+    margin-left: 0px;
+}
 
 .label-item {
     color: $color3;
@@ -203,5 +152,7 @@ $color3: white;
     font-size: 12px;
 }
 </style>
+<style lang="scss">
 
+</style>
 
