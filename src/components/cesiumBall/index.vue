@@ -41,6 +41,21 @@ onMounted(async () => {
     // viewer.imageryLayers.addImageryProvider(ImageryProvider14);
 });
 
+
+const loadCzml = (viewer) => {
+    const czmlUrl = 'models/simpleCZML.czml'; // 替换为你的 CZML 文件路径
+
+    // 创建 CZML 数据源并加载数据
+    const czmlDataSource = new Cesium.CzmlDataSource();
+    czmlDataSource.load(czmlUrl).then(function (dataSource) {
+        viewer.dataSources.add(dataSource);
+        viewer.clock.multiplier = 10; // 加快时间步进速度
+        viewer.zoomTo(dataSource); // 自动缩放到 CZML 对象
+    }).otherwise(function (error) {
+        console.error('CZML 加载错误:', error);
+    });
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -48,6 +63,7 @@ onMounted(async () => {
     width: 100%;
     height: 100%;
     position: fixed;
+
     #cesiumContainer {
         width: 100%;
         height: 100%;
