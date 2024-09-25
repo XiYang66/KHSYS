@@ -13,7 +13,6 @@ obj: {
 
 <template>
     <div class="lz-dialog">
-        sfsfsfsfsf
         <el-dialog v-model="props.dialogObject.dialogVisible" :title="props.dialogObject.title"
             :width="props.dialogObject.width" :before-close="close" draggable>
             <slot> </slot>

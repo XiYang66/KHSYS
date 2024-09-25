@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <popup style="position: fixed; top: 20%; left: 30%;"></popup>
+    <popup style="position: fixed; top: 0%; left: 50%; transform: translateX(-50%);"></popup>
   </div>
 </template>
 
@@ -49,6 +49,7 @@
 import { ref, reactive, onMounted, defineExpose, onBeforeUnmount } from "vue"
 import $bus from '@/utils/mitter'
 import popup from '@/components/popup/index.vue'
+import dialog from '@/components/dialog/index.vue'
 
 import titleIcon from '@/assets/image/titleIcon.png'
 import search from '@/assets/image/search.png'
