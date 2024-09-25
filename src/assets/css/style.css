@@ -1,15 +1,19 @@
-*{
+* {
   text-decoration: none;
   list-style: none;
+
 }
+
 body {
   margin: 0;
   padding: 0;
 }
+
 ul {
   margin: 0;
   padding: 0;
 }
+
 #app {
   width: 100vw;
   height: 100vh;
@@ -20,4 +24,59 @@ ul {
 @font-face {
   font-family: PangMenZhengDao;
   src: url("@/assets/font/庞门正道标题体.ttf");
+}
+
+p{
+  margin: 0;
+  padding: 0;
+}
+
+/* 修改滚动条整体样式
+::-webkit-scrollbar {
+    width: 1px;
+}
+
+修改滚动条轨道样式 
+::-webkit-scrollbar-track {
+     background-color: #06192a;
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    滚动条里面小方块
+    border-radius: 10px;
+    height: 20px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #E5E5E5;
+     background: rgb(39, 42, 219);
+    background-color: #21415e;
+} 
+*/
+
+/* 通用表头样式 */
+.titleBox {
+  height: 38px;
+  width: 100%;
+  background: url('@/assets/image/tab.png') no-repeat;
+  background-size: 100% 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  span {
+      font-family: PangMenZhengDao;
+      margin-left: 10px;
+      font-size: 20px;
+      color: #FFFFFF;
+      text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;
+  }
+}
+/* 通用内容容器样式 */
+.contentBox{
+  margin-top: 2px;
+  height: calc(100% - 40px);
+  background: rgba(17, 38, 69, 0.7);
+  border: 1px solid #1a7bf9;
+  box-sizing: border-box;
+  padding: 10px;
 }
