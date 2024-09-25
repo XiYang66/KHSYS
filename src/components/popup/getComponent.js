@@ -2,15 +2,15 @@ export const getComponent_SatelliteProperties = () => defineComponent({
     name: 'SatelliteProperties',
     setup() {
         const satellite = reactive({
-            name: '尖兵十三号03星',
+            name: '尖兵十三号03星', 
             noradId: '99906',
             type: 'SAR',
             country: '中国',
             tle1: '1 99906U 21236 0000000 00004175 00000-0 52744-3 0',
             tle2: '1 99906U 21236 0000000 00004175 00000-0 52744-3 0',
             status: '正常',
-            position: '-1275.93, -3747.65, 5683.59',
-            velocity: '(20.6, 31.4, 20.4)',
+            position: '(-1275.93, -3747.65, 5683.59)',
+            velocity: '(0.20,6.31,4.20)',
             coordinates: '(00.0, 00.0, 00.0)',
             angularVelocity: '(00.0, 00.0, 00.0)',
             attitudeControl: false,

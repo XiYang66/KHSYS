@@ -13,7 +13,7 @@
         :class="item.meta.index == state.active ? 'acitve' : ''" @click="routerClick(item)">{{ item.name }}</li>
     </div>
   </div>
-  <div class="content" style="background-color: red;">
+  <div class="content" style="background-color: black;">
     <router-view />
   </div>
   
