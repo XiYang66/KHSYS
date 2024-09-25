@@ -62,42 +62,36 @@ $bus.on('contextmenu/closePopup', () => {
 
 </script>
 
-<style lang="scss">
-@import '@/assets/css/global.scss';
+<style lang="scss" scoped>
 @import '@/assets/css/mixin.scss';
-// @import '@/assets/css/element.scss';
-
+@import '@/assets/css/popup.scss';
 .popup {
     @include popupBasic;
     pointer-events: auto;
-}
 
-.el-dialog__header {
-    display: none !important;
-}
+    .head {
+        background: $bg1;
+        width: 474px;
+        height: 24px;
+        position: relative;
 
-.head {
-    background: $bg1;
-    width: 474px;
-    height: 24px;
-    position: relative;
+        .main {
+            width: 100%;
+            height: 100%;
+        }
 
-    .main {
-        width: 100%;
-        height: 100%;
-    }
+        .title {
+            @include popupTitle;
+            width: auto;
+        }
 
-    .title {
-        @include popupTitle;
-        width: auto;
-    }
+        .close-btn {
+            @include popupCloseBtn;
+        }
 
-    .close-btn {
-        @include popupCloseBtn;
-    }
-
-    .close-btn:hover {
-        cursor: pointer;
+        .close-btn:hover {
+            cursor: pointer;
+        }
     }
 }
 </style>

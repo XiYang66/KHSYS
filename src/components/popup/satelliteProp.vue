@@ -155,9 +155,10 @@ const layout = [
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/css/_var.scss';
 @import '@/assets/css/mixin.scss';
+
 
 .descrTitle {
     color: $color3;
@@ -200,5 +201,3 @@ const layout = [
     }
 }
 </style>
-
-
