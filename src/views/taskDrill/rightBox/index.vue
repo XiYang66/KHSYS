@@ -437,17 +437,11 @@ const initXdll = () => {
         /* 服务器位置**/
         {
             name: '卫星1',
-            tooltip: {
-                formatter: '{b}: 19999<br />',
-            },
 
-            value: [700, 200],
             symbol: 'image://' + Group,
-            symbolSize: [60, 40],
-
+            symbolSize: [40, 40],
             x: 800,
             y: 400,
-            // draggable: false,
             category: 1,
             label: {
                 color: '#FFF',
@@ -472,9 +466,8 @@ const initXdll = () => {
             name: '卫星2',
             x: 400,
             y: 400,
-            value: [350, 300],
             symbol: 'image://' + Group,
-            symbolSize: [60, 40],
+            symbolSize: [40, 40],
             label: {
                 color: '#FFF',
                 position: 'bottom',
@@ -499,13 +492,11 @@ const initXdll = () => {
         {
             name: '雷达1',
             symbol: 'image://' + LD,
-            symbolSize: [60, 30],
+            symbolSize: [40, 40],
             label: {
                 color: '#efefef',
                 position: 'bottom',
             },
-            value: [0, 400],
-
             x: 800,
             y: 200,
             category: 1,
@@ -527,14 +518,13 @@ const initXdll = () => {
         {
             name: '雷达2',
             symbol: 'image://' + LD,
-            symbolSize: [60, 30],
+            symbolSize: [40, 40],
             label: {
                 color: '#efefef',
                 position: 'bottom',
             },
             x: 400,
-            y: 200,
-            value: [600, 600],
+            y: 100,
             itemStyle: {
                 normal: {
                     color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
@@ -563,27 +553,22 @@ const initXdll = () => {
             show: false,
             type: 'value',
         },
-        grid: {
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-        },
+   
         series: [
             {
                 type: 'graph',
                 zlevel: 5,
                 draggable: false,
-                // coordinateSystem: 'cartesian2d', // 使用二维的直角坐标系（也称笛卡尔坐标系）
-                // symbol: 'rect',
                 layout: 'force',
+                draggable:true,
                 force: {
                     repulsion: 1500,
                     edgeLength: 120,
                     layoutAnimation: true,
                 },
                 roam: true, //缩放
-
+                initial: {
+            },
                 symbolOffset: ['15%', 0],
                 label: {
                     normal: {

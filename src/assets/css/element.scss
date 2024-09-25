@@ -1,9 +1,10 @@
 $active-color: #1a7bf9; //激活颜色
 
-$system-light:  #5b697b; //浅色颜色
+$not-obvious: #5b697b; //不明显 或 不突出
 
-$system-middle: #022544; //中 颜色
+$system-light: #1b427b; //系统 浅色
 
+$system-middle: #022544; //系统 中
 
 // input 输入框
 .el-input {
@@ -30,22 +31,45 @@ $system-middle: #022544; //中 颜色
 .el-switch {
     .el-switch__core {
         background-color: $system-middle !important;
-        border-color:$system-light;
-        .el-switch__action{
-            background-color:$system-light;
+        border-color: $not-obvious;
+        .el-switch__action {
+            background-color: $not-obvious;
         }
     }
     &.is-checked {
         .el-switch__core {
             background-color: $system-middle !important;
-            border-color:$active-color;
-            .el-switch__action{
-                background-color:$active-color;
+            border-color: $active-color;
+            .el-switch__action {
+                background-color: $active-color;
             }
         }
     }
 }
-
+// tabs切换
+.el-tabs {
+    &.el-tabs--card {
+        .el-tabs__header {
+            border: 0;
+            margin: 0;
+            .el-tabs__nav-wrap {
+                .el-tabs__nav-scroll {
+                    .el-tabs__nav {
+                        border: 0;
+                        .el-tabs__item {
+                            border: 1px solid rgba(18, 101, 136, 1);
+                            margin-right: 10px;
+                            &.is-active {
+                                background: linear-gradient(180deg, $system-light 0%, $system-middle 100%);
+                                border: 1px solid rgba(18, 101, 136, 1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 /* 弹出框 样式*/
 .el-dialog {
     background-color: #06192a !important;
