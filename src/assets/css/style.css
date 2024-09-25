@@ -1,3 +1,4 @@
+
 * {
   text-decoration: none;
   list-style: none;
@@ -63,6 +64,7 @@ p{
   display: flex;
   justify-items: center;
   align-items: center;
+  
   span {
       font-family: PangMenZhengDao;
       margin-left: 10px;
@@ -71,6 +73,11 @@ p{
       text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;
   }
 }
+.titleBox .el-image{
+  height: 22px;
+  width: 18px;
+}
+
 /* 通用内容容器样式 */
 .contentBox{
   margin-top: 2px;

@@ -2,13 +2,13 @@
     <div class="xdBox">
         <div class="left">
             <div class="titleBox">
-                <el-image :src="titleIcon" fit="cover" />
+                <el-image :src="titleIcon" fit="cover" lazy />
                 <span>场景概括</span>
             </div>
             <div ref="cjgk" class="contentBox">
                 <el-tree default-expand-all :data="data" show-checkbox node-key="id" :props="defaultProps" />
             </div>
-        
+
         </div>
         <div class="right">
             <div class="button">
@@ -124,7 +124,7 @@ onMounted(() => {
     width: 100%;
     height: 98%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 
     .left {
         /* 可以点击 */
@@ -152,9 +152,10 @@ onMounted(() => {
         width: calc(100% - 370px);
         height: 100%;
         background: rgba(17, 38, 69, 0.7);
-  border: 1px solid #1a7bf9;
-  box-sizing: border-box;
-  padding: 10px;
+        border: 1px solid #1a7bf9;
+        box-sizing: border-box;
+        padding: 10px;
+
         .buttonBox {
             // height: 15px;
         }

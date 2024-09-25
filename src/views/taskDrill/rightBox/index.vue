@@ -2,14 +2,14 @@
     <div class="rightBox">
         <div class="cjgk">
             <div class="titleBox">
-                <el-image :src="titleIcon" fit="cover" />
+                <el-image :src="titleIcon" fit="cover" lazy />
                 <span>场景概括</span>
             </div>
             <div ref="cjgk" class="contentBox"></div>
         </div>
         <div class="xdll">
             <div class="titleBox">
-                <el-image :src="titleIcon" fit="cover" />
+                <el-image :src="titleIcon" fit="cover" lazy />
                 <span>星地链路</span>
             </div>
             <div ref="xdll" class="contentBox">
@@ -17,7 +17,7 @@
         </div>
         <div class="xtrz">
             <div class="titleBox">
-                <el-image :src="titleIcon" fit="cover" />
+                <el-image :src="titleIcon" fit="cover" lazy />
                 <span>系统日志</span>
             </div>
             <div ref="xtrz" class="contentBox">
