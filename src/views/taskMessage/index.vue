@@ -1,7 +1,14 @@
 <template>
     <div class="xdBox">
         <div class="left">
-            <el-tree :data="data" show-checkbox node-key="id" :props="defaultProps" />
+            <div class="titleBox">
+                <el-image :src="titleIcon" fit="cover" />
+                <span>场景概括</span>
+            </div>
+            <div ref="cjgk" class="contentBox">
+                <el-tree default-expand-all :data="data" show-checkbox node-key="id" :props="defaultProps" />
+            </div>
+        
         </div>
         <div class="right">
             <div class="button">
@@ -10,7 +17,7 @@
                 <el-button type="primary">按钮3</el-button>
             </div>
             <div class="table">
-                <el-table :data="tableData" height="100%" :header-cell-style="{ 'text-align': 'center' }"
+                <el-table :data="tableData" height="100%" stripe :header-cell-style="{ 'text-align': 'center' }"
                     :cell-style="{ 'text-align': 'center' }">
                     <el-table-column prop="date" label="Date" />
                     <el-table-column prop="name" label="Name" />
@@ -25,6 +32,7 @@
 <script setup>
 // 引入vue3的api
 import { ref, reactive, onMounted } from 'vue';
+import titleIcon from '@/assets/image/titleIcon.png'
 
 // 定义变量
 const data = reactive([
@@ -124,10 +132,6 @@ onMounted(() => {
         width: 350px;
         height: 100%;
         box-sizing: border-box;
-        background: pink;
-        padding: 10px;
-        // background-image: url('/src/assets/image/一级.png');
-        // background-size: 100% 100%;
         user-select: none;
 
         .title {
@@ -146,14 +150,19 @@ onMounted(() => {
         /* 可以点击 */
         pointer-events: auto;
         width: calc(100% - 370px);
-        height: 98%;
-
+        height: 100%;
+        background: rgba(17, 38, 69, 0.7);
+  border: 1px solid #1a7bf9;
+  box-sizing: border-box;
+  padding: 10px;
         .buttonBox {
-            height: 5px;
+            // height: 15px;
         }
 
         .table {
-            height: 95%;
+            width: 100%;
+            margin-top: 10px;
+            // height: calc(100% - 35px);
         }
     }
 }

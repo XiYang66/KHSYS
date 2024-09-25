@@ -2,9 +2,25 @@ $active-color: #1a7bf9; //激活颜色
 
 $not-obvious: #5b697b; //不明显 或 不突出
 
-$system-light: #1b427b; //系统 浅色
+$system-light: #0e3050; //系统 浅色
 
-$system-middle: #022544; //系统 中
+$system-middle: #09365e; //系统 中
+
+$system-strong: #07253f; //系统 重
+
+$border-light: #235b91; // 边框 浅
+
+/* ----------------------------------- 按钮 ----------------------------------- */
+.el-button {
+    // 主要按钮
+    &.el-button--primary {
+        background: linear-gradient(180deg, $system-strong 0%, $active-color 100%);
+        border-color: $border-light;
+        &:hover {
+            border-color: $active-color;
+        }
+    }
+}
 
 // input 输入框
 .el-input {
@@ -117,33 +133,36 @@ $system-middle: #022544; //系统 中
 
 /*表格样式*/
 .el-table {
-    border: 1px solid #235b91 !important;
-    border-bottom: 1px solid #235b91 !important;
+    border: 1px solid $border-light !important;
     --el-table-border-color: none !important;
     color: #ffffff !important;
     font-size: 16px !important;
     .el-table__body-wrapper {
-        background-color: #09263f !important;
+        background-color: $system-light !important;
     }
 
-    tr {
-        background-color: #09263f !important;
-
+    .el-table__row {
+        background-color: $system-light !important;
         td.el-table__cell {
-            border-bottom: 1px solid #235b91 !important;
+            border-bottom: 1px solid $border-light !important;
+        }
+        &.el-table__row--striped {
+            td {
+                background-color: $system-middle !important;
+            }
         }
     }
 }
 
 .el-table--enable-row-hover .el-table__body tr:hover > td {
-    background-color: #06192a !important;
+    background-color: $system-middle !important;
 }
 
 .el-table thead tr > th {
-    background-color: #194671 !important;
+    background-color: $system-strong !important;
     color: #ffffff;
     font-size: 16px;
-    border-bottom: 1px solid #235b91 !important;
+    border-bottom: 1px solid $border-light !important;
     font-weight: 400;
 }
 
@@ -274,7 +293,7 @@ $system-middle: #022544; //系统 中
             left: 0;
             right: auto;
             border-width: 1px;
-            border-left: 1px dashed $active-color;
+            border-left: 1px dashed $border-light;
         }
 
         &::after {
@@ -288,7 +307,7 @@ $system-middle: #022544; //系统 中
             top: 12px;
             bottom: auto;
             border-width: 1px;
-            border-top: 1px dashed $active-color;
+            border-top: 1px dashed $border-light;
         }
 
         .el-tree-node__content {
@@ -348,7 +367,7 @@ $system-middle: #022544; //系统 中
     .el-tree-node i.el-tree-node__expand-icon {
         width: 4px !important;
         height: 4px !important;
-        background: $active-color;
+        background: $system-light;
         margin-left: 5px;
         position: relative;
         cursor: pointer;
@@ -388,7 +407,7 @@ $system-middle: #022544; //系统 中
     .el-tree-node i.el-tree-node__expand-icon {
         width: 4px !important;
         height: 4px !important;
-        background: $active-color;
+        background: $system-light;
         margin-left: 5px;
         position: relative;
         cursor: pointer;
