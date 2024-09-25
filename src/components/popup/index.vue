@@ -1,7 +1,7 @@
 <template>
     <div class="popup" v-if="isTabs">
         <div class="head">
-            <div class="title">{{ curLabel }}</div>
+            <div class="title">{{ curLabel }} ({{ target }})</div>
             <div class="close-btn" @click="closePopup">X</div>
         </div>
         <div class="main popup-tabs" v-if="isTabs">
@@ -48,7 +48,9 @@ const openPopup = () => {
     isTabs.value = true
 }
 
-$bus.on('contextmenu/openPopup', (type) => {
+let target = ref('')
+$bus.on('contextmenu/openPopup', ({ type, nodeLabelClicked }) => {
+    target.value = nodeLabelClicked
     type == 'prop' && openPopup()
 })
 $bus.on('contextmenu/closePopup', () => {
@@ -80,6 +82,7 @@ $bus.on('contextmenu/closePopup', () => {
 
     .title {
         @include popupTitle;
+        width: auto;
     }
 
     .close-btn {
