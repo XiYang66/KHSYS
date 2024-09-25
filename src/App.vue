@@ -1,30 +1,30 @@
-
 <template>
+  <!-- 标题 -->
   <div class="top">
-    <div class="left">
-      <li v-for="item in routerList.filter(ite => ite.meta.position == 'left')"
-        :class="item.meta.index == state.active ? 'acitve' : ''" @click="routerClick(item)">{{ item.name }}</li>
-    </div>
     <span class="titleText">
       考核实验室软件系统
     </span>
-    <div class="right">
-      <li v-for="item in routerList.filter(ite => ite.meta.position == 'right')"
-        :class="item.meta.index == state.active ? 'acitve' : ''" @click="routerClick(item)">{{ item.name }}</li>
-    </div>
   </div>
-  <div class="content" style="background-color: rgb(54, 6, 70);">
-    <router-view />
+  <!-- 路由区 -->
+  <div class="routers">
+    <li v-for="item in routerList" :class="item.meta.index == state.active ? 'acitve' : ''" @click="routerClick(item)">
+      {{
+      item.name }}</li>
   </div>
-  
-  <!-- <CesiumBall /> -->
-  
-  
+  <!-- 内容 -->
+  <div class="content">
+    <KeepAlive>
+      <router-view />
+    </KeepAlive>
+  </div>
+  <!-- cesium 底球 -->
+  <CesiumBall />
+
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router';
-import { ref, reactive, onMounted } from 'vue';
+import { useRoute, useRouter} from 'vue-router';
+import { ref, reactive, onMounted, onBeforeMount,watch } from 'vue';
 import CesiumBall from '@/components/cesiumBall/index.vue'
 const router = useRouter();
 const route = useRoute();
@@ -32,7 +32,12 @@ let routerList: any = reactive([]);
 
 routerList = router.options.routes;
 const state = reactive({
-  active: 1,
+  active: null,
+})
+watch(route, (vlaue) => {
+  state.active = vlaue.meta.index
+})
+onBeforeMount(() => {
 })
 onMounted(() => {
 });
@@ -52,29 +57,11 @@ const routerClick = (item) => {
   left: 0;
   top: 0;
   z-index: 999;
-  background: url("@/assets/image/大标题.png") no-repeat;
+  background: url("@/assets/image/标题bg.png") no-repeat;
   background-size: 100% 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
-
-  .left,
-  .right {
-    display: flex;
-    font-family: PangMenZhengDao;
-    color: #FFFFFF;
-
-    li {
-      margin: 0 2px;
-      font-size: 14px;
-      cursor: pointer;
-
-      &.acitve,
-      &:hover {
-        color: #56ADFF;
-      }
-    }
-  }
 
   .titleText {
     display: inline-block;
@@ -89,14 +76,47 @@ const routerClick = (item) => {
   }
 }
 
+.routers {
+  display: flex;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 62px;
+  justify-content: space-around;
+  width: 100%;
+  height: 38px;
+
+  li {
+    margin: 0 2px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: PangMenZhengDao;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    font-size: 24px;
+    font-weight: 400;
+    color: #E0F0FF;
+
+    background: url("@/assets/image/button.png") no-repeat;
+    background-size: 100% 100%;
+
+    &.acitve,
+    &:hover {
+      background: url("@/assets/image/buttonActive.png") no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+}
+
 .content {
   position: fixed;
   bottom: 0;
   z-index: 999;
   width: 100%;
-  height: calc(100% - 62px);
-
+  height: calc(100% - 62px - 38px);
+  padding: 15px;
+  box-sizing: border-box;
   /* 使上面的盒子不拦截点击事件 */
-  //pointer-events: none;
+  pointer-events: none;
 }
 </style>
