@@ -66,12 +66,6 @@ importers:
       '@vue/tsconfig':
         specifier: ^0.1.3
         version: 0.1.3(@types/node@18.19.24)
-      eslint:
-        specifier: ^8.34.0
-        version: 8.57.0
-      eslint-plugin-vue:
-        specifier: ^9.9.0
-        version: 9.23.0(eslint@8.57.0)
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5

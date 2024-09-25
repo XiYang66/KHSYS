@@ -13,9 +13,10 @@
         :class="item.meta.index == state.active ? 'acitve' : ''" @click="routerClick(item)">{{ item.name }}</li>
     </div>
   </div>
-  <div class="content">
+  <div class="content" style="background-color: red;">
     <router-view />
   </div>
+  
   <!-- <CesiumBall /> -->
   
   
@@ -96,6 +97,6 @@ const routerClick = (item) => {
   height: calc(100% - 62px);
 
   /* 使上面的盒子不拦截点击事件 */
-  pointer-events: none;
+  //pointer-events: none;
 }
 </style>
