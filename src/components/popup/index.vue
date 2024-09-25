@@ -30,6 +30,7 @@ import payloadProp from './payloadProp.vue'
 import breakdown from './breakdown.vue'
 import taskManage from './taskManage.vue'
 import payloadData from './payloadData.vue'
+import $bus from '@/utils/mitter'
 import { ref } from 'vue'
 const activeTab = ref('properties');
 const curLabel = ref('卫星属性')
@@ -43,6 +44,16 @@ const closePopup = () => {
     // console.log('close')
     isTabs.value = false
 }
+const openPopup = () => {
+    isTabs.value = true
+}
+
+$bus.on('contextmenu/openPopup', (type) => {
+    type == 'prop' && openPopup()
+})
+$bus.on('contextmenu/closePopup', () => {
+    closePopup()
+})
 </script>
 
 <style lang="scss">
