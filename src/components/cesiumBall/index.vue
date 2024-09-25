@@ -24,21 +24,7 @@ onMounted(async () => {
         container: 'cesiumContainer',
     });
     await CesiumStoreInit.SET_VIEWER(viewer);
-    // 清除影像
-    // viewer.imageryLayers.removeAll();
-    // // 加载影像
 
-    // const ImageryProvider0_13 = new Cesium.UrlTemplateImageryProvider({
-    //     url: '/15wp/{z}/{x}/{reverseY}.png',//0-13层影像
-    //     tilingScheme: new Cesium.GeographicTilingScheme({}),
-    // });
-    // viewer.imageryLayers.addImageryProvider(ImageryProvider0_13);
-
-    // const ImageryProvider14 = new Cesium.UrlTemplateImageryProvider({
-    //     url: '/14wp/{z}/{x}/{reverseY}.png',//14层影像
-    //     tilingScheme: new Cesium.GeographicTilingScheme({}),
-    // });
-    // viewer.imageryLayers.addImageryProvider(ImageryProvider14);
 });
 
 </script>

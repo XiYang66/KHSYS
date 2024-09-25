@@ -52,6 +52,8 @@ const closePopup = () => {
 
 .popup {
     @include popupBasic;
+    pointer-events: auto;
+
 }
 
 .head {
