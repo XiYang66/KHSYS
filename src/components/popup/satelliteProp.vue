@@ -24,12 +24,12 @@
             </el-descriptions>
             <el-row v-if="desc.title == '控制'">
                 <el-col :span="6">
-                    <el-button type="success" :icon="Check" circle size="small" />
-                    轨迹线显隐
+                    <el-button type="success" :icon="Check" circle size="small" style="scale: 0.5;" />
+                    <span class="label-item">轨迹线显隐</span>
                 </el-col>
                 <el-col :span="12">
-                    <el-button type="success" :icon="Check" circle size="small" />
-                    标签显隐
+                    <el-button type="success" :icon="Check" circle size="small" style="scale: 0.5;" />
+                    <span class="label-item">标签显隐</span>
                 </el-col>
             </el-row>
         </div>
@@ -141,7 +141,6 @@ const layout = [
                 label: '载荷开关机',
                 span: 3,
                 content: '关机',
-
             }
 
         ]
@@ -184,6 +183,7 @@ const layout = [
     background-color: $color2;
     text-align: left;
     position: relative;
+    padding-left: 5px;
 
     .btn {
         position: absolute;

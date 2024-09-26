@@ -3,7 +3,9 @@
         <div class="popup">
             <div class="head">
                 <div class="title">{{ curLabel }} ({{ target }})</div>
-                <div class="close-btn" @click="closePopup" style="color: red;">X</div>
+                <div class="close-btn" @click="closePopup">
+                    <el-tag class="close-btn-tag">close</el-tag>
+                </div>
             </div>
             <div class="main popup-tabs" v-if="isTabsPopup">
                 <el-tabs v-model="activeTab" @tab-click="handleTabClick" type="card">
@@ -88,9 +90,16 @@ $bus.on('contextmenu/closePopup', () => {
 
         .close-btn {
             @include popupCloseBtn;
+            .close-btn-tag {
+                color: wheat;
+                background-color: gray;
 
-            &:hover {
-                cursor: pointer;
+                &:hover {
+                    color: wheat;
+                    background-color: red;
+                    cursor: pointer;
+                    // border: ;
+                }
             }
         }
     }

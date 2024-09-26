@@ -6,9 +6,8 @@
         <el-row class="name row" align="right">
             <el-col class="label col" :span="24">
                 <div class="chart" style="width:450px ; height: 137px; text-align: center; line-height: 137px;">
-                    <div class="innerChart"
+                    <div class="innerChart" id="chart-bubblechart"
                         style="width:95% ; height:98%; text-align: center; line-height: 137px; background-color: rgb(91, 91, 169);">
-                        chart
                     </div>
                 </div>
             </el-col>
@@ -73,7 +72,9 @@ const tableData = ref([
     },
 ])
 
-
+onMounted(() => {
+    
+})
 
 </script>
 
@@ -93,3 +94,7 @@ const tableData = ref([
 }
 </style>
 
+
+<style lang="scss">
+@import '@/assets/css/element.scss';
+</style>
