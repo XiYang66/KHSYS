@@ -148,25 +148,23 @@ const initLL = () => {
     chart.resize();
     var data = [
         {
-            name: "数据中心",
+            name: "卫星",
             symbol: `image://` + Group,
             symbolSize: [100, 100],
-            value: [170, 200],
             x: 300,
             y: 400,
-
+            value: [170, 200],
         },
         {
-            name: "分数据中心一",
+            name: "佳木斯站",
             x: 400,
             y: 400,
             symbol: `image://` + LD,
             symbolSize: [60, 60],
             value: [400, 400],
-
         },
         {
-            name: "分数据中心二",
+            name: "太原站",
             x: 400,
             y: 400,
             symbol: `image://` + LD,
@@ -175,7 +173,25 @@ const initLL = () => {
 
         },
         {
-            name: "分数据中心三",
+            name: "渭南站",
+            x: 400,
+            y: 400,
+            value: [50, 380],
+            symbol: `image://` + LD,
+            symbolSize: [60, 60],
+
+        },
+        {
+            name: "三亚站",
+            x: 400,
+            y: 400,
+            value: [10, 10],
+            symbol: `image://` + LD,
+            symbolSize: [60, 60],
+
+        },
+        {
+            name: "青岛站",
             x: 400,
             y: 400,
             value: [10, 10],

@@ -432,172 +432,102 @@ const initCjgk = () => {
 };
 const initXdll = () => {
     let chart = echarts.init(xdll.value);
-
-    var data = [
-        /* 服务器位置**/
+    var treeData = [
         {
-            name: '卫星1',
-
-            symbol: 'image://' + Group,
-            symbolSize: [40, 40],
-            x: 800,
-            y: 400,
-            category: 1,
-            label: {
-                color: '#FFF',
-                position: 'bottom',
-            },
-            itemStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                        {
-                            offset: 0,
-                            color: '#157eff',
-                        },
-                        {
-                            offset: 1,
-                            color: '#35c2ff',
-                        },
-                    ]),
+            ID: 0,
+            NAME: '根节点',
+            children: [
+                {
+                    ID: 1,
+                    NAME: '子节点1',
                 },
-            },
-        },
-        {
-            name: '卫星2',
-            x: 400,
-            y: 400,
-            symbol: 'image://' + Group,
-            symbolSize: [40, 40],
-            label: {
-                color: '#FFF',
-                position: 'bottom',
-            },
-            category: 1,
-            itemStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                        {
-                            offset: 0,
-                            color: '#157eff',
-                        },
-                        {
-                            offset: 1,
-                            color: '#35c2ff',
-                        },
-                    ]),
+                {
+                    ID: 5972,
+                    NAME: '子节点2',
                 },
-            },
-        },
-
-        {
-            name: '雷达1',
-            symbol: 'image://' + LD,
-            symbolSize: [40, 40],
-            label: {
-                color: '#efefef',
-                position: 'bottom',
-            },
-            x: 800,
-            y: 200,
-            category: 1,
-            itemStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                        {
-                            offset: 0,
-                            color: '#ffb402',
-                        },
-                        {
-                            offset: 1,
-                            color: '#ffdc84',
-                        },
-                    ]),
+                {
+                    ID: 3,
+                    NAME: '子节点3',
                 },
-            },
-        },
-        {
-            name: '雷达2',
-            symbol: 'image://' + LD,
-            symbolSize: [40, 40],
-            label: {
-                color: '#efefef',
-                position: 'bottom',
-            },
-            x: 400,
-            y: 100,
-            itemStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                        {
-                            offset: 0,
-                            color: '#ffb402',
-                        },
-                        {
-                            offset: 1,
-                            color: '#ffdc84',
-                        },
-                    ]),
+                {
+                    ID: 4,
+                    NAME: '子节点4',
                 },
-            },
-            category: 2,
-        },
+            ]
+        }
     ];
-
     let option = {
-        backgroundColor: '',
-        xAxis: {
-            show: false,
-            type: 'value',
-        },
-        yAxis: {
-            show: false,
-            type: 'value',
-        },
-
         series: [
             {
-                type: 'graph',
-                zlevel: 5,
-                draggable: false,
-                layout: 'force',
-                draggable: true,
-                force: {
-                    repulsion: 1500,
-                    edgeLength: 120,
-                    layoutAnimation: true,
-                },
-                roam: true, //缩放
-                initial: {
-                },
-                symbolOffset: ['15%', 0],
+                type: 'tree',
+                edgeShape: 'polyline', // 链接线是折现还是曲线
+                orient: 'TB',
+                roam: true,
+                data: treeData,
+                width: '85%',
+                height: '75%',
+                left: '5%',
+                right: '5%',
+                top: '12%',
+                bottom: '1%',
+                symbolSize: 2,
+                initialTreeDepth: 10,
                 label: {
                     normal: {
-                        show: true,
+                        position: 0,
+                        align: 'center',
+                        padding: [10, 20],
+                        fontWeight: 'bold',
+                        formatter: function (param) {
+                            let NAME =
+                                param.data.NAME.substring(0, 8) +
+                                '\n' +
+                                param.data.NAME.substring(8, 16) +
+                                '\n' +
+                                param.data.NAME.substring(16);
+                            if (param.data.ID === 0) {
+                                return [`{rootImg|}`, `{NAME|${NAME}}`].join('\n');
+                            }
+                            return [`{img|}`, `{NAME|${NAME}}`].join('\n');
+                        },
+                        rich: {
+                            rootImg: {
+                                backgroundColor: {
+                                    image: Group, // 替换为根节点图片路径
+                                },
+                                width: 40,
+                                height: 40,
+                            },
+                            img: {
+                                backgroundColor: {
+                                    image: LD,
+                                },
+                                width: 20,
+                                height: 20,
+                            },
+                            NAME: {
+                                color: '#fff',
+                                fontSize: 14,
+                                opacity: 0.9,
+                                verticalAlign: 'bottom',
+                            },
+                        },
                     },
                 },
-                data: data,
-                links: [
-                    {
-                        source: '卫星1',
-                        target: '雷达1',
-                    },
-                    {
-                        source: '卫星2',
-                        target: '雷达2',
-                    },
-                ],
-                /** 设置连线样式*/
                 lineStyle: {
-                    normal: {
-                        opacity: 1,
-                        color: '#53B5EA',
-                        curveness: 0.3,
-                        width: 2,
-                    },
+                    color: '#3375ca',
+                    width: 2,
+                    opacity: 0.5,
                 },
-            },
-        ],
+                symbol: 'none', // 去掉节点上的原点
+                expandAndCollapse: true,
+                animationDuration: 1500,
+                animationEasing: 'cubicInOut', // 动画缓动效果
+                animationDurationUpdate: 750,
+            }
+        ]
     };
+
     chart.setOption(option);
     window.onresize = function () {
         //自适应大小
