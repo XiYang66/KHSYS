@@ -9,11 +9,7 @@
                             {{ item.label }}
                         </div>
                     </template>
-                    <div class="content-item" v-if="item.content">{{ item.content }}
-                        <div class="btn" v-if="item.btn">
-                            <el-button class="btn1">{{ item.btn }}</el-button>
-                        </div>
-                    </div>
+                    <div class="content-item" v-if="item.content">{{ item.content }}</div>
                 </el-descriptions-item>
             </el-descriptions>
         </div>
@@ -99,55 +95,40 @@ const layout = [
 <style lang="scss" scoped>
 @import '@/assets/css/_var.scss';
 
-.content {
-    background-color: aquamarine;
+::v-deep .el-descriptions__cell.el-descriptions__label.is-bordered-label.is-right {
+    background-color: transparent;
 }
 
-.label.col {
-    text-align: right;
-    padding-left: 0;
-    margin-left: 0px;
+::v-deep .el-descriptions__cell.el-descriptions__label.is-bordered-label.is-right {
+    width: 100px !important;
 }
 
 .label-item {
-    color: $color3;
+    color: $color6;
     width: 100px;
-    font-size: 12px;
-    height: 18px;
-    line-height: 18px;
-}
+    font-size: $fontSize;
+    height: $textHeight;
+    line-height: $textHeight;
 
-.label-item0 {
-    width: 60px;
+    &:hover {
+        text-shadow: 0 0 5px $active-color, 0 0 5px $active-color,
+    }
 }
 
 .content-item {
     color: $color3;
-    font-size: 12px;
-    background-color: $color2;
+    font-size: $fontSize;
+    background-color: $color7;
     text-align: left;
     position: relative;
+    padding-left: 5px;
+    margin-left: -10px;
+    border: 1px dashed $color3;
 
-    .btn {
-        position: absolute;
-        top: -1px;
-        right: 0;
-        background-color: $color1;
-        width: 60px;
-        height: 25px;
-        text-align: center;
-
-        .btn1 {
-            width: 50px;
-            height: 20px;
-            font-size: 10px;
-        }
+    &:hover {
+        font-size: larger;
+        text-shadow: 0 0 5px $active-color, 0 0 5px $active-color,
     }
-}
-
-.descrTitle {
-    color: $color3;
-    font-size: 12px;
 }
 </style>
 <style lang="scss"></style>

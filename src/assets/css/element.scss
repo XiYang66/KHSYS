@@ -1,4 +1,4 @@
-@import "./_var.scss";
+@import './_var.scss';
 $active-color: #1a7bf9; //激活颜色
 
 $not-obvious: #5b697b; //不明显 或 不突出
@@ -79,7 +79,11 @@ $border-light: #235b91; // 边框 浅
               border: 1px solid rgba(18, 101, 136, 1);
               margin-right: 10px;
               &.is-active {
-                background: linear-gradient(180deg, $system-light 0%, $system-middle 100%);
+                background: linear-gradient(
+                  180deg,
+                  $system-light 0%,
+                  $system-middle 100%
+                );
                 border: 1px solid rgba(18, 101, 136, 1);
               }
             }
@@ -120,7 +124,7 @@ $border-light: #235b91; // 边框 浅
     }
 
     .el-dialog__title::before {
-      content: "";
+      content: '';
       background-size: 11px 11px;
       display: inline-block;
       margin-right: 15px;
@@ -188,7 +192,12 @@ $border-light: #235b91; // 边框 浅
     // 选中样式
     &.is-current {
       > .el-tree-node__content {
-        background: linear-gradient(to right, transparent 0%, #3375ca 50%, transparent 100%);
+        background: linear-gradient(
+          to right,
+          transparent 0%,
+          #3375ca 50%,
+          transparent 100%
+        );
         > span {
           color: #fff;
           font-weight: bold;
@@ -202,7 +211,7 @@ $border-light: #235b91; // 边框 浅
       &::before {
         font-family: element-ui-icons;
         font-style: normal;
-        content: "\e6d9";
+        content: '\e6d9';
         color: #fff;
         border: 1px solid #1d5775;
         border-radius: 2px;
@@ -290,7 +299,7 @@ $border-light: #235b91; // 边框 浅
     &::before {
       width: 1px;
       height: 100%;
-      content: "";
+      content: '';
       position: absolute;
       top: -38px;
       bottom: 0;
@@ -303,7 +312,7 @@ $border-light: #235b91; // 边框 浅
     &::after {
       width: 30px;
       height: 13px;
-      content: "";
+      content: '';
       position: absolute;
       z-index: 0;
       left: 0;
@@ -364,7 +373,10 @@ $border-light: #235b91; // 边框 浅
   }
   /* / 设置子节点左外边距 */
   /* ---- ---- ---- ---- /（新增辅助线）---- ---- ---- ---- */
-  ::v-deep .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+  ::v-deep
+    .el-tree--highlight-current
+    .el-tree-node.is-current
+    > .el-tree-node__content {
     background-color: transparent !important;
   }
 
@@ -378,7 +390,7 @@ $border-light: #235b91; // 边框 浅
     margin-right: 7px;
   }
   .el-tree-node i.el-tree-node__expand-icon::before {
-    content: "" !important;
+    content: '' !important;
     border: none;
     position: absolute;
     top: 25%;
@@ -388,7 +400,7 @@ $border-light: #235b91; // 边框 浅
     background: #fff;
   }
   .el-tree-node i.el-tree-node__expand-icon::after {
-    content: "" !important;
+    content: '' !important;
     border: none;
     position: absolute;
     top: 50%;
@@ -398,7 +410,7 @@ $border-light: #235b91; // 边框 浅
     background: #fff;
   }
   .el-tree-node i.el-tree-node__expand-icon.expanded::before {
-    content: "" !important;
+    content: '' !important;
     border: none;
     position: absolute;
     top: 50%;
@@ -454,11 +466,8 @@ $border-light: #235b91; // 边框 浅
   .el-divider__text {
     color: #fff;
     background: transparent;
-    text-shadow:
-      0 0 5px $active-color,
-      0 0 5px $active-color,
-      0 0 5px $active-color,
-      0 0 5px $active-color;
+    text-shadow: 0 0 5px $active-color, 0 0 5px $active-color,
+      0 0 5px $active-color, 0 0 5px $active-color;
     font-size: 16px;
   }
   &.el-divider--horizontal {
@@ -472,7 +481,7 @@ $border-light: #235b91; // 边框 浅
     display: none !important;
   }
   .el-dialog__body {
-    background: $bg4;
+    background-color: $system-light;
     height: $popupHeight * 1.15;
     border: 1px solid whitesmoke;
   }

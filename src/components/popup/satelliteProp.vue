@@ -5,8 +5,9 @@
                 :key="INDEX" :class="{ 'popup-statellite-description0': INDEX == 0 }">
                 <template #title>
                     <div class=" descrTitle">
-                        <span>{{ desc.title }}</span>
+                        <div>{{ desc.title }}</div>
                     </div>
+
                 </template>
                 <el-descriptions-item v-for="(item, index) in desc.items" :span="item.span" align="right">
                     <template #label>
@@ -20,14 +21,15 @@
                         </div>
                     </div>
                 </el-descriptions-item>
-                
+
             </el-descriptions>
             <el-row v-if="desc.title == '控制'">
-                <el-col :span="6">
+                <el-col :span="6" class="control-label"></el-col>
+                <el-col :span="8" class="control-label">
                     <el-button type="success" :icon="Check" circle size="small" style="scale: 0.5;" />
                     <span class="label-item">轨迹线显隐</span>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="8" class="control-label">
                     <el-button type="success" :icon="Check" circle size="small" style="scale: 0.5;" />
                     <span class="label-item">标签显隐</span>
                 </el-col>
@@ -155,50 +157,87 @@ const layout = [
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/css/_var.scss';
 @import '@/assets/css/mixin.scss';
+@import '@/assets/css/element.scss';
 
-
-.descrTitle {
-    color: $color3;
-    font-size: $fontSize;
+::v-deep .el-descriptions__cell.el-descriptions__label.is-bordered-label.is-right {
+    background-color: transparent;
 }
 
-.label-item {
-    color: $color3;
-    width: 100px;
-    font-size: $fontSize;
-    height: $textHeight;
-    line-height: $textHeight;
+::v-deep .el-descriptions__cell.el-descriptions__label.is-bordered-label.is-right {
+    width: 100px !important;
 }
 
-.label-item-0 {
-    width: 60px;
+::v-deep .popup-statellite-description0 {
+
+    // background-color: red;
+    .el-descriptions__cell.el-descriptions__label.is-bordered-label.is-right {
+        width: 80px !important;
+    }
 }
 
-.content-item {
-    color: $color3;
-    font-size: $fontSize;
-    background-color: $color2;
-    text-align: left;
+
+.main {
     position: relative;
-    padding-left: 5px;
 
-    .btn {
+    .descrTitle {
+        color: $color3;
+        font-size: $fontSize*1.3;
+        text-shadow: 0 0 5px $active-color, 0 0 5px $active-color;
         position: absolute;
-        top: -1px;
-        right: 0;
-        background-color: $color1;
-        width: 60px;
-        height: 25px;
-        text-align: center;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 
-        .btn1 {
-            width: 50px;
-            height: 20px;
-            font-size: 10px;
+    .label-item {
+        color: $color6;
+        width: 100px;
+        font-size: $fontSize;
+        height: $textHeight;
+        line-height: $textHeight;
+
+        &:hover {
+            text-shadow: 0 0 5px $active-color, 0 0 5px $active-color,
         }
     }
+
+    .label-item-0 {
+        width: 60px;
+    }
+
+    .content-item {
+        color: $color3;
+        font-size: $fontSize;
+        background-color: $color7;
+        text-align: left;
+        position: relative;
+        padding-left: 5px;
+        margin-left: -10px;
+        border: 1px dashed $color3;
+
+        &:hover {
+            font-size: larger;
+            text-shadow: 0 0 5px $active-color, 0 0 5px $active-color,
+        }
+
+        .btn {
+            position: absolute;
+            top: -1px;
+            right: 0;
+            background-color: $color1;
+            width: 60px;
+            height: 25px;
+            text-align: center;
+
+            .btn1 {
+                width: 50px;
+                height: 20px;
+                font-size: 10px;
+            }
+        }
+    }
+
 }
 </style>

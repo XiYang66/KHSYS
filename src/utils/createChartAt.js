@@ -3,7 +3,6 @@ import * as echarts from 'echarts';
 export default createChartAt = (idOrDom, type) => {
     if (typeof type != 'string') return
     let chartDom
-
     if (typeof idOrDom == 'string') {
         chartDom = document.getElementById(idOrDom);
     } else if (typeof idOrDom instanceof HTMLElement) {
