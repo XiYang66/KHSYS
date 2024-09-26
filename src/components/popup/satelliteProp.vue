@@ -20,6 +20,7 @@
                         </div>
                     </div>
                 </el-descriptions-item>
+                
             </el-descriptions>
             <el-row v-if="desc.title == '控制'">
                 <el-col :span="6">
