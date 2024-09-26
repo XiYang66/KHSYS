@@ -355,6 +355,15 @@ const initWX = () => {
         },
         tooltip: {
             trigger: 'axis',
+            textStyle: {
+                align: 'left',
+                color: '#fff'
+            },
+            backgroundColor: '#09365e', // 设置背景色
+            borderColor: '#1a7bf9', // 边框颜色
+            borderWidth: 1, // 边框宽度
+            padding: 10, // 内边距
+            extraCssText: 'box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);', // 添加阴影效果
         },
         grid: {
             left: '4%',
@@ -431,7 +440,6 @@ const initWX = () => {
         ],
     };
     chart.clear();
-
     chart.setOption(option);
     window.onresize = function () {
         //自适应大小
@@ -519,6 +527,15 @@ const initGD = () => {
         },
         tooltip: {
             trigger: 'axis',
+            textStyle: {
+                align: 'left',
+                color: '#fff'
+            },
+            backgroundColor: '#09365e', // 设置背景色
+            borderColor: '#1a7bf9', // 边框颜色
+            borderWidth: 1, // 边框宽度
+            padding: 10, // 内边距
+            extraCssText: 'box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);', // 添加阴影效果
         },
 
         grid: {
@@ -605,6 +622,15 @@ const initMK = () => {
         },
         tooltip: {
             trigger: 'axis',
+            textStyle: {
+                align: 'left',
+                color: '#fff'
+            },
+            backgroundColor: '#09365e', // 设置背景色
+            borderColor: '#1a7bf9', // 边框颜色
+            borderWidth: 1, // 边框宽度
+            padding: 10, // 内边距
+            extraCssText: 'box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);', // 添加阴影效果
         },
 
         grid: {
@@ -710,6 +736,15 @@ const initFW = () => {
         },
         tooltip: {
             trigger: 'axis',
+            textStyle: {
+                align: 'left',
+                color: '#fff'
+            },
+            backgroundColor: '#09365e', // 设置背景色
+            borderColor: '#1a7bf9', // 边框颜色
+            borderWidth: 1, // 边框宽度
+            padding: 10, // 内边距
+            extraCssText: 'box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);', // 添加阴影效果
         },
 
         grid: {
