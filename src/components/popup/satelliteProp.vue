@@ -1,13 +1,12 @@
 <template>
     <div class="popup-statellite-descriptions">
-        <div class="main" v-for="(desc, INDEX) in layout">
+        <!-- <div class="main" v-for="(desc, INDEX) in layout">
             <el-descriptions :column="desc.column" :size="size" :style="blockMargin" border style="margin-top: 0;"
                 :key="INDEX" :class="{ 'popup-statellite-description0': INDEX == 0 }">
                 <template #title>
                     <div class=" descrTitle">
                         <div>{{ desc.title }}</div>
                     </div>
-
                 </template>
                 <el-descriptions-item v-for="(item, index) in desc.items" :span="item.span" align="right">
                     <template #label>
@@ -21,7 +20,6 @@
                         </div>
                     </div>
                 </el-descriptions-item>
-
             </el-descriptions>
             <el-row v-if="desc.title == '控制'">
                 <el-col :span="6" class="control-label"></el-col>
@@ -30,6 +28,29 @@
                     <span class="label-item">轨迹线显隐</span>
                 </el-col>
                 <el-col :span="8" class="control-label">
+                    <el-button type="success" :icon="Check" circle size="small" style="scale: 0.5;" />
+                    <span class="label-item">标签显隐</span>
+                </el-col>
+            </el-row>
+        </div> -->
+        <div class="main" v-for="(desc, INDEX) in layout">
+            <el-divider>{{ desc.title }}</el-divider>
+            <el-descriptions style="margin-left: 20px; margin-top: 30px;" :column="1">
+                <template #title>
+                    <!-- <div class=" descrTitle">
+                        <div>{{ desc.title }}</div>
+                    </div> -->
+                </template>
+                <el-descriptions-item v-for="(item, index) in desc.items" :label="item.label">
+                    &nbsp;:&nbsp;&nbsp; {{
+                        item.content }}</el-descriptions-item>
+            </el-descriptions>
+            <el-row v-if="desc.title == '控制'" style="margin-top:-43px;margin-left: 18px;">
+                <el-col :span="6" class="control-label">
+                    <el-button type="success" :icon="Check" circle size="small" style="scale: 0.5;" />
+                    <span class="label-item">轨迹线显隐</span>
+                </el-col>
+                <el-col  class="control-label">
                     <el-button type="success" :icon="Check" circle size="small" style="scale: 0.5;" />
                     <span class="label-item">标签显隐</span>
                 </el-col>
@@ -178,9 +199,13 @@ const layout = [
     }
 }
 
+.popup-statellite-descriptions {
+    @include scroll
+}
 
 .main {
     position: relative;
+    @include scroll;
 
     .descrTitle {
         color: $color3;

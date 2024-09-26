@@ -1,7 +1,7 @@
 <template>
     <div class="popup-statellite-descriptions payloadProp">
         <div class="main" v-for="(desc, INDEX) in layout">
-            <el-descriptions :column="desc.column" :size="size" :style="blockMargin" border style="margin-top: 0;"
+            <!-- <el-descriptions :column="desc.column" :size="size" :style="blockMargin" border style="margin-top: 0;"
                 :key="INDEX">
                 <el-descriptions-item v-for="(item, index) in desc.items" :span="item.span" align="right">
                     <template #label>
@@ -11,7 +11,11 @@
                     </template>
                     <div class="content-item" v-if="item.content">{{ item.content }}</div>
                 </el-descriptions-item>
+            </el-descriptions> -->
+            <el-descriptions style="margin-left: 20px; margin-top: 30px;" :column="1" v-for="(item, index) in desc.items">
+                <el-descriptions-item :label="item.label"> &nbsp;:&nbsp;&nbsp; {{ item.content }}</el-descriptions-item>
             </el-descriptions>
+
         </div>
     </div>
 </template>

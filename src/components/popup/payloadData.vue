@@ -6,8 +6,7 @@
         <el-row class="name row1">
             <el-col class="label col" :span="24">
                 <div class="chart">
-                    <div class="innerChart" style="background-color: rgb(91, 91, 169);">
-                        map
+                    <div class="innerChart" id="viewer2" style="background-color: rgb(91, 91, 169);">
                     </div>
                 </div>
             </el-col>
@@ -16,7 +15,7 @@
             <el-col :span="24">遥感影像帧</el-col>
         </el-row>
         <el-row class="row3">
-            <el-col :span="6" v-for="item in 4">
+            <el-col :span="6" v-for="url in urls">
                 <el-image style="width: 113px; height: 126px" :src="url" fit="fill" />
             </el-col>
         </el-row>
@@ -32,9 +31,42 @@ import {
     Search,
     Star,
 } from '@element-plus/icons-vue'
+import { init } from '@/utils/cesium/init'
+const urls = ['zxy/1/0/0.jpg','zxy/1/0/1.jpg','zxy/1/1/0.jpg','zxy/1/1/1.jpg',]
 
-const url = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
 
+onMounted(async () => {
+    let viewer2 = await init({
+        container: 'viewer2',
+    });
+
+    viewer2.scene.mode = Cesium.SceneMode.SCENE2D
+    viewer2.camera.setView({
+        destination: Cesium.Cartesian3.fromDegrees(0, 0, 20000000)
+    });
+    loadGlb(viewer2)
+})
+
+// const position = Cesium.Cartesian3.fromDegrees(0, 0, 100);
+// const loadGlb = (viewer) => {// 加载 GLB 模型
+//     const model = viewer.scene.primitives.add(Cesium.Model.fromGltf({
+//         url: 'models/fightWarship.glb',
+//         modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
+//             position,
+//             new Cesium.HeadingPitchRoll(0, 0, 0)
+//         ),
+//         scale: 10.0
+//     }));
+   
+//     viewer.camera.flyTo({
+//         destination: position,
+//         orientation: {
+//             heading: Cesium.Math.toRadians(90),
+//             pitch: Cesium.Math.toRadians(-30),
+//             roll: 0.0
+//         }
+//     });
+// }
 
 </script>
 
@@ -50,6 +82,7 @@ const url = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.
     background-color: $color1;
 
     .title {
+        margin-top: 5%;
         text-align: center;
         font-size: $fontSize*1.3;
         color: $color3;
@@ -59,7 +92,7 @@ const url = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.
     .row1 {
         width: 100%;
         height: 50%;
-        margin-bottom: 5%;
+        margin-bottom: 10%;
     }
 
     .row2 {
@@ -75,8 +108,8 @@ const url = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.
 
     .innerChart {
         margin: 0 auto;
-        height: 100%;
-        width: 100%;
+        height: 300px;
+        width: $popupWidth;
     }
 }
 </style>

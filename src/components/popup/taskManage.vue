@@ -1,9 +1,12 @@
 <template>
     <div class="taskManage">
         <el-row class="title1 row0">
-            <el-col :span="24">任务</el-col>
+            <el-col :span="24">
+                <el-divider>任务</el-divider>
+
+            </el-col>
         </el-row>
-        <el-row class="row row1" align="right">
+        <!-- <el-row class="row row1" align="right">
             <el-col class="label col" :span="24">
                 <div class="chart">
                     <div class="innerChart-canvas" id="chart-bubblechart" ref="dom_chart_bubblechart"
@@ -11,13 +14,14 @@
                     </div>
                 </div>
             </el-col>
-        </el-row>
+        </el-row> -->
         <el-row>
             <el-col :span="24" class="table">
-                <el-table :data="tableData" style="width: 100%" max-height="250" stripe>
+                <el-table :data="tableData" style="width: 100%" height="100%" stripe
+                    :header-cell-style="{ 'text-align': 'center' }" :cell-style="{ 'text-align': 'center' }">
                     <el-table-column fixed prop="index" label="序号" width="50" />
                     <el-table-column prop="type" label="任务类型" width="100" />
-                    <el-table-column prop="start" label="起始时间" width="120" />
+                    <el-table-column prop="start" label="起始时间" width="100" />
                     <el-table-column prop="end" label="结束时间" width="120" />
                     <el-table-column prop="recover" label="恢复在线模式">
                         <template #default="scope">
@@ -78,8 +82,28 @@ const tableData = ref([
         start: "2022-04-01 24:04:45:511",
         end: "2022-03-02 5:04:45:313",
         recover: "4"
+    },
+    {
+        index: 5,
+        type: dict['2'],
+        start: "2022-05-01 24:04:45:511",
+        end: "2022-05-02 5:04:45:313",
+        recover: "5"
+    },
+    {
+        index: 6,
+        type: dict['2'],
+        start: "2022-06-01 24:04:45:511",
+        end: "2022-06-02 5:04:45:313",
+        recover: "6"
+    },
+    {
+        index: 7,
+        type: dict['2'],
+        start: "2022-07-01 24:04:45:511",
+        end: "2022-07-02 5:04:45:313",
+        recover: "7"
     }
-
 ])
 
 
@@ -88,7 +112,7 @@ const tableData = ref([
 
 const dom_chart_bubblechart = ref()
 onMounted(() => {
-    createChartAt("chart-bubblechart", 'bubblechart')
+    // createChartAt("chart-bubblechart", 'bubblechart')
 })
 
 
@@ -233,7 +257,8 @@ const bubbleChartOption = () => {
         text-align: center;
         font-size: $fontSize*1.3;
         color: $color3;
-        text-shadow: 0 0 5px $active-color, 0 0 5px $active-color,
+        text-shadow: 0 0 5px $active-color, 0 0 5px $active-color;
+        margin-top: 5px;
     }
 
     .row1 {
@@ -259,6 +284,10 @@ const bubbleChartOption = () => {
 .table {
     margin-top: 5%;
     width: 90%;
+    font-size: 10px;
+}
+
+::v-deep .cell {
     font-size: 10px;
 }
 </style>
