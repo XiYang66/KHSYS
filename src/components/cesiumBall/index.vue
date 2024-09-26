@@ -24,21 +24,51 @@ onMounted(async () => {
         container: 'cesiumContainer',
     });
     await CesiumStoreInit.SET_VIEWER(viewer);
+    // loadCzml(viewer);
+    loadGlb(viewer);
 
 });
 
 
 const loadCzml = (viewer) => {
-    const czmlUrl = 'models/simpleCZML.czml'; // 替换为你的 CZML 文件路径
+    viewer.shouldAnimate = true
+    const czmlUrl = 'models/simpleCZML.czml';
+    const czmlUrl2 = 'models/test.czml';
+    viewer.camera.flyHome(0);
+    const czmlDataSource = new Cesium.CzmlDataSource('satellite');
+    const promise = czmlDataSource.load(czmlUrl2).then(
+        (datasource) => {
+            viewer.dataSources.add(datasource);
+            viewer.clock.multiplier = 1;
+            if (czmlDataSource.entities.values.length > 0) {
+                viewer.zoomTo(datasource);
+                console.log(datasource.entities.values);
+            } else {
+                console.error('CZML 数据中没有可用的实体');
+            }
+        }).catch(function (error) {
+            window.alert('czml加载error:', error);
+        });
+}
 
-    // 创建 CZML 数据源并加载数据
-    const czmlDataSource = new Cesium.CzmlDataSource();
-    czmlDataSource.load(czmlUrl).then(function (dataSource) {
-        viewer.dataSources.add(dataSource);
-        viewer.clock.multiplier = 10; // 加快时间步进速度
-        viewer.zoomTo(dataSource); // 自动缩放到 CZML 对象
-    }).otherwise(function (error) {
-        console.error('CZML 加载错误:', error);
+const newyork = Cesium.Cartesian3.fromDegrees(-74.012984, 40.705327, 100);
+
+const loadGlb = (viewer) => {// 加载 GLB 模型
+    const model = viewer.scene.primitives.add(Cesium.Model.fromGltf({
+        url: 'models/fightWarship.glb',
+        modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
+            newyork,
+            new Cesium.HeadingPitchRoll(0, 0, 0)
+        ),
+        scale: 10.0
+    }));
+    viewer.camera.flyTo({
+        destination: newyork,
+        orientation: {
+            heading: Cesium.Math.toRadians(90),
+            pitch: Cesium.Math.toRadians(-30),
+            roll: 0.0
+        }
     });
 }
 
