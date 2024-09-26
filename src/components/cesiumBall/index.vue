@@ -115,7 +115,7 @@ const setupTimeline = (viewer) => {
     viewer.clock.currentTime = start.value.clone();
     viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP; // 停止后不循环
     viewer.clock.multiplier = 2; // 时间倍速
-    viewer.timeline.zoomTo(start.value, stop.value); // 缩放时间线范围
+    // viewer.timeline.zoomTo(start.value, stop.value); // 缩放时间线范围
 };
 
 

@@ -82,6 +82,7 @@ onMounted(async () => {
     background-color: $color1;
 
     .title {
+        margin-top: 5%;
         text-align: center;
         font-size: $fontSize*1.3;
         color: $color3;
@@ -91,7 +92,7 @@ onMounted(async () => {
     .row1 {
         width: 100%;
         height: 50%;
-        margin-bottom: 5%;
+        margin-bottom: 10%;
     }
 
     .row2 {

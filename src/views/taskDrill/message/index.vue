@@ -21,7 +21,7 @@
                     <div ref="LL" class="LL"></div>
 
                     <el-divider>任务概述</el-divider>
-              
+
 
                     <el-descriptions :column="1">
                         <el-descriptions-item label="距下次开机任务(分钟)：">666</el-descriptions-item>
@@ -29,8 +29,7 @@
                         <el-descriptions-item label="任务时刻表："></el-descriptions-item>
                     </el-descriptions>
 
-                    <el-input v-model="state.textarea" :rows="7.5" disabled type="textarea"
-                        placeholder="Please input" />
+                    <el-input v-model="state.textarea" :rows="7.5" disabled type="textarea" placeholder="Please input" />
                     <el-divider>主要参数</el-divider>
 
                     <el-descriptions :column="1">
@@ -48,20 +47,20 @@
                     </el-descriptions>
 
                     <el-divider>目标名称</el-divider>
-                
+
                     <el-tabs v-model="state.activeName" type="card">
                         <el-tab-pane label="电子特性参数" name="first">
                             <el-descriptions :column="1">
-                                <el-descriptions-item label="目标雷达类型："> XXXXXXX</el-descriptions-item>
-                                <el-descriptions-item label="探测经纬高："> XXXXXXX</el-descriptions-item>
-                                <el-descriptions-item label="定位精度(m)："> XXXXXXX</el-descriptions-item>
-                                <el-descriptions-item label="置信度(%)：">XXXXXXX </el-descriptions-item>
-                                <el-descriptions-item label="到达时间："> XXXXXXX</el-descriptions-item>
-                                <el-descriptions-item label="脉宽(us)："> XXXXXXX</el-descriptions-item>
-                                <el-descriptions-item label="脉幅(dbm)：">XXXXXXX </el-descriptions-item>
-                                <el-descriptions-item label="载频(MHz)："> XXXXXXX</el-descriptions-item>
-                                <el-descriptions-item label="方位角(°)：">XXXXXXX </el-descriptions-item>
-                                <el-descriptions-item label="俯仰(°)：">XXXXXXX </el-descriptions-item>
+                                <el-descriptions-item label="目标雷达类型："> 警戒雷达</el-descriptions-item>
+                                <el-descriptions-item label="探测经纬高："> 经-159.124*纬19.793*</el-descriptions-item>
+                                <el-descriptions-item label="定位精度(m)："> 732.223</el-descriptions-item>
+                                <el-descriptions-item label="置信度(%)：">90.872 </el-descriptions-item>
+                                <el-descriptions-item label="到达时间：">0.007</el-descriptions-item>
+                                <el-descriptions-item label="脉宽(us)：">6.4</el-descriptions-item>
+                                <el-descriptions-item label="脉幅(dbm)：">-33.508 </el-descriptions-item>
+                                <el-descriptions-item label="载频(MHz)：">3300</el-descriptions-item>
+                                <el-descriptions-item label="方位角(°)：">0.739 </el-descriptions-item>
+                                <el-descriptions-item label="俯仰(°)：">0.056</el-descriptions-item>
                             </el-descriptions>
 
                         </el-tab-pane>
@@ -302,6 +301,41 @@ const initLL = () => {
         chart.resize();
     };
 }
+
+const axis = (step = 200) => ({
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        axisLine: {
+            show: false,
+        },
+        axisTick: {
+            show: false,
+        },
+        axisLabel: {
+            show: false,
+        },
+    },
+    yAxis: {
+        type: 'value',
+        position: 'right',
+        interval: step,
+        axisLine: {
+            show: false,
+        },
+        axisTick: {
+            show: true,
+        },
+        axisLabel: {
+            show: true,
+            color: '#fff',
+
+        },
+        splitLine: {
+            show: false, // 隐藏网格线
+        },
+    },
+})
 const initWX = () => {
 
     let chart = echarts.init(WX.value);
@@ -312,7 +346,6 @@ const initWX = () => {
     let res2 = [11, 17, 10, 12, 11, 20, 10, 15, 13, 11];
     let res3 = [12, 20, 18, 16, 17, 18, 20, 9, 11, 10];
     let res4 = [32, 18, 18, 40, 30, 35, 30, 36, 31, 33];
-
     let option = {
         title: {
             text: '卫星经纬高(高&Km)',
@@ -327,7 +360,6 @@ const initWX = () => {
         tooltip: {
             trigger: 'axis',
         },
-
         grid: {
             left: '4%',
             right: '4%',
@@ -335,42 +367,9 @@ const initWX = () => {
             top: '16%',
             containLabel: true,
         },
-        xAxis: {
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            type: 'category',
-            boundaryGap: false,
-            axisLine: {
-                symbol: 'none',
-                lineStyle: {
-                    color: '#50637A',
-                },
-            },
-            axisTick: {
-                show: false,
-            },
-            axisLabel: {
-                interval: 0,
-                color: '#6071A9',
-                fontSize: 12,
-                padding: [10, 0, 0, 0],
-            },
-        },
-        yAxis: {
-            type: 'value',
-            axisLabel: {
-                color: '#6071A9',
-                fontSize: 12,
-                padding: [0, 10, 0, 0],
-            },
-            splitLine: {
-                lineStyle: {
-                    color: '#50637A',
-                    type: 'dashed',
-                },
-            },
-        },
+        ...axis(300),
         series: [{
-            name: '产值',
+            name: '经纬度',
             type: 'line',
             data: [1, 2, 3, 4, 5, 7, 7, 8, 9, 2],
             smooth: true,
@@ -402,8 +401,8 @@ const initWX = () => {
             symbolSize: 6,
         },
         {
-            name: '增加值',
-            data: [1, 2, 3, 4, 7, 6, 7, 8, 4, 10],
+            name: '高度',
+            data: [121, 225, 324, 453, 757, 623, 745, 852, 445, 105],
             type: 'line',
             smooth: true,
             color: '#00F7FF',
@@ -449,7 +448,7 @@ const initGD = () => {
 
     let dataArr = [
         {
-            name: '流入',
+            name: 'x',
             list: [
                 {
                     name: '3月',
@@ -478,7 +477,7 @@ const initGD = () => {
             ]
         },
         {
-            name: '流出',
+            name: 'y',
             list: [
                 {
                     name: '3月',
@@ -534,41 +533,7 @@ const initGD = () => {
             containLabel: true,
         },
 
-
-        xAxis: [{
-            type: 'category',
-            boundaryGap: false,
-            axisLine: {
-                symbol: 'none',
-                lineStyle: {
-                    color: '#50637A',
-                },
-            },
-            axisTick: {
-                show: false,
-            },
-            axisLabel: {
-                interval: 0,
-                color: '#6071A9',
-                fontSize: 12,
-                padding: [10, 0, 0, 0],
-            },
-            data: nameArr
-        }],
-        yAxis: [{
-            type: 'value',
-            axisLabel: {
-                color: '#6071A9',
-                fontSize: 12,
-                padding: [0, 10, 0, 0],
-            },
-            splitLine: {
-                lineStyle: {
-                    color: '#50637A',
-                    type: 'dashed',
-                },
-            },
-        }],
+        ...axis(50),
         series: [{
             name: dataArr[0].name,
             type: 'line',
@@ -655,40 +620,7 @@ const initMK = () => {
         },
 
 
-        xAxis: [{
-            type: 'category',
-            boundaryGap: false,
-            axisLine: {
-                symbol: 'none',
-                lineStyle: {
-                    color: '#50637A',
-                },
-            },
-            axisTick: {
-                show: false,
-            },
-            axisLabel: {
-                interval: 0,
-                color: '#6071A9',
-                fontSize: 12,
-                padding: [10, 0, 0, 0],
-            },
-            data: xLabel
-        }],
-        yAxis: [{
-            type: 'value',
-            axisLabel: {
-                color: '#6071A9',
-                fontSize: 12,
-                padding: [0, 10, 0, 0],
-            },
-            splitLine: {
-                lineStyle: {
-                    color: '#50637A',
-                    type: 'dashed',
-                },
-            },
-        }],
+        ...axis(50),
         series: [
             {
                 type: 'line',
@@ -790,41 +722,7 @@ const initFW = () => {
             containLabel: true,
         },
 
-
-        xAxis: [{
-            type: 'category',
-            boundaryGap: false,
-            axisLine: {
-                symbol: 'none',
-                lineStyle: {
-                    color: '#50637A',
-                },
-            },
-            axisTick: {
-                show: false,
-            },
-            axisLabel: {
-                interval: 0,
-                color: '#6071A9',
-                fontSize: 12,
-                padding: [10, 0, 0, 0],
-            },
-            data: xLabel
-        }],
-        yAxis: [{
-            type: 'value',
-            axisLabel: {
-                color: '#6071A9',
-                fontSize: 12,
-                padding: [0, 10, 0, 0],
-            },
-            splitLine: {
-                lineStyle: {
-                    color: '#50637A',
-                    type: 'dashed',
-                },
-            },
-        }],
+        ...axis(50),
         series: [{
             name: '注册总量',
             type: 'line',
@@ -913,6 +811,7 @@ defineExpose({})
             }
         }
     }
+
     .LL,
     .WX,
     .GD,
