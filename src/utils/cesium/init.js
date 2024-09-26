@@ -27,7 +27,7 @@ const cesiumDefaultOptions = {
   maximumScreenSpaceError: 64, //屏幕空间最大误差
   showRenderLoopErrors: false, // 报错是否弹出错误
   useBrowserRecommendedResolution: false, // 设置为false使用window.devicePixelRatio属性
-  automaticallyTrackDataSourceClocks: false, // 设置成true，使用公共clock对象，设置false，所有功能使用独立clock对象
+  automaticallyTrackDataSourceClocks: true, // 设置成true，使用公共clock对象，设置false，所有功能使用独立clock对象
   contextOptions: {
     webgl: {
       preserveDrawingBuffer: !0,
@@ -54,6 +54,7 @@ const cesiumDefaultOptions = {
   // imageryProvider: false, //禁用默认影像
   selectionIndicator: false, // 关闭点选出现的提示框
 };
+
 /**
  * @params opts.container  {string}  地图容器ID
  * @params opts.XXX    {none}    其他参数按照官方文档里的传即可
@@ -72,5 +73,6 @@ export function init(opts) {
       url: "./zxy/{z}/{x}/{y}.jpg", //服务地址
     })
   );
+
   return viewer;
 }
