@@ -93,7 +93,7 @@ $color3: white;
 @import '@/assets/css/mixin.scss';
 
 .breakdown {
-    width: $popupWidth;
+    // width: $popupWidth;
     height: calc(#{$popupHeight}*1.02);
     font-family: 'Source Han Sans CN';
     font-weight: 400;
