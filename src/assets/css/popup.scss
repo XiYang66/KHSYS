@@ -1,7 +1,4 @@
 @import './_var.scss';
-::v-deep .el-dialog__header {
-  display: none !important;
-}
 
 ::v-deep .popup-statellite-descriptions {
   background-color: $color1;
@@ -43,11 +40,10 @@
 ::v-deep .el-tabs__item {
   height: $tabsHeight;
   width: $tabsWidth * 0.2;
-  border: 1px solid $color4;
-  background-color: $color1;
   margin: 0;
   margin-top: 5px;
   margin-bottom: 5px;
+  background-color: $color5;
 }
 
 ::v-deep .el-tabs__item.is-active.is-top {
@@ -62,3 +58,11 @@
   display: none;
 }
 
+// ::v-deep .dialog-popup5 {
+//   .el-dialog__header {
+//     display: none !important;
+//   }
+//   .el-dialog.is-draggable.el-dialog--center.dialog-popup5 {
+//     padding: 0 !important;
+//   }
+// }

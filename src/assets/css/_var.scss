@@ -1,12 +1,18 @@
-$color1: #535455;
+$color1: transparent;
 $color2: #0e5894;
 $color3: white;
 $color4: #126588;
+$color5: rgb(69, 69, 69, 0.5);
+$active-color: #1a7bf9; //激活颜色
 $bg1: linear-gradient(to left, #66c8f11a 10%, #66c8f1 100%, #3b738b1a 10%);
 $bg2: radial-gradient(circle, #1b427b 50%, #3d81e7 100%);
 $bg3: linear-gradient(to bottom, #1b427b 50%, #3d81e7 100%);
+$bg4: linear-gradient(to right, #66c8f11a 10%, #66c8f1 100%, #3b738b1a 10%);
 
 $fontSize: 12px;
 $textHeight: 18px;
 $tabsHeight: 26px;
 $tabsWidth: 356px;
+$popupWidth: 480px;
+$popupHeight: 550px;
+$popupHeadHeight: 24px;

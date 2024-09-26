@@ -1,5 +1,5 @@
 <template>
-    <el-dialog class="dialog" v-model="isTabsPopup" draggable z-index="100" center :show-close="false" width="513">
+    <el-dialog class="dialog-popup5" v-model="isTabsPopup" draggable :z-index="100" center :show-close="false">
         <div class="popup">
             <div class="head">
                 <div class="title">{{ curLabel }} ({{ target }})</div>
@@ -65,14 +65,15 @@ $bus.on('contextmenu/closePopup', () => {
 <style lang="scss" scoped>
 @import '@/assets/css/mixin.scss';
 @import '@/assets/css/popup.scss';
+@import '@/assets/css/_var.scss';
+
 .popup {
     @include popupBasic;
     pointer-events: auto;
 
     .head {
         background: $bg1;
-        width: 474px;
-        height: 24px;
+        height: $popupHeadHeight;
         position: relative;
 
         .main {
@@ -87,10 +88,10 @@ $bus.on('contextmenu/closePopup', () => {
 
         .close-btn {
             @include popupCloseBtn;
-        }
 
-        .close-btn:hover {
-            cursor: pointer;
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 }

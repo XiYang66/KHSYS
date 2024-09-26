@@ -16,7 +16,7 @@
                     </template>
                     <div class="content-item" v-if="item.content">{{ item.content }}
                         <div class="btn" v-if="item.btn">
-                            <el-button class="btn1">{{ item.btn }}</el-button>
+                            <el-button class="btn1" @class="handleClick()">{{ item.btn }}</el-button>
                         </div>
                     </div>
                 </el-descriptions-item>

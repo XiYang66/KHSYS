@@ -87,12 +87,27 @@ $color3: white;
 @import '@/assets/css/_var.scss';
 
 .breakdown {
-    width: 480px;
+    width: $popupWidth;
+    height: calc(#{$popupHeight} - #{$popupHeadHeight}*1.5);
     font-family: 'Source Han Sans CN';
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
     background-color: $color1;
+    overflow-y: scroll;
+
+    /* 应用于特定元素的滚动条样式 */
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $color5;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: $color1;
+    }
 }
 
 
