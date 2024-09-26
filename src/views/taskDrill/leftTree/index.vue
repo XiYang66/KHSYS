@@ -16,8 +16,10 @@
         <el-tree default-expand-all :data="treeData" node-key="id" :props="defaultProps">
           <template #default="{ node, data }">
             <span class="tree-node">
-              <span class="label" @contextmenu="handleClickRight($event, node.label)" @click="handleClick">{{ node.label
-                }}</span>
+              <span class="label" @contextmenu="handleClickRight($event, node.label)" @click="handleClick">
+                <el-image v-if="!data.children" :src="data.type=='cn'?CN:US" style="height: 16px;" fit="cover" />
+                {{ node.label }}
+              </span>
               <div class="image">
                 <el-image :src="connection" style="height: 16px;" fit="cover" />
                 <el-image :src="addone" style="height: 16px;margin: 0 5px;" fit="none" />
@@ -57,7 +59,8 @@ import add from '@/assets/image/add.png'
 import connection from '@/assets/image/connection.png';
 import addone from '@/assets/image/add-one.png';
 import Delete from '@/assets/image/delete.png';
-
+import CN from '@/assets/image/cn.png'
+import US from '@/assets/image/us.png'
 
 const treeData = reactive([
   {
@@ -135,18 +138,26 @@ const treeData = reactive([
         children: [
           {
             label: '佳木斯站',
+            type: 'cn',
           },
           {
             label: '太原站',
+            type: 'cn',
+
           },
           {
             label: '渭南站',
+            type: 'cn',
+
           },
           {
             label: '三亚站',
+            type: 'cn',
+
           },
           {
             label: '青岛站',
+            type: 'cn',
           },
         ]
       }

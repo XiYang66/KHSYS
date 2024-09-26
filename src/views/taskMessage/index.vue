@@ -3,7 +3,7 @@
         <div class="left">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
-                <span>场景概括</span>
+                <span>训练任务列表</span>
             </div>
             <div ref="cjgk" class="contentBox">
                 <el-tree default-expand-all :data="data" show-checkbox node-key="id" :props="defaultProps" />
@@ -21,17 +21,14 @@
             <div class="table">
                 <el-table :data="tableData" height="100%" stripe :header-cell-style="{ 'text-align': 'center' }"
                     :cell-style="{ 'text-align': 'center' }">
-                    <el-table-column fixed prop="date"  label="任务名称" width="150"/>
-                    <el-table-column prop="name" label="任务来源" width="180"/>
-                    <el-table-column prop="name" label="联系人" width="120"/>
-                    <el-table-column prop="name" label="负责人" width="120"/>
-                    <el-table-column prop="name" label="任务类型" width="120"/>
-                    <el-table-column prop="name" label="载荷类型" width="120"/>
-                    <el-table-column prop="name" label="分辨率" width="150"/>
-                    <el-table-column prop="name" label="观测时间" width="220"/>
-                    <el-table-column prop="name" label="观测范围" width="150"/>
-                    <el-table-column prop="name" label="观测优先级" width="150"/>
-                    <el-table-column prop="name" label="所需产品种类" width="150"/>
+                    <el-table-column prop="date"  label="任务名称" />
+                    <el-table-column prop="name" label="任务类型" />
+                    <el-table-column prop="name" label="卫星名称" />
+                    <el-table-column prop="name" label="载荷类型" />
+                    <el-table-column prop="name" label="分辨率" />
+                    <el-table-column prop="name" label="观测时间" />
+                    <el-table-column prop="name" label="观测目标" />
+                    <el-table-column prop="name" label="所需产品种类" />
 
                 </el-table>
             </div>

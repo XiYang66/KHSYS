@@ -16,7 +16,8 @@
   <!-- 内容 -->
   <div class="content">
     <KeepAlive>
-      <router-view />
+      <router-view>
+      </router-view>
     </KeepAlive>
   </div>
   <!-- cesium 底球 -->
