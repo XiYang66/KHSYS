@@ -17,7 +17,7 @@
           <template #default="{ node, data }">
             <span class="tree-node">
               <span class="label" @contextmenu="handleClickRight($event, node.label)" @click="handleClick">
-                <el-image v-if="!data.children" :src="data.type=='cn'?CN:US" style="height: 16px;" fit="cover" />
+                <el-image v-if="!data.children" :src="data.type == 'cn' ? CN : US" style="height: 16px;" fit="cover" />
                 {{ node.label }}
               </span>
               <div class="image">
@@ -32,8 +32,8 @@
     </div>
 
     <!-- 右键菜单 -->
-    <div class="contextmenuContainer" v-show="menuVisible">
-      <div :style="contextMenuStyle" class="context-menu">
+    <div class="contextmenuContainer " v-show="menuVisible">
+      <div :style="contextMenuStyle" class="context-menu animate__animated animate__fadeIn">
         <ul>
           <li @click="handleOptionClick('satellite', nodeLabelClicked)">卫星概况</li>
           <li @click="handleOptionClick('prop', nodeLabelClicked)">属性</li>
@@ -61,6 +61,7 @@ import addone from '@/assets/image/add-one.png';
 import Delete from '@/assets/image/delete.png';
 import CN from '@/assets/image/cn.png'
 import US from '@/assets/image/us.png'
+
 
 const treeData = reactive([
   {
@@ -338,8 +339,16 @@ let menuVisible = ref(false), menuX = ref(0), menuY = ref(0)
 let contextMenuStyle = ref({ top: "0px", left: "0px" })
 let nodeLabelClicked
 // 右键菜单定位
-const handleClickRight = (e, v) => { // 显示自定义菜单 // 点击页面其他地方时隐藏菜单
+let curLabel
+function sleep(time) {
+  return new Promise(resolve => setTimeout(resolve, time))
+}
+const handleClickRight = async (e, v) => { // 显示自定义菜单 // 点击页面其他地方时隐藏菜单
   e.preventDefault()
+  if (curLabel && curLabel != v) {
+    menuVisible.value = false
+    await sleep(5)
+  }
   nodeLabelClicked = v;
   menuVisible.value = true;
   menuX.value = e.clientX;
@@ -348,6 +357,7 @@ const handleClickRight = (e, v) => { // 显示自定义菜单 // 点击页面其
     top: `${e.clientY}px`,
     left: `${e.clientX}px`,
   };
+  curLabel = v;
 
 }
 const handleClick = () => {
@@ -401,12 +411,12 @@ defineExpose({})
 
   // 右键菜单
   .contextmenuContainer {
-
     .context-menu {
       position: fixed;
       background-color: rgba($color: $system-middle, $alpha: 0.99);
       border: 1px solid $border-light;
       box-shadow: 0px 4px 8px rgba($color: $active-color, $alpha: 0.5);
+      border-radius: 10%;
       z-index: 1000;
     }
 
