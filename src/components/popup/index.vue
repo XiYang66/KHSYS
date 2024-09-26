@@ -4,7 +4,13 @@
             <div class="head">
                 <div class="title">{{ curLabel }} ({{ target }})</div>
                 <div class="close-btn" @click="closePopup">
-                    <el-tag class="close-btn-tag">close</el-tag>
+                    <!-- <el-tag class="close-btn-tag"></el-tag> -->
+                    <el-icon :size="20" class="close-btn-tag-icon" @mouseover="isHoverClose = true"
+                        @mouseleave="isHoverClose = false"
+                        :class="isHoverClose ? 'animate__animated animate__heartBeat' : ''">
+                        <CircleClose />
+                    </el-icon>
+
                 </div>
             </div>
             <div class="main popup-tabs" v-if="isTabsPopup">
@@ -39,6 +45,7 @@ import { ref } from 'vue'
 const activeTab = ref('properties');
 const curLabel = ref('卫星属性')
 const isTabsPopup = ref(true)
+const isHoverClose = ref(false)
 const handleTabClick = (tab) => {
     // console.log(tab.props.label)
     curLabel.value = tab.props.label
@@ -94,6 +101,7 @@ $bus.on('contextmenu/closePopup', () => {
 
         .close-btn {
             @include popupCloseBtn;
+            left: 460px;
 
             .close-btn-tag {
                 color: wheat;
@@ -106,6 +114,12 @@ $bus.on('contextmenu/closePopup', () => {
                     cursor: pointer;
                     // border: ;
                 }
+            }
+
+            .close-btn-tag-icon {
+                color: $active-color;
+                width: 20px;
+                height: 20px;
             }
         }
     }
