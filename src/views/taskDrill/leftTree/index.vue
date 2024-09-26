@@ -68,6 +68,20 @@ const treeData = reactive([
     children: [
       {
         label: '太阳系',
+        children: [
+          {
+            label: '太阳系01',
+            type: 'cn',
+          },
+          {
+            label: '太阳系02',
+            type: 'cn',
+          },
+          {
+            label: '太阳系03',
+            type: 'cn',
+          }
+        ]
       }
     ]
   },
@@ -79,15 +93,19 @@ const treeData = reactive([
         children: [
           {
             label: '尖兵十三号01星',
+            type: 'cn',
           },
           {
-            label: '尖兵十三号01星',
+            type: 'cn',
+            label: '尖兵十三号02星',
           },
           {
-            label: '尖兵十三号01星',
+            type: 'cn',
+            label: '尖兵十三号03星',
           },
           {
-            label: '尖兵十三号01星',
+            type: 'cn',
+            label: '尖兵十三号04星',
           },
         ]
       },
@@ -95,32 +113,36 @@ const treeData = reactive([
         label: '光学',
         children: [
           {
+            type: 'cn',
             label: '光学十三号01星',
           },
           {
-            label: '光学十三号01星',
+            type: 'cn',
+            label: '光学十三号02星',
           },
           {
-            label: '光学十三号01星',
-          },
-          {
-            label: '光学十三号01星',
-          },
+            type: 'cn',
+            label: '光学十三号03星',
+          }
         ]
       },
       {
         label: '电子',
         children: [
           {
+            type: 'cn',
             label: '尖兵八号改01组A星',
           },
           {
+            type: 'cn',
             label: '尖兵八号改01组A星',
           },
           {
+            type: 'cn',
             label: '尖兵八号改01组A星',
           },
           {
+            type: 'cn',
             label: '尖兵八号改01组A星',
           },
         ]
@@ -143,7 +165,6 @@ const treeData = reactive([
           {
             label: '太原站',
             type: 'cn',
-
           },
           {
             label: '渭南站',
@@ -181,10 +202,26 @@ const treeData = reactive([
         ]
       },
       {
-        label: '指挥机构'
+        label: '指挥机构',
+        children: [
+          {
+            label: '指挥机构1',
+          },
+          {
+            label: '指挥机构2',
+          }
+        ]
       },
       {
-        label: '空军基地以及机场'
+        label: '空军基地以及机场',
+        children: [
+          {
+            label: '阿尔特斯空军基地',
+          },
+          {
+            label: '水原空军基地',
+          }
+        ]
       },
     ]
   },
@@ -192,7 +229,15 @@ const treeData = reactive([
     label: '动目标',
     children: [
       {
-        label: '导弹'
+        label: '导弹',
+        children: [
+          {
+            label: '导弹1',
+          },
+          {
+            label: '导弹2',
+          }
+        ]
       },
       {
         label: '舰艇',
@@ -206,10 +251,26 @@ const treeData = reactive([
         ]
       },
       {
-        label: '飞机'
+        label: '飞机',
+        children: [
+          {
+            label: '飞机1',
+          },
+          {
+            label: '飞机2',
+          }
+        ]
       },
       {
-        label: '火箭炮'
+        label: '火箭炮',
+        children: [
+          {
+            label: '火箭炮1',
+          },
+          {
+            label: '火箭炮2',
+          }
+        ]
       },
     ]
   },
@@ -231,15 +292,23 @@ const treeData = reactive([
         label: '光学',
         children: [
           {
-            label: '舰艇1',
+            label: '光学1',
           },
           {
-            label: '舰艇2',
+            label: '光学2',
           }
         ]
       },
       {
-        label: '电子'
+        label: '电子',
+        children: [
+          {
+            label: '电子1',
+          },
+          {
+            label: '电子2',
+          }
+        ]
       }
     ]
   }

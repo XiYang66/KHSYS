@@ -15,10 +15,11 @@
   </div>
   <!-- 内容 -->
   <div class="content">
-    <KeepAlive>
-      <router-view>
-      </router-view>
-    </KeepAlive>
+    <router-view v-slot="{ Component }">
+      <KeepAlive>
+        <component :is="Component" />
+      </KeepAlive>
+    </router-view>
   </div>
   <!-- cesium 底球 -->
   <CesiumBall />
