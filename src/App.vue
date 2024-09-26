@@ -85,7 +85,7 @@ const routerClick = (item) => {
     display: inline-block;
     background: linear-gradient(180deg, #FFFFFF 28.88%, #56ADFF 78.33%);
     font-family: PangMenZhengDao;
-    font-size: 32px;
+    font-size: 36px;
     letter-spacing: 10px;
     text-align: center;
     background-clip: text;
