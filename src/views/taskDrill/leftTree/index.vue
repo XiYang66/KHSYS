@@ -34,7 +34,6 @@
       <div :style="contextMenuStyle" class="context-menu">
         <ul>
           <li @click="handleOptionClick('satellite', nodeLabelClicked)">卫星概况</li>
-          <li @click="handleOptionClick('scene', nodeLabelClicked)">场景概况</li>
           <li @click="handleOptionClick('prop', nodeLabelClicked)">属性</li>
         </ul>
       </div>
@@ -170,7 +169,18 @@ onBeforeUnmount(() => {
 
 const handleOptionClick = (type, nodeLabelClicked) => {
   menuVisible.value = false;
-  $bus.emit('contextmenu/openPopup', { type, nodeLabelClicked })
+  switch (type) {
+    case 'satellite':
+      $bus.emit('MessageFlag', true)
+      $bus.emit('RightBoxFlag', false)
+
+      break;
+    case 'prop':
+      $bus.emit('contextmenu/openPopup', { type, nodeLabelClicked })
+
+      break;
+
+  }
 }
 //暴露方法
 defineExpose({})
@@ -195,7 +205,8 @@ defineExpose({})
       }
     }
   }
-// 右键菜单
+
+  // 右键菜单
   .contextmenuContainer {
 
     .context-menu {
@@ -216,15 +227,16 @@ defineExpose({})
       width: 100px;
       text-align: center;
       cursor: pointer;
-      color:#eee;
+      color: #eee;
       border-bottom: 1px solid $border-light;
+
       &:hover {
-      text-shadow:
-            0 0 5px $active-color,
-            0 0 5px $active-color,
-            0 0 5px $active-color,
-            0 0 5px $active-color;
-    }
+        text-shadow:
+          0 0 5px $active-color,
+          0 0 5px $active-color,
+          0 0 5px $active-color,
+          0 0 5px $active-color;
+      }
     }
 
   }
