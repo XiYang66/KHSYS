@@ -15,13 +15,34 @@
             <div ref="xdll" class="contentBox">
             </div>
         </div>
+        <div class="ystj">
+            <div class="titleBox">
+                <el-image :src="titleIcon" fit="cover" lazy />
+                <span>气象环境约束条件</span>
+            </div>
+            <div class="contentBox">
+                <el-scrollbar ref="scrollbar" @mouseenter="stopAutoScroll"
+                    @mouseleave="startAutoScroll">
+                    <el-descriptions :column="1">
+                        <el-descriptions-item label="风：">强风可能导致卫星成像时的运动模糊，影响图像清晰度。</el-descriptions-item>
+                        <el-descriptions-item label="雨：">雨水可能在卫星传感器上形成水滴，导致图像失真或模糊。</el-descriptions-item>
+                        <el-descriptions-item label="云：">云层遮挡会阻碍地面目标的可视性，影响数据获取的完整性。</el-descriptions-item>
+                        <el-descriptions-item label="雪：">雪的反射率较高，可能影响地表特征的辨识，尤其是在覆盖范围大的情况下。</el-descriptions-item>
+                        <el-descriptions-item label="雾：">雾霾会降低可见光透过率，导致成像质量下降，特别是在低能见度情况下。</el-descriptions-item>
+                    </el-descriptions>
+                </el-scrollbar>
+
+            </div>
+        </div>
+
         <div class="xtrz">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
                 <span>系统日志</span>
             </div>
             <div ref="xtrz" class="contentBox">
-                <el-scrollbar>
+                <el-scrollbar ref="scrollbar2" @mouseenter="stopAutoScroll2"
+                    @mouseleave="startAutoScroll2">
                     <li v-for="(item) in state.xtrzList">
                         <p>{{ item.text }}</p>
                         <span>{{ item.time }}</span>
@@ -34,7 +55,7 @@
 
 <script lang="ts" setup>
 // 引入vue3的api
-import { ref, reactive, onMounted, defineExpose } from "vue"
+import { ref, reactive, onMounted, defineExpose, onBeforeUnmount } from "vue"
 import * as echarts from 'echarts';
 import titleIcon from '@/assets/image/titleIcon.png'
 import Group from '@/assets/image/Group.png';
@@ -42,6 +63,8 @@ import LD from '@/assets/image/ld.png'
 const cjgk = ref()
 const xdll = ref()
 const xtrz = ref()
+
+
 
 // 定义变量
 const state = reactive({
@@ -92,19 +115,23 @@ const state = reactive({
         }
     ]
 })
+const scrollbar = ref(null)
+const scrollbar2 = ref(null)
 
 // 生命周期
 onMounted(() => {
     initCjgk()
     initXdll()
+    startAutoScroll()
+    startAutoScroll2()
 })
 // 定义方法
 const initCjgk = () => {
     let chart = echarts.init(cjgk.value);
     // 把配置和数据放这里
     let chartData = [
-        [0, 20, 333, 0],
-        ['AAA', 'BBB', 'CCC', 'DDD'],
+        [100, 20, 333, 33, 45, 200],
+        ['卫星总数', '星(故障)数', '星(载荷开机)数', '地面站总数', '静目标总数', '动目标总数'],
     ];
     let getmydmc = chartData[1]; //数据点名称
     let getmyd = chartData[0]; //收入金额
@@ -163,7 +190,13 @@ const initCjgk = () => {
             },
             textStyle: {
                 align: 'left',
+                color: '#fff'
             },
+            backgroundColor: '#09365e', // 设置背景色
+            borderColor: '#1a7bf9', // 边框颜色
+            borderWidth: 1, // 边框宽度
+            padding: 10, // 内边距
+            extraCssText: 'box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);', // 添加阴影效果
         },
         xAxis: [
             {
@@ -180,7 +213,6 @@ const initCjgk = () => {
                 },
                 min: 0,
                 max: max, // 计算最大值
-                interval: max / 5, //  平均分为5份
                 splitNumber: 5,
                 splitLine: {
                     show: false,
@@ -308,9 +340,9 @@ const initCjgk = () => {
                 type: 'inside',
                 show: true,
                 height: 15,
-                start: 1,
-                end: 100,
                 orient: 'vertical',
+                minValueSpan: 2, // 保持至少显示
+                maxValueSpan: 2, // 限制最大显示为
                 zlevel: 66,
             },
         ],
@@ -435,24 +467,28 @@ const initXdll = () => {
     var treeData = [
         {
             ID: 0,
-            NAME: '根节点',
+            NAME: '卫星',
             children: [
                 {
                     ID: 1,
-                    NAME: '子节点1',
+                    NAME: '佳木斯站',
                 },
                 {
                     ID: 5972,
-                    NAME: '子节点2',
+                    NAME: '太原站',
                 },
                 {
                     ID: 3,
-                    NAME: '子节点3',
+                    NAME: '渭南站',
                 },
                 {
                     ID: 4,
-                    NAME: '子节点4',
+                    NAME: ' 三亚站',
                 },
+                {
+                    ID: 4,
+                    NAME: ' 青岛站',
+                }
             ]
         }
     ];
@@ -535,6 +571,55 @@ const initXdll = () => {
     };
 };
 
+let scrollInterval = null;
+let scrollInterval2 = null;
+// 滚动条滚动
+const startAutoScroll = () => {
+    scrollInterval = setInterval(() => {
+        if (scrollbar.value) {
+            // 直接使用 scrollbar.value.scrollTop
+            const currentScrollTop = scrollbar.value.wrapRef.scrollTop;
+            const scrollHeight = scrollbar.value.$el.querySelector('.el-scrollbar__wrap').scrollHeight;
+            const clientHeight = scrollbar.value.$el.querySelector('.el-scrollbar__wrap').clientHeight;
+            // 向下滚动1px
+            scrollbar.value.scrollTo(0, currentScrollTop + 1);
+            // 如果已滚动到底部，重置到顶部
+            if (currentScrollTop >= scrollHeight - clientHeight) {
+                scrollbar.value.scrollTo(0, 0);
+            }
+        }
+    }, 100); // 每100ms更新一次
+}
+
+// 清除定时器
+const stopAutoScroll = () => {
+    clearInterval(scrollInterval); // 清除定时器
+};
+// 滚动条滚动
+const startAutoScroll2 = () => {
+    scrollInterval = setInterval(() => {
+        if (scrollbar2.value) {
+            // 直接使用 scrollbar.value.scrollTop
+            const currentScrollTop = scrollbar2.value.wrapRef.scrollTop;
+            const scrollHeight = scrollbar2.value.$el.querySelector('.el-scrollbar__wrap').scrollHeight;
+            const clientHeight = scrollbar2.value.$el.querySelector('.el-scrollbar__wrap').clientHeight;
+            // 向下滚动1px
+            scrollbar2.value.scrollTo(0, currentScrollTop + 1);
+            // 如果已滚动到底部，重置到顶部
+            if (currentScrollTop >= scrollHeight - clientHeight) {
+                scrollbar.value.scrollTo(0, 0);
+            }
+        }
+    }, 100); // 每100ms更新一次
+}
+
+// 清除定时器
+const stopAutoScroll2 = () => {
+    clearInterval(scrollInterval2); // 清除定时器
+};
+onBeforeUnmount(() => {
+    stopAutoScroll(); // 清除定时器
+});
 
 //暴露方法
 defineExpose({})
@@ -555,17 +640,22 @@ defineExpose({})
 
     .cjgk {
         width: 100%;
-        height: 33%;
+        height: 29%;
     }
 
     .xdll {
         width: 100%;
-        height: 25%;
+        height: 20%;
+    }
+
+    .ystj {
+        width: 100%;
+        height: 18%;
     }
 
     .xtrz {
         width: 100%;
-        height: 40%;
+        height: 28%;
 
         li {
             cursor: pointer;
