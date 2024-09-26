@@ -1,8 +1,8 @@
 @import '@/assets/css/_var.scss';
 
 @mixin popupBasic {
-  width: 480px;
-  height: 474px;
+  width: $popupWidth * 1.01;
+  height: $popupHeight*1.05;
   font-family: 'Source Han Sans CN';
   font-weight: 400;
   font-size: 12px;

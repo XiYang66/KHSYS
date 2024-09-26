@@ -1,3 +1,4 @@
+@import './_var.scss';
 $active-color: #1a7bf9; //激活颜色
 
 $not-obvious: #5b697b; //不明显 或 不突出
@@ -12,494 +13,525 @@ $border-light: #235b91; // 边框 浅
 
 /* ----------------------------------- 按钮 ----------------------------------- */
 .el-button {
-    // 主要按钮
-    &.el-button--primary {
-        background: linear-gradient(180deg, $system-strong 0%, $active-color 100%);
-        border-color: $border-light;
-        &:hover {
-            border-color: $active-color;
-        }
+  // 主要按钮
+  &.el-button--primary {
+    background: linear-gradient(180deg, $system-strong 0%, $active-color 100%);
+    border-color: $border-light;
+    &:hover {
+      border-color: $active-color;
     }
+  }
 }
 
 // input 输入框
 .el-input {
-    .el-input__wrapper {
-        background: transparent;
-        background: $system-middle;
-        box-shadow: none;
-        box-shadow: 0 0 0 1px $active-color;
-        &:hover {
-            box-shadow: 0 0 0 1px $active-color;
-        }
+  .el-input__wrapper {
+    background: transparent;
+    background: $system-middle;
+    box-shadow: none;
+    box-shadow: 0 0 0 1px $active-color;
+    &:hover {
+      box-shadow: 0 0 0 1px $active-color;
     }
+  }
 }
 // 文本域
 .el-textarea {
-    .el-textarea__inner {
-        background-color: $system-middle !important;
-        box-shadow: 0 0 0 1px $active-color inset !important;
-        font-size: 12px;
-    }
+  .el-textarea__inner {
+    background-color: $system-middle !important;
+    box-shadow: 0 0 0 1px $active-color inset !important;
+    font-size: 12px;
+  }
 }
 
 // 开关
 .el-switch {
+  .el-switch__core {
+    background-color: $system-middle !important;
+    border-color: $not-obvious;
+    .el-switch__action {
+      background-color: $not-obvious;
+    }
+  }
+  &.is-checked {
     .el-switch__core {
-        background-color: $system-middle !important;
-        border-color: $not-obvious;
-        .el-switch__action {
-            background-color: $not-obvious;
-        }
+      background-color: $system-middle !important;
+      border-color: $active-color;
+      .el-switch__action {
+        background-color: $active-color;
+      }
     }
-    &.is-checked {
-        .el-switch__core {
-            background-color: $system-middle !important;
-            border-color: $active-color;
-            .el-switch__action {
-                background-color: $active-color;
-            }
-        }
-    }
+  }
 }
 // tabs切换
 .el-tabs {
-    &.el-tabs--card {
-        .el-tabs__header {
+  &.el-tabs--card {
+    .el-tabs__header {
+      border: 0;
+      margin: 0;
+      .el-tabs__nav-wrap {
+        .el-tabs__nav-scroll {
+          .el-tabs__nav {
             border: 0;
-            margin: 0;
-            .el-tabs__nav-wrap {
-                .el-tabs__nav-scroll {
-                    .el-tabs__nav {
-                        border: 0;
-                        .el-tabs__item {
-                            border: 1px solid rgba(18, 101, 136, 1);
-                            margin-right: 10px;
-                            &.is-active {
-                                background: linear-gradient(180deg, $system-light 0%, $system-middle 100%);
-                                border: 1px solid rgba(18, 101, 136, 1);
-                            }
-                        }
-                    }
-                }
+            .el-tabs__item {
+              border: 1px solid rgba(18, 101, 136, 1);
+              margin-right: 10px;
+              &.is-active {
+                background: linear-gradient(
+                  180deg,
+                  $system-light 0%,
+                  $system-middle 100%
+                );
+                border: 1px solid rgba(18, 101, 136, 1);
+              }
             }
+          }
         }
+      }
     }
+  }
 }
 /* 弹出框 样式*/
 .el-dialog {
-    background-color: #06192a !important;
-    border: solid 1px #22486a !important;
-    .el-dialog__header {
-        width: 100%;
-        height: 35px;
-        display: flex;
-        justify-content: space-between;
-        padding: 0;
-        margin: 0;
+  background-color: #06192a !important;
+  border: solid 1px #22486a !important;
+  .el-dialog__header {
+    width: 100%;
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
 
-        .el-dialog__title {
-            width: 50%;
-            font-size: 22px;
-            font-weight: normal;
-            font-style: italic;
-            font-stretch: normal;
-            line-height: 38px;
-            letter-spacing: 1px;
-            font-weight: bold;
-            color: #3375ca;
-            line-height: 35pxs;
-        }
-
-        .el-dialog__headerbtn {
-            width: 35px;
-            height: 35px;
-        }
-
-        .el-dialog__title::before {
-            content: "";
-            background-size: 11px 11px;
-            display: inline-block;
-            margin-right: 15px;
-            width: 11px;
-            margin-left: 11px;
-            height: 11px;
-        }
+    .el-dialog__title {
+      width: 50%;
+      font-size: 22px;
+      font-weight: normal;
+      font-style: italic;
+      font-stretch: normal;
+      line-height: 38px;
+      letter-spacing: 1px;
+      font-weight: bold;
+      color: #3375ca;
+      line-height: 35pxs;
     }
-    .el-dialog__body {
-        height: 600px;
+
+    .el-dialog__headerbtn {
+      width: 35px;
+      height: 35px;
     }
+
+    .el-dialog__title::before {
+      content: '';
+      background-size: 11px 11px;
+      display: inline-block;
+      margin-right: 15px;
+      width: 11px;
+      margin-left: 11px;
+      height: 11px;
+    }
+  }
+  .el-dialog__body {
+    height: 600px;
+  }
 }
 
 /*表格样式*/
 .el-table {
-    border: 1px solid $border-light !important;
-    --el-table-border-color: none !important;
-    color: #ffffff !important;
-    font-size: 16px !important;
-    .el-table__body-wrapper {
-        background-color: $system-light !important;
-    }
+  border: 1px solid $border-light !important;
+  --el-table-border-color: none !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  .el-table__body-wrapper {
+    background-color: $system-light !important;
+  }
 
-    .el-table__row {
-        background-color: $system-light !important;
-        td.el-table__cell {
-            border-bottom: 1px solid $border-light !important;
-        }
-        &.el-table__row--striped {
-            td {
-                background-color: $system-middle !important;
-            }
-        }
+  .el-table__row {
+    background-color: $system-light !important;
+    td.el-table__cell {
+      border-bottom: 1px solid $border-light !important;
     }
+    &.el-table__row--striped {
+      td {
+        background-color: $system-middle !important;
+      }
+    }
+  }
 }
 
 .el-table--enable-row-hover .el-table__body tr:hover > td {
-    background-color: $system-middle !important;
+  background-color: $system-middle !important;
 }
 
 .el-table thead tr > th {
-    background-color: $system-strong !important;
-    color: #ffffff;
-    font-size: 16px;
-    border-bottom: 1px solid $border-light !important;
-    font-weight: 400;
+  background-color: $system-strong !important;
+  color: #ffffff;
+  font-size: 16px;
+  border-bottom: 1px solid $border-light !important;
+  font-weight: 400;
 }
 
 // 树控件
 .el-tree {
-    --el-tree-node-hover-bg-color: transparent !important;
-    --el-tree-text-color: #f0f7ff !important;
-    background: transparent !important;
-    color: #f0f7ff;
-    background: none;
-    .el-tree-node {
-        color: #d6d4d4;
-        font-size: 18px;
-        margin-top: 8px;
-        white-space: normal; //关键代码!!!!!!!!!
-        &.is-current {
-            > .el-tree-node__content {
-                background: linear-gradient(to right, transparent 0%, #3375ca 50%, transparent 100%);
-                > span {
-                    color: #fff;
-                    font-weight: bold;
-                }
-            }
+  --el-tree-node-hover-bg-color: transparent !important;
+  --el-tree-text-color: #f0f7ff !important;
+  background: transparent !important;
+  color: #f0f7ff;
+  background: none;
+  .el-tree-node {
+    color: #d6d4d4;
+    font-size: 18px;
+    margin-top: 8px;
+    white-space: normal; //关键代码!!!!!!!!!
+    &.is-current {
+      > .el-tree-node__content {
+        background: linear-gradient(
+          to right,
+          transparent 0%,
+          #3375ca 50%,
+          transparent 100%
+        );
+        > span {
+          color: #fff;
+          font-weight: bold;
         }
-        /* ^ 所有节点 */
-        i.el-tree-node__expand-icon {
-            padding: 6px;
-
-            &::before {
-                font-family: element-ui-icons;
-                font-style: normal;
-                content: "\e6d9";
-                color: #fff;
-                border: 1px solid #1d5775;
-                border-radius: 2px;
-            }
-            svg {
-                display: none; // 隐藏所有节点的 svg 图标
-            }
-        }
-        /* / 所有节点 */
-
-        /* ^ 已展开的父节点 */
-        i.el-tree-node__expand-icon.expanded {
-            transform: rotate(0deg); // 取消旋转
-            -webkit-transform: rotate(0deg); // 取消旋转
-        }
-        /* / 已展开的父节点 */
-
-        /* ^ 叶子节点 */
-        i.el-tree-node__expand-icon.is-leaf {
-            &::before {
-                display: none;
-            }
-        }
-        /* / 叶子节点 */
-
-        /* ^ 复选框 */
-        .el-checkbox {
-            margin: 0 7px 0 2px;
-
-            .el-checkbox__inner {
-                width: 14px;
-                height: 14px;
-                border-radius: 2px;
-                border: 1px solid #1d5775;
-            }
-
-            .el-checkbox__input.is-checked .el-checkbox__inner,
-            .el-checkbox__input.is-indeterminate .el-checkbox__inner {
-                border: 1px solid #5e7ce0;
-            }
-        }
-
-        .el-tree-node__content {
-            height: 100%;
-            small {
-                font-size: 13px;
-            }
-            // 自定义样式
-            .tree-node {
-                display: flex;
-                align-items: center;
-                width: 100%;
-                justify-content: space-between;
-                .label {
-                    white-space: nowrap; /* 不换行 */
-                    overflow: hidden; /* 超出部分隐藏 */
-                    text-overflow: ellipsis; /* 使用省略号表示截断 */
-                    width: 70%;
-                }
-            }
-        }
+      }
     }
-    /* ---- ---- ---- ---- /（节点对齐）---- ---- ---- ---- */
+    /* ^ 所有节点 */
+    i.el-tree-node__expand-icon {
+      padding: 6px;
 
-    /* ---- ---- ---- ---- ^（文字高亮）---- ---- ---- ---- */
-    .el-tree-node.is-current {
-        .el-tree-node__content {
-            small {
-                color: #5e7ce0;
-            }
-        }
-
-        .el-tree-node__children {
-            small {
-                color: unset;
-            }
-        }
+      &::before {
+        font-family: element-ui-icons;
+        font-style: normal;
+        content: '\e6d9';
+        color: #fff;
+        border: 1px solid #1d5775;
+        border-radius: 2px;
+      }
+      svg {
+        display: none; // 隐藏所有节点的 svg 图标
+      }
     }
-    /* ---- ---- ---- ---- /（文字高亮）---- ---- ---- ---- */
+    /* / 所有节点 */
 
-    /* ---- ---- ---- ---- ^（新增辅助线）---- ---- ---- ---- */
-    /* ^ 树节点 */
-    .el-tree-node {
-        position: relative;
-        width: auto;
-        // width: max-content; // 显示文字宽度
-        padding-left: 13px;
-
-        &::before {
-            width: 1px;
-            height: 100%;
-            content: "";
-            position: absolute;
-            top: -38px;
-            bottom: 0;
-            left: 0;
-            right: auto;
-            border-width: 1px;
-            border-left: 1px dashed $border-light;
-        }
-
-        &::after {
-            width: 30px;
-            height: 13px;
-            content: "";
-            position: absolute;
-            z-index: 0;
-            left: 0;
-            right: auto;
-            top: 12px;
-            bottom: auto;
-            border-width: 1px;
-            border-top: 1px dashed $border-light;
-        }
-
-        .el-tree-node__content {
-            position: relative;
-            z-index: 1;
-            color: #fff;
-            padding-left: 0 !important;
-
-            /* ^ 复选框 */
-            .el-checkbox {
-                // margin: 0 10px 0 5.5px;
-                margin: 0 10px 0 0px;
-            }
-        }
-
-        .el-tree-node__children {
-            padding-left: 12px;
-        }
-
-        &:last-child::before {
-            height: 50px;
-        }
+    /* ^ 已展开的父节点 */
+    i.el-tree-node__expand-icon.expanded {
+      transform: rotate(0deg); // 取消旋转
+      -webkit-transform: rotate(0deg); // 取消旋转
     }
-    /* / 树节点 */
-
-    /* ^ 第一层节点 */
-    > .el-tree-node {
-        padding-left: 0;
-
-        &::before {
-            border-left: none;
-        }
-
-        &::after {
-            border-top: none;
-        }
-    }
-    /* / 第一层节点 */
+    /* / 已展开的父节点 */
 
     /* ^ 叶子节点 */
     i.el-tree-node__expand-icon.is-leaf {
+      &::before {
         display: none;
+      }
     }
     /* / 叶子节点 */
 
-    /* ^ 设置子节点左外边距 */
-    .el-tree-node__content:has(.is-leaf) {
-        // color: #00ffff;
-        margin-left: 25px !important;
+    /* ^ 复选框 */
+    .el-checkbox {
+      margin: 0 7px 0 2px;
+
+      .el-checkbox__inner {
+        width: 14px;
+        height: 14px;
+        border-radius: 2px;
+        border: 1px solid #1d5775;
+      }
+
+      .el-checkbox__input.is-checked .el-checkbox__inner,
+      .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+        border: 1px solid #5e7ce0;
+      }
     }
-    /* / 设置子节点左外边距 */
-    /* ---- ---- ---- ---- /（新增辅助线）---- ---- ---- ---- */
-    ::v-deep .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
-        background-color: transparent !important;
-        color: red;
+
+    .el-tree-node__content {
+      height: 100%;
+      small {
+        font-size: 13px;
+      }
+      // 自定义样式
+      .tree-node {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        .label {
+          white-space: nowrap; /* 不换行 */
+          overflow: hidden; /* 超出部分隐藏 */
+          text-overflow: ellipsis; /* 使用省略号表示截断 */
+          width: 70%;
+        }
+      }
     }
-    .el-tree-node i.el-tree-node__expand-icon {
-        width: 4px !important;
-        height: 4px !important;
-        background: $system-light;
-        margin-left: 5px;
-        position: relative;
-        cursor: pointer;
-        display: inline-block;
-        margin-right: 7px;
+  }
+  /* ---- ---- ---- ---- /（节点对齐）---- ---- ---- ---- */
+
+  /* ---- ---- ---- ---- ^（文字高亮）---- ---- ---- ---- */
+  .el-tree-node.is-current {
+    .el-tree-node__content {
+      small {
+        color: #5e7ce0;
+      }
     }
-    .el-tree-node i.el-tree-node__expand-icon::before {
-        content: "" !important;
-        border: none;
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        width: 1px;
-        height: 10px;
-        background: #fff;
+
+    .el-tree-node__children {
+      small {
+        color: unset;
+      }
     }
-    .el-tree-node i.el-tree-node__expand-icon::after {
-        content: "" !important;
-        border: none;
-        position: absolute;
-        top: 50%;
-        left: 20%;
-        width: 10px;
-        height: 1px;
-        background: #fff;
+  }
+  /* ---- ---- ---- ---- /（文字高亮）---- ---- ---- ---- */
+
+  /* ---- ---- ---- ---- ^（新增辅助线）---- ---- ---- ---- */
+  /* ^ 树节点 */
+  .el-tree-node {
+    position: relative;
+    width: auto;
+    // width: max-content; // 显示文字宽度
+    padding-left: 13px;
+
+    &::before {
+      width: 1px;
+      height: 100%;
+      content: '';
+      position: absolute;
+      top: -38px;
+      bottom: 0;
+      left: 0;
+      right: auto;
+      border-width: 1px;
+      border-left: 1px dashed $border-light;
     }
-    .el-tree-node i.el-tree-node__expand-icon.expanded::before {
-        content: "" !important;
-        border: none;
-        position: absolute;
-        top: 50%;
-        left: 20%;
-        width: 10px;
-        height: 1px;
-        background: #fff;
+
+    &::after {
+      width: 30px;
+      height: 13px;
+      content: '';
+      position: absolute;
+      z-index: 0;
+      left: 0;
+      right: auto;
+      top: 12px;
+      bottom: auto;
+      border-width: 1px;
+      border-top: 1px dashed $border-light;
     }
-    .el-tree-node i.el-tree-node__expand-icon {
-        width: 4px !important;
-        height: 4px !important;
-        background: $system-light;
-        margin-left: 5px;
-        position: relative;
-        cursor: pointer;
-        margin-right: 7px;
+
+    .el-tree-node__content {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      padding-left: 0 !important;
+
+      /* ^ 复选框 */
+      .el-checkbox {
+        // margin: 0 10px 0 5.5px;
+        margin: 0 10px 0 0px;
+      }
     }
-    .el-tree-node i.el-tree-node__expand-icon::before {
-        content: "" !important;
-        border: none;
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        width: 1px;
-        height: 10px;
-        background: #fff;
+
+    .el-tree-node__children {
+      padding-left: 12px;
     }
-    .el-tree-node i.el-tree-node__expand-icon::after {
-        content: "" !important;
-        border: none;
-        position: absolute;
-        top: 50%;
-        left: 20%;
-        width: 10px;
-        height: 1px;
-        background: #fff;
+
+    &:last-child::before {
+      height: 50px;
     }
-    .el-tree-node i.el-tree-node__expand-icon.expanded::before {
-        content: "" !important;
-        border: none;
-        position: absolute;
-        top: 50%;
-        left: 20%;
-        width: 10px;
-        height: 1px;
-        background: #fff;
+  }
+  /* / 树节点 */
+
+  /* ^ 第一层节点 */
+  > .el-tree-node {
+    padding-left: 0;
+
+    &::before {
+      border-left: none;
     }
+
+    &::after {
+      border-top: none;
+    }
+  }
+  /* / 第一层节点 */
+
+  /* ^ 叶子节点 */
+  i.el-tree-node__expand-icon.is-leaf {
+    display: none;
+  }
+  /* / 叶子节点 */
+
+  /* ^ 设置子节点左外边距 */
+  .el-tree-node__content:has(.is-leaf) {
+    // color: #00ffff;
+    margin-left: 25px !important;
+  }
+  /* / 设置子节点左外边距 */
+  /* ---- ---- ---- ---- /（新增辅助线）---- ---- ---- ---- */
+  ::v-deep
+    .el-tree--highlight-current
+    .el-tree-node.is-current
+    > .el-tree-node__content {
+    background-color: transparent !important;
+    color: red;
+  }
+  .el-tree-node i.el-tree-node__expand-icon {
+    width: 4px !important;
+    height: 4px !important;
+    background: $system-light;
+    margin-left: 5px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 7px;
+  }
+  .el-tree-node i.el-tree-node__expand-icon::before {
+    content: '' !important;
+    border: none;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    width: 1px;
+    height: 10px;
+    background: #fff;
+  }
+  .el-tree-node i.el-tree-node__expand-icon::after {
+    content: '' !important;
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    width: 10px;
+    height: 1px;
+    background: #fff;
+  }
+  .el-tree-node i.el-tree-node__expand-icon.expanded::before {
+    content: '' !important;
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    width: 10px;
+    height: 1px;
+    background: #fff;
+  }
+  .el-tree-node i.el-tree-node__expand-icon {
+    width: 4px !important;
+    height: 4px !important;
+    background: $system-light;
+    margin-left: 5px;
+    position: relative;
+    cursor: pointer;
+    margin-right: 7px;
+  }
+  .el-tree-node i.el-tree-node__expand-icon::before {
+    content: '' !important;
+    border: none;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    width: 1px;
+    height: 10px;
+    background: #fff;
+  }
+  .el-tree-node i.el-tree-node__expand-icon::after {
+    content: '' !important;
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    width: 10px;
+    height: 1px;
+    background: #fff;
+  }
+  .el-tree-node i.el-tree-node__expand-icon.expanded::before {
+    content: '' !important;
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    width: 10px;
+    height: 1px;
+    background: #fff;
+  }
 }
 
 // 描述列表
 .el-descriptions {
-    --el-descriptions-table-border: 0 !important;
-    overflow: hidden;
-    height: 100%;
-    overflow-y: auto;
-    .el-descriptions__header {
-        .el-descriptions__title {
-            color: #3375ca;
-        }
+  --el-descriptions-table-border: 0 !important;
+  overflow: hidden;
+  height: 100%;
+  overflow-y: auto;
+  .el-descriptions__header {
+    .el-descriptions__title {
+      color: #3375ca;
     }
-    .el-descriptions__body {
+  }
+  .el-descriptions__body {
+    background: transparent;
+    .el-descriptions__table {
+      border: 0;
+      border-spacing: 0;
+      .el-descriptions__label {
         background: transparent;
-        .el-descriptions__table {
-            border: 0;
-            border-spacing: 0;
-            .el-descriptions__label {
-                background: transparent;
-                color: #def512;
-                font-weight: bold;
-            }
-            .el-descriptions__content {
-                color: #fff;
-                font-size: 18px;
-            }
-        }
+        color: #def512;
+        font-weight: bold;
+      }
+      .el-descriptions__content {
+        color: #fff;
+        font-size: 18px;
+      }
     }
+  }
 }
 
 // tab切换
 .el-tabs {
-    .el-tabs__header {
-        .el-tabs__item {
-            color: #d6d4d4;
-            height: 30px;
-            &.is-active {
-                background: linear-gradient(to right, transparent 0%, #3375ca 50%, transparent 100%);
-            }
-        }
+  .el-tabs__header {
+    .el-tabs__item {
+      color: #d6d4d4;
+      height: 30px;
+      &.is-active {
+        background: linear-gradient(
+          to right,
+          transparent 0%,
+          #3375ca 50%,
+          transparent 100%
+        );
+      }
     }
+  }
 }
 
 // 分割线
 .el-divider {
-    .el-divider__text {
-        color: #fff;
-        background: transparent;
-        text-shadow:
-            0 0 5px $active-color,
-            0 0 5px $active-color,
-            0 0 5px $active-color,
-            0 0 5px $active-color;
-        font-size: 16px;
-    }
-    &.el-divider--horizontal {
-        border-top: 1px $border-light solid;
-    }
+  .el-divider__text {
+    color: #fff;
+    background: transparent;
+    text-shadow: 0 0 5px $active-color, 0 0 5px $active-color,
+      0 0 5px $active-color, 0 0 5px $active-color;
+    font-size: 16px;
+  }
+  &.el-divider--horizontal {
+    border-top: 1px $border-light solid;
+  }
+}
+
+// 弹窗dialog
+.dialog-popup5 {
+  .el-dialog__header {
+    display: none !important;
+  }
+  .el-dialog__body {
+    background: $bg4;
+    height: $popupHeight * 1.15;
+    border: 1px solid whitesmoke;
+  }
+}
+.el-dialog.is-draggable.el-dialog--center.dialog-popup5 {
+  padding: 0 !important;
+  background: $bg4;
+  width: auto;
 }

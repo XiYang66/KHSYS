@@ -3,7 +3,7 @@
         <el-row>
             <el-col :span="24">任务</el-col>
         </el-row>
-        <el-row class="name row" :gutter="gutter" align="right">
+        <el-row class="name row">
             <el-col class="label col" :span="24">
                 <div class="chart" style="width:450px ; height: 137px; text-align: center; line-height: 137px;">
                     <div class="innerChart"
