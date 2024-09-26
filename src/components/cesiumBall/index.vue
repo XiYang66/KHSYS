@@ -21,6 +21,8 @@ onMounted(async () => {
     let viewer = await init({
         container: 'cesiumContainer',
     });
+    position(viewer)
+
     await CesiumStoreInit.SET_VIEWER(viewer);
     loadCzml(viewer);
     loadGlb(viewer);
