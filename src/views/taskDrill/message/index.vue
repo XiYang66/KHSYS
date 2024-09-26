@@ -146,155 +146,105 @@ const initEcharts = () => {
 const initLL = () => {
     let chart = echarts.init(LL.value);
     chart.resize();
-    var data = [
+    var treeData = [
         {
-            name: "卫星",
-            symbol: `image://` + Group,
-            symbolSize: [100, 100],
-            x: 300,
-            y: 400,
-            value: [170, 200],
-        },
-        {
-            name: "佳木斯站",
-            x: 400,
-            y: 400,
-            symbol: `image://` + LD,
-            symbolSize: [60, 60],
-            value: [400, 400],
-        },
-        {
-            name: "太原站",
-            x: 400,
-            y: 400,
-            symbol: `image://` + LD,
-            value: [10, 380],
-            symbolSize: [60, 60],
-
-        },
-        {
-            name: "渭南站",
-            x: 400,
-            y: 400,
-            value: [50, 380],
-            symbol: `image://` + LD,
-            symbolSize: [60, 60],
-
-        },
-        {
-            name: "三亚站",
-            x: 400,
-            y: 400,
-            value: [10, 10],
-            symbol: `image://` + LD,
-            symbolSize: [60, 60],
-
-        },
-        {
-            name: "青岛站",
-            x: 400,
-            y: 400,
-            value: [10, 10],
-            symbol: `image://` + LD,
-            symbolSize: [60, 60],
-
-        },
+            ID: 0,
+            NAME: '卫星',
+            children: [
+                {
+                    ID: 1,
+                    NAME: '佳木斯站',
+                },
+                {
+                    ID: 5972,
+                    NAME: '太原站',
+                },
+                {
+                    ID: 3,
+                    NAME: '渭南站',
+                },
+                {
+                    ID: 4,
+                    NAME: ' 三亚站',
+                },
+                {
+                    ID: 4,
+                    NAME: ' 青岛站',
+                }
+            ]
+        }
     ];
-
-    let option = ({
-        xAxis: {
-            show: false,
-            type: "value"
-        },
-        yAxis: {
-            show: false,
-            type: "value"
-        },
-        tooltip: {
-            show: false
-        },
+    let option = {
         series: [
             {
-                type: "graph",
-                zlevel: 5,
-                draggable: false,
-                coordinateSystem: "cartesian2d", //使用二维的直角坐标系（也称笛卡尔坐标系）
+                type: 'tree',
+                edgeShape: 'polyline', // 链接线是折现还是曲线
+                orient: 'TB',
+                roam: true,
+                data: treeData,
+                width: '85%',
+                height: '75%',
+                left: '5%',
+                right: '5%',
+                top: '12%',
+                bottom: '1%',
+                symbolSize: 2,
+                initialTreeDepth: 10,
                 label: {
                     normal: {
-                        show: true
-                    }
-                },
-                data: data,
-                links: [
-                    {
-                        source: "数据中心",
-                        target: "分数据中心一"
+                        position: 0,
+                        align: 'center',
+                        padding: [10, 20],
+                        fontWeight: 'bold',
+                        formatter: function (param) {
+                            let NAME =
+                                param.data.NAME.substring(0, 8) +
+                                '\n' +
+                                param.data.NAME.substring(8, 16) +
+                                '\n' +
+                                param.data.NAME.substring(16);
+                            if (param.data.ID === 0) {
+                                return [`{rootImg|}`, `{NAME|${NAME}}`].join('\n');
+                            }
+                            return [`{img|}`, `{NAME|${NAME}}`].join('\n');
+                        },
+                        rich: {
+                            rootImg: {
+                                backgroundColor: {
+                                    image: Group, // 替换为根节点图片路径
+                                },
+                                width: 40,
+                                height: 40,
+                            },
+                            img: {
+                                backgroundColor: {
+                                    image: LD,
+                                },
+                                width: 20,
+                                height: 20,
+                            },
+                            NAME: {
+                                color: '#fff',
+                                fontSize: 14,
+                                opacity: 0.9,
+                                verticalAlign: 'bottom',
+                            },
+                        },
                     },
-                    {
-                        source: "数据中心",
-                        target: "分数据中心二"
-                    },
-                    {
-                        source: "数据中心",
-                        target: "分数据中心三"
-                    }
-
-                ],
-                lineStyle: {
-                    normal: {
-                        opacity: 1,
-                        color: "#53B5EA",
-                        curveness: 0.2,
-                        width: 2
-                    }
-                }
-            },
-            {
-                type: "lines",
-                coordinateSystem: "cartesian2d",
-                z: 1,
-                zlevel: 2,
-                animation: false,
-                effect: {
-                    show: true,
-                    period: 8,
-                    trailLength: 0.01,
-                    symbolSize: 12,
-                    symbol: "pin",
-                    loop: true,
-                    color: "rgba(55,155,255,0.5)"
                 },
                 lineStyle: {
-                    normal: {
-                        color: "#22AC38",
-                        width: 0,
-                        curveness: 0.2
-                    }
+                    color: '#3375ca',
+                    width: 2,
+                    opacity: 0.5,
                 },
-
-                data: [
-                    {
-                        coords: [
-                            [170, 200],
-                            [400, 400]
-                        ]
-                    },
-                    {
-                        coords: [
-                            [170, 200],
-                            [10, 380]
-                        ]
-                    },
-                    {
-                        coords: [
-                            [170, 200],
-                            [10, 10]
-                        ]
-                    }
-                ]
+                symbol: 'none', // 去掉节点上的原点
+                expandAndCollapse: true,
+                animationDuration: 1500,
+                animationEasing: 'cubicInOut', // 动画缓动效果
+                animationDurationUpdate: 750,
             }
         ]
-    });
+    };
     chart.clear();
     chart.setOption(option);
     window.onresize = function () {
