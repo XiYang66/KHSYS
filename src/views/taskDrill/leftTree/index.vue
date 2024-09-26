@@ -16,7 +16,7 @@
         <el-tree default-expand-all :data="treeData" node-key="id" :props="defaultProps">
           <template #default="{ node, data }">
             <span class="tree-node">
-              <span class="label" @contextmenu="handleClickRight($event, node.label)" @click="handleClick">
+              <span class="label" @contextmenu="handleClickRight($event, node.label, node.isLeaf)" @click="handleClick">
                 <el-image v-if="!data.children" :src="data.type == 'cn' ? CN : US" style="height: 16px;" fit="cover" />
                 {{ node.label }}
               </span>
@@ -343,8 +343,13 @@ let curLabel
 function sleep(time) {
   return new Promise(resolve => setTimeout(resolve, time))
 }
-const handleClickRight = async (e, v) => { // 显示自定义菜单 // 点击页面其他地方时隐藏菜单
+const handleClickRight = async (e, v, isLeaf,) => { // 显示自定义菜单 // 点击页面其他地方时隐藏菜单
+  // console.log(isLeaf, v);
   e.preventDefault()
+  if (!isLeaf) {
+    menuVisible.value = false
+    return
+  }
   if (curLabel && curLabel != v) {
     menuVisible.value = false
     await sleep(5)
