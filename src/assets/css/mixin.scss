@@ -2,7 +2,7 @@
 
 @mixin popupBasic {
   width: $popupWidth * 1.01;
-  height: $popupHeight*1.05;
+  height: $popupHeight * 1.05;
   font-family: 'Source Han Sans CN';
   font-weight: 400;
   font-size: 12px;
@@ -37,4 +37,23 @@
   font-weight: 400;
   color: $color3;
   line-height: 18px;
+}
+
+@mixin scroll {
+  overflow: auto;
+  // overflow-x: visible;
+  // max-width: 500px;
+
+  /* 应用于特定元素的滚动条样式 */
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color5;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $color1;
+  }
 }

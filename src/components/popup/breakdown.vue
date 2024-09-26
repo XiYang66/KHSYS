@@ -90,6 +90,7 @@ $color3: white;
 <style lang="scss" scoped>
 @import '@/assets/css/_var.scss';
 @import '@/assets/css/element.scss';
+@import '@/assets/css/mixin.scss';
 
 .breakdown {
     width: $popupWidth;
@@ -99,22 +100,7 @@ $color3: white;
     font-size: 12px;
     line-height: 18px;
     background-color: $color1;
-    overflow: auto;
-    // overflow-x: visible; 
-    // max-width: 500px;   
-
-    /* 应用于特定元素的滚动条样式 */
-    &::-webkit-scrollbar {
-        width: 5px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: $color5;
-    }
-
-    &::-webkit-scrollbar-track {
-        background-color: $color1;
-    }
+    @include scroll
 }
 
 
