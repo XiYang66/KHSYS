@@ -18,59 +18,44 @@ const CesiumStoreInit = CesiumStore()
 // import { addImageryProvider } from '@/utils/cesium/layers/imagery.js'
 import DatGui from '@/components/datGui/index.vue'
 
+import { loadCzml, loadGlb, loadModelWithPath } from '@/utils/cesium/tools/loadModel.js'
+
+const testPosition = new Cesium.Cartesian3(2789310.3296809793, -4804819.234050206, 3122241.557783857)
+
 // 生命周期
 onMounted(async () => {
     let viewer = init({
         container: 'cesiumContainer',
     });
+    position(viewer)
+
     await CesiumStoreInit.SET_VIEWER(viewer);
     // loadCzml(viewer);
-    loadGlb(viewer);
+    loadGlb(viewer, '/models/fightWarship.glb',testPosition);
+    // loadModelWithPath(viewer, '/models/fightWarship.glb');
+
 
 });
 
-
-const loadCzml = (viewer) => {
-    viewer.shouldAnimate = true
-    const czmlUrl = 'models/simpleCZML.czml';
-    const czmlUrl2 = 'models/test.czml';
-    viewer.camera.flyHome(0);
-    const czmlDataSource = new Cesium.CzmlDataSource('satellite');
-    const promise = czmlDataSource.load(czmlUrl2).then(
-        (datasource) => {
-            viewer.dataSources.add(datasource);
-            viewer.clock.multiplier = 1;
-            if (czmlDataSource.entities.values.length > 0) {
-                viewer.zoomTo(datasource);
-                console.log(datasource.entities.values);
-            } else {
-                console.error('CZML 数据中没有可用的实体');
-            }
-        }).catch(function (error) {
-            window.alert('czml加载error:', error);
-        });
-}
-
-const newyork = Cesium.Cartesian3.fromDegrees(-74.012984, 40.705327, 100);
-
-const loadGlb = (viewer) => {// 加载 GLB 模型
-    const model = viewer.scene.primitives.add(Cesium.Model.fromGltf({
-        url: 'models/fightWarship.glb',
-        modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
-            newyork,
-            new Cesium.HeadingPitchRoll(0, 0, 0)
-        ),
-        scale: 10.0
-    }));
-    viewer.camera.flyTo({
-        destination: newyork,
-        orientation: {
-            heading: Cesium.Math.toRadians(90),
-            pitch: Cesium.Math.toRadians(-30),
-            roll: 0.0
+let cart3 = testPosition;
+const position = (viewer) => {
+    let globeEllipsoid = viewer.scene.globe.ellipsoid;
+    let handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+    handler.setInputAction((movement) => {
+        let cartesian = viewer.camera.pickEllipsoid(
+            movement.endPosition,
+            globeEllipsoid
+        );
+        if (cartesian) {
+            cart3 = cartesian;
+            // console.log(cart3);
         }
-    });
+
+    }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 }
+
+
+
 
 </script>
 
