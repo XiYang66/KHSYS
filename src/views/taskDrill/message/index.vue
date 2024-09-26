@@ -1,9 +1,13 @@
 <template>
     <div class="message">
         <div class="titleBox">
-            <el-image :src="titleIcon" fit="cover" lazy />
+            <el-image :src="titleIcon" fit="cover" />
             <span @click="active(1)" :class="state.active == 1 ? 'active' : ''">卫星概括</span>
             <span @click="active(2)" :class="state.active == 2 ? 'active' : ''">载荷数据</span>
+            <el-icon @click="closePopup" @mouseover="state.isAnimating = true" @mouseleave="state.isAnimating = false"
+                :class="state.isAnimating ? 'animate__animated animate__heartBeat' : ''">
+                <CircleClose />
+            </el-icon>
         </div>
         <div class="contentBox">
             <el-scrollbar>
@@ -68,6 +72,7 @@ import * as echarts from 'echarts';
 import titleIcon from '@/assets/image/titleIcon.png'
 import Group from '@/assets/image/Group.png';
 import LD from '@/assets/image/ld.png'
+import $bus from '@/utils/mitter'
 
 // 定义变量
 let state = reactive({
@@ -80,7 +85,8 @@ XXXXXXXXXXXXXXXXXXXXXXXX
 3.载荷开机
 2024-08-24 04:12:54.968~2024-08-24 04:12:54.968`,
     switch: true,
-    activeName: 'first'
+    activeName: 'first',
+    isAnimating: false,
 });
 const LL = ref()
 const WX = ref()
@@ -90,27 +96,36 @@ const FW = ref()
 
 // 生命周期
 onMounted(() => {
+    initEcharts()
+});
+
+// 关闭弹框
+const closePopup = () => {
+    $bus.emit('MessageFlag', false)
+    $bus.emit('RightBoxFlag', true)
+}
+// 切换tab
+const active = (val) => {
+    state.active = val
+    nextTick(() => {
+        initEcharts()
+    });
+
+}
+$bus.on('initEcharts', () => {
+    nextTick(() => {
+        initEcharts()
+    });
+})
+/* ------------------------------- echarts渲染区 ------------------------------- */
+// 渲染echarts 
+const initEcharts = () => {
     initLL();
     initWX();
     initGD();
 
     initMK();
     initFW();
-});
-
-// 定义方法
-const active = (val) => {
-    state.active = val
-    nextTick(() => {
-        console.log('-----------------')
-        initLL();
-        initWX();
-        initGD();
-
-        initMK();
-        initFW();
-    });
-
 }
 const initLL = () => {
     let chart = echarts.init(LL.value);
@@ -850,7 +865,7 @@ defineExpose({})
     width: 320px;
     height: 98%;
     position: absolute;
-    right: 330px;
+    right: 0px;
     top: 0;
     pointer-events: auto;
 
@@ -897,7 +912,7 @@ defineExpose({})
             padding: 3px 0;
             // font-family: PangMenZhengDao;
             font-size: 16px;
-            font-weight:bold;
+            font-weight: bold;
             text-shadow: 0 0 5px #158EFF, 0 0 5px #158EFF, 0 0 5px #158EFF, 0 0 5px #158EFF;
 
         }

@@ -22,7 +22,7 @@
             </div>
             <div ref="xtrz" class="contentBox">
                 <el-scrollbar>
-                    <li v-for="(item) in state.xtrzList" >
+                    <li v-for="(item) in state.xtrzList">
                         <p>{{ item.text }}</p>
                         <span>{{ item.time }}</span>
                     </li>
@@ -553,14 +553,14 @@ const initXdll = () => {
             show: false,
             type: 'value',
         },
-   
+
         series: [
             {
                 type: 'graph',
                 zlevel: 5,
                 draggable: false,
                 layout: 'force',
-                draggable:true,
+                draggable: true,
                 force: {
                     repulsion: 1500,
                     edgeLength: 120,
@@ -568,7 +568,7 @@ const initXdll = () => {
                 },
                 roam: true, //缩放
                 initial: {
-            },
+                },
                 symbolOffset: ['15%', 0],
                 label: {
                     normal: {
@@ -622,7 +622,6 @@ defineExpose({})
     display: flex;
     flex-wrap: wrap;
     align-content: space-between;
-
 
     .cjgk {
         width: 100%;

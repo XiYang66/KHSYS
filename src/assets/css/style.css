@@ -77,7 +77,13 @@ p{
   height: 22px;
   width: 18px;
 }
-
+.titleBox .el-icon{
+  color: #43a3fd;
+  cursor: pointer;
+  float: right;
+  position: absolute;
+  right: 10px;
+}
 /* 通用内容容器样式 */
 .contentBox{
   margin-top: 2px;
