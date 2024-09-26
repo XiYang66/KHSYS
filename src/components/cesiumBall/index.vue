@@ -5,7 +5,6 @@
     <!-- 滑块工具 -->
     <!-- <DatGui /> -->
 </template>
-
 <script lang="ts" setup>
 // 引入vue3的api
 import { ref, reactive, onMounted, computed } from 'vue';
@@ -17,38 +16,21 @@ import CesiumStore from "@/store/cesium";
 const CesiumStoreInit = CesiumStore()
 // import { addImageryProvider } from '@/utils/cesium/layers/imagery.js'
 import DatGui from '@/components/datGui/index.vue'
-
 // 生命周期
 onMounted(async () => {
-    let viewer = init({
+    let viewer = await init({
         container: 'cesiumContainer',
     });
     await CesiumStoreInit.SET_VIEWER(viewer);
-    // loadCzml(viewer);
-    loadGlb(viewer);
-
+    loadCzml(viewer);
+    // loadGlb(viewer);
 });
 
 
 const loadCzml = (viewer) => {
-    viewer.shouldAnimate = true
-    const czmlUrl = 'models/simpleCZML.czml';
-    const czmlUrl2 = 'models/test.czml';
-    viewer.camera.flyHome(0);
-    const czmlDataSource = new Cesium.CzmlDataSource('satellite');
-    const promise = czmlDataSource.load(czmlUrl2).then(
-        (datasource) => {
-            viewer.dataSources.add(datasource);
-            viewer.clock.multiplier = 1;
-            if (czmlDataSource.entities.values.length > 0) {
-                viewer.zoomTo(datasource);
-                console.log(datasource.entities.values);
-            } else {
-                console.error('CZML 数据中没有可用的实体');
-            }
-        }).catch(function (error) {
-            window.alert('czml加载error:', error);
-        });
+    const simpleCZML = '/models/simpleCZML.czml';
+    let dataSource = Cesium.CzmlDataSource.load(simpleCZML);
+    viewer.dataSources.add(dataSource);
 }
 
 const newyork = Cesium.Cartesian3.fromDegrees(-74.012984, 40.705327, 100);
