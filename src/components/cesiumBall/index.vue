@@ -16,12 +16,13 @@ import CesiumStore from "@/store/cesium";
 const CesiumStoreInit = CesiumStore()
 // import { addImageryProvider } from '@/utils/cesium/layers/imagery.js'
 import DatGui from '@/components/datGui/index.vue'
+
 // 生命周期
 onMounted(async () => {
     let viewer = await init({
         container: 'cesiumContainer',
     });
-    position(viewer)
+    // position(viewer)
 
     await CesiumStoreInit.SET_VIEWER(viewer);
     loadCzml(viewer);
@@ -30,10 +31,11 @@ onMounted(async () => {
 
 
 const loadCzml = (viewer) => {
+    viewer.shouldAnimate = true;
     const simpleCZML = '/models/simpleCZML.czml';
     let dataSource = Cesium.CzmlDataSource.load(simpleCZML);
     viewer.dataSources.add(dataSource);
- 
+    viewer.clock.multiplier = 10;
 }
 
 const newyork = Cesium.Cartesian3.fromDegrees(-74.012984, 40.705327, 100);
@@ -47,14 +49,14 @@ const loadGlb = (viewer) => {// 加载 GLB 模型
         ),
         scale: 10.0
     }));
-    viewer.camera.flyTo({
-        destination: newyork,
-        orientation: {
-            heading: Cesium.Math.toRadians(90),
-            pitch: Cesium.Math.toRadians(-30),
-            roll: 0.0
-        }
-    });
+    // viewer.camera.flyTo({
+    //     destination: newyork,
+    //     orientation: {
+    //         heading: Cesium.Math.toRadians(90),
+    //         pitch: Cesium.Math.toRadians(-30),
+    //         roll: 0.0
+    //     }
+    // });
 }
 
 </script>
