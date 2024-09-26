@@ -26,8 +26,13 @@ ul {
   font-family: PangMenZhengDao;
   src: url("@/assets/font/庞门正道标题体.ttf");
 }
-
+/* SourceHanSansCN-Regular */
+@font-face {
+  font-family: Source Han Sans CN;
+  src: url("@/assets/font/Source Han Sans CN Regular.ttf");
+}
 p{
+  font-family: Source Han Sans CN;
   margin: 0;
   padding: 0;
 }

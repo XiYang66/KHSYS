@@ -12,41 +12,57 @@
         <div class="contentBox">
             <el-scrollbar>
                 <div class="wxgk" v-show="state.active == 1">
-                    <p>载荷类型：<span>电子载荷</span></p>
-                    <p>卫星状态：<span>正常</span></p>
+                    <el-descriptions :column="1">
+                        <el-descriptions-item label="载荷类型：">电子载荷</el-descriptions-item>
+                        <el-descriptions-item label="卫星状态：">正常</el-descriptions-item>
+                    </el-descriptions>
+
                     <el-divider>星地/星间链路</el-divider>
                     <div ref="LL" class="LL"></div>
 
                     <el-divider>任务概述</el-divider>
-                    <p>距下次开机任务(分钟)：<span>666</span></p>
-                    <p>剩余任务总时长(小时)：<span>11.737</span></p>
-                    <p>任务时刻表：</p>
+              
+
+                    <el-descriptions :column="1">
+                        <el-descriptions-item label="距下次开机任务(分钟)：">666</el-descriptions-item>
+                        <el-descriptions-item label="剩余任务总时长(小时)：">11.737</el-descriptions-item>
+                        <el-descriptions-item label="任务时刻表："></el-descriptions-item>
+                    </el-descriptions>
+
                     <el-input v-model="state.textarea" :rows="7.5" disabled type="textarea"
                         placeholder="Please input" />
                     <el-divider>主要参数</el-divider>
 
-                    <p>载荷开机状态： <el-switch v-model="state.switch" /></p>
-                    <p>地影区标志：<span>阳照区</span></p>
+                    <el-descriptions :column="1">
+                        <el-descriptions-item label="载荷开机状态："> <el-switch v-model="state.switch" /></el-descriptions-item>
+                        <el-descriptions-item label="地影区标志：">阳照区</el-descriptions-item>
+                    </el-descriptions>
+
                     <div ref="WX" class="WX"></div>
                     <div ref="GD" class="GD"></div>
                 </div>
                 <div class="zhsj" v-show="state.active == 2">
-                    <p>探测到目标：<span>3</span></p>
-                    <el-divider>目标名称</el-divider>
 
+                    <el-descriptions :column="1">
+                        <el-descriptions-item label="探测到目标：">XXXX</el-descriptions-item>
+                    </el-descriptions>
+
+                    <el-divider>目标名称</el-divider>
+                
                     <el-tabs v-model="state.activeName" type="card">
                         <el-tab-pane label="电子特性参数" name="first">
-                            <p><span class="lable">目标雷达类型：</span><span class="content">戒雷达</span></p>
-                            <p><span class="lable">探测经纬高：</span><span>经-159.124*纬19.793*</span></p>
-                            <p><span class="lable">定位精度(m)：</span><span>732.223</span></p>
-                            <p><span class="lable">置信度(%)：</span><span>90.872</span></p>
-                            <p><span class="lable">到达时间：</span><span>0.007</span></p>
-                            <p><span class="lable">脉宽(us)：</span><span>6.4</span></p>
-                            <p><span class="lable">脉幅(dbm)：</span><span>-33.508</span></p>
-                            <p><span class="lable">载频(MHz)：</span><span>3300</span></p>
-                            <p><span class="lable">方位角(°)：</span><span>0.739</span></p>
-                            <p><span class="lable">俯仰(°)：</span><span>0.056</span></p>
-
+                            <el-descriptions :column="1">
+                                <el-descriptions-item label="目标雷达类型："> XXXXXXX</el-descriptions-item>
+                                <el-descriptions-item label="探测经纬高："> XXXXXXX</el-descriptions-item>
+                                <el-descriptions-item label="定位精度(m)："> XXXXXXX</el-descriptions-item>
+                                <el-descriptions-item label="置信度(%)：">XXXXXXX </el-descriptions-item>
+                                <el-descriptions-item label="到达时间："> XXXXXXX</el-descriptions-item>
+                                <el-descriptions-item label="脉宽(us)："> XXXXXXX</el-descriptions-item>
+                                <el-descriptions-item label="脉幅(dbm)：">XXXXXXX </el-descriptions-item>
+                                <el-descriptions-item label="载频(MHz)："> XXXXXXX</el-descriptions-item>
+                                <el-descriptions-item label="方位角(°)：">XXXXXXX </el-descriptions-item>
+                                <el-descriptions-item label="俯仰(°)：">XXXXXXX </el-descriptions-item>
+                            </el-descriptions>
 
                         </el-tab-pane>
                         <el-tab-pane label="电子特性曲线" name="second">电子特性曲线</el-tab-pane>
@@ -881,43 +897,6 @@ defineExpose({})
             }
         }
     }
-
-    p {
-
-        font-family: Source Han Sans CN;
-        font-size: 14px;
-        font-weight: 500;
-        margin: 5px 0;
-        color: #FFFFFF;
-
-        .lable {
-            color: #FFFFFF;
-            width: 100px;
-            display: inline-block;
-            text-align: right;
-            font-family: Source Han Sans CN;
-        }
-
-        .content {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        span {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        &.title {
-            color: #FFFFFF;
-            background: rgba(21, 142, 255, 0.4);
-            padding: 3px 0;
-            // font-family: PangMenZhengDao;
-            font-size: 16px;
-            font-weight: bold;
-            text-shadow: 0 0 5px #158EFF, 0 0 5px #158EFF, 0 0 5px #158EFF, 0 0 5px #158EFF;
-
-        }
-    }
-
     .LL,
     .WX,
     .GD,
