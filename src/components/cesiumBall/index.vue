@@ -23,7 +23,7 @@ onMounted(async () => {
     });
     await CesiumStoreInit.SET_VIEWER(viewer);
     loadCzml(viewer);
-    // loadGlb(viewer);
+    loadGlb(viewer);
 });
 
 
@@ -31,6 +31,7 @@ const loadCzml = (viewer) => {
     const simpleCZML = '/models/simpleCZML.czml';
     let dataSource = Cesium.CzmlDataSource.load(simpleCZML);
     viewer.dataSources.add(dataSource);
+ 
 }
 
 const newyork = Cesium.Cartesian3.fromDegrees(-74.012984, 40.705327, 100);

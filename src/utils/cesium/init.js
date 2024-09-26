@@ -1,5 +1,3 @@
-import simpleCZML from '@/assets/models/simpleCZML.js'
-
 const CESIUMTOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MDNkNmJmNC1lODQzLTQ3ZmEtODMxOS1kMDZhY2MyMjM1ZWYiLCJpZCI6NTU1MzEsImlhdCI6MTcyMzU5NzQyN30.t7ZNwlvukw0FWSZ7qtwrWJxyqgG78xaYOVatZUVfryo";
 const cesiumDefaultOptions = {
