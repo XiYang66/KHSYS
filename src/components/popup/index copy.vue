@@ -1,6 +1,19 @@
 <template>
-    <el-dialog v-model="isTabsPopup" :title="curLabel+'('+target+')'" draggable :z-index="100" width='500'>
+    
+    <el-dialog  :title="curLabel+'('+target+')'" v-model="isTabsPopup" draggable :z-index="100"  >
         <div class="popup">
+            <div class="head">
+                <div class="title">{{ curLabel }} ({{ target }})</div>
+                <div class="close-btn" @click="closePopup">
+                    <!-- <el-tag class="close-btn-tag"></el-tag> -->
+                    <el-icon :size="20" class="close-btn-tag-icon" @mouseover="isHoverClose = true"
+                        @mouseleave="isHoverClose = false"
+                        :class="isHoverClose ? 'animate__animated animate__heartBeat' : ''">
+                        <CircleClose />
+                    </el-icon>
+
+                </div>
+            </div>
             <div class="main popup-tabs" v-if="isTabsPopup">
                 <el-tabs v-model="activeTab" @tab-click="handleTabClick" type="card">
                     <el-tab-pane label="卫星属性" name="properties">
@@ -69,7 +82,7 @@ $bus.on('contextmenu/closePopup', () => {
 }
 
 .popup {
-    // @include popupBasic;
+    @include popupBasic;
     pointer-events: auto;
 
     .head {

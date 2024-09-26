@@ -77,7 +77,7 @@ onMounted(async () => {
 @import '@/assets/css/element.scss';
 
 .payloadData {
-    width: $popupWidth;
+    // width: $popupWidth;
     height: $popupHeight;
     background-color: $color1;
 

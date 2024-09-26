@@ -248,7 +248,7 @@ const bubbleChartOption = () => {
 @import '@/assets/css/mixin.scss';
 
 .taskManage {
-    width: $popupWidth;
+    // width: $popupWidth;
     height: $popupHeight;
     background-color: $color1;
     @include scroll;
