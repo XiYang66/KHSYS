@@ -31,6 +31,11 @@ ul {
   font-family: Source Han Sans CN;
   src: url("@/assets/font/Source Han Sans CN Regular.ttf");
 }
+/* 壹心畅游体 */
+@font-face {
+  font-family: 壹心畅游体;
+  src: url("@/assets/font/壹心畅游体.ttf");
+}
 p{
   font-family: Source Han Sans CN;
   margin: 0;

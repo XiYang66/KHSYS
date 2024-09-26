@@ -4,7 +4,9 @@
     <span class="titleText">
       考核实验室软件系统
     </span>
+    <div class="time">{{ state.date }} {{ state.time }} {{ state.week }}</div>
   </div>
+
   <!-- 路由区 -->
   <div class="routers">
     <li v-for="item in routerList" :class="item.meta.index == state.active ? 'acitve' : ''" @click="routerClick(item)">
@@ -23,9 +25,11 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter} from 'vue-router';
-import { ref, reactive, onMounted, onBeforeMount,watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { ref, reactive, onMounted, onBeforeMount, watch } from 'vue';
 import CesiumBall from '@/components/cesiumBall/index.vue'
+
+import { getDateTime } from '@/utils'
 const router = useRouter();
 const route = useRoute();
 let routerList: any = reactive([]);
@@ -33,14 +37,28 @@ let routerList: any = reactive([]);
 routerList = router.options.routes;
 const state = reactive({
   active: null,
+  date: null,
+  time: null,
+  week: null,
 })
 watch(route, (vlaue) => {
   state.active = vlaue.meta.index
 })
 onBeforeMount(() => {
+  getTime()
 })
 onMounted(() => {
+  setInterval(() => {
+    getTime()
+  }, 1000);
 });
+// 获取当前时间
+const getTime = () => {
+  let { date, time, week } = getDateTime()
+  state.date = date
+  state.time = time
+  state.week = week
+}
 
 const routerClick = (item) => {
   router.push(item.path)
@@ -67,12 +85,22 @@ const routerClick = (item) => {
     display: inline-block;
     background: linear-gradient(180deg, #FFFFFF 28.88%, #56ADFF 78.33%);
     font-family: PangMenZhengDao;
-    font-size: 32px;
+    font-size: 36px;
     letter-spacing: 10px;
     text-align: center;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .time {
+    position: absolute;
+    right: 20px;
+    font-family: 壹心畅游体;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+
   }
 }
 

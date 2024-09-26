@@ -12,16 +12,27 @@
         </div>
         <div class="right">
             <div class="button">
-                <el-button type="primary">按钮1</el-button>
-                <el-button type="primary">按钮2</el-button>
-                <el-button type="primary">按钮3</el-button>
+                <el-button type="primary">任务标准化下达</el-button>
+                <el-button type="primary">任务信息同步</el-button>
+                <el-button type="primary">任务查询管理</el-button>
+                <el-button type="primary">任务评估报告显示</el-button>
+                <el-button type="primary">任务优先级制定</el-button>
             </div>
             <div class="table">
                 <el-table :data="tableData" height="100%" stripe :header-cell-style="{ 'text-align': 'center' }"
                     :cell-style="{ 'text-align': 'center' }">
-                    <el-table-column prop="date" label="Date" />
-                    <el-table-column prop="name" label="Name" />
-                    <el-table-column prop="address" label="Address" />
+                    <el-table-column fixed prop="date"  label="任务名称" width="150"/>
+                    <el-table-column prop="name" label="任务来源" width="180"/>
+                    <el-table-column prop="name" label="联系人" width="120"/>
+                    <el-table-column prop="name" label="负责人" width="120"/>
+                    <el-table-column prop="name" label="任务类型" width="120"/>
+                    <el-table-column prop="name" label="载荷类型" width="120"/>
+                    <el-table-column prop="name" label="分辨率" width="150"/>
+                    <el-table-column prop="name" label="观测时间" width="220"/>
+                    <el-table-column prop="name" label="观测范围" width="150"/>
+                    <el-table-column prop="name" label="观测优先级" width="150"/>
+                    <el-table-column prop="name" label="所需产品种类" width="150"/>
+
                 </el-table>
             </div>
         </div>
@@ -90,6 +101,11 @@ const defaultProps = {
     label: 'label'
 };
 const tableData = [
+    {
+        date: '2016-05-03',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+    },
     {
         date: '2016-05-03',
         name: 'Tom',

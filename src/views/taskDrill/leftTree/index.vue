@@ -13,7 +13,7 @@
         <el-image :src="add" fit="cover" />
       </div>
       <el-scrollbar height="calc(100% - 32px)">
-        <el-tree default-expand-all :data="treeData" show-checkbox node-key="id" :props="defaultProps">
+        <el-tree default-expand-all :data="treeData" node-key="id" :props="defaultProps">
           <template #default="{ node, data }">
             <span class="tree-node">
               <span class="label" @contextmenu="handleClickRight($event, node.label)" @click="handleClick">{{ node.label
@@ -61,65 +61,178 @@ import Delete from '@/assets/image/delete.png';
 
 const treeData = reactive([
   {
-    id: 1,
-    label: 'Level one 1',
+    label: '天体',
     children: [
       {
-        id: 4,
-        label: 'Level two 1-1',
+        label: '太阳系',
+      }
+    ]
+  },
+  {
+    label: '航天器',
+    children: [
+      {
+        label: 'SAR',
         children: [
           {
-            id: 9,
-            label: 'Level three 1-1-122222'
+            label: '尖兵十三号01星',
           },
           {
-            id: 10,
-            label: 'Level three 1-1-2'
-          }
+            label: '尖兵十三号01星',
+          },
+          {
+            label: '尖兵十三号01星',
+          },
+          {
+            label: '尖兵十三号01星',
+          },
+        ]
+      },
+      {
+        label: '光学',
+        children: [
+          {
+            label: '光学十三号01星',
+          },
+          {
+            label: '光学十三号01星',
+          },
+          {
+            label: '光学十三号01星',
+          },
+          {
+            label: '光学十三号01星',
+          },
+        ]
+      },
+      {
+        label: '电子',
+        children: [
+          {
+            label: '尖兵八号改01组A星',
+          },
+          {
+            label: '尖兵八号改01组A星',
+          },
+          {
+            label: '尖兵八号改01组A星',
+          },
+          {
+            label: '尖兵八号改01组A星',
+          },
+        ]
+      },
+    ]
+  },
+  {
+    label: '地面站',
+    children: [
+      {
+        label: '相控阵雷达'
+      },
+      {
+        label: '雷达',
+        children: [
+          {
+            label: '佳木斯站',
+          },
+          {
+            label: '太原站',
+          },
+          {
+            label: '渭南站',
+          },
+          {
+            label: '三亚站',
+          },
+          {
+            label: '青岛站',
+          },
         ]
       }
     ]
   },
   {
-    id: 2,
-    label: 'Level one 2',
+    label: '静目标',
     children: [
       {
-        id: 5,
-        label: 'Level two 2-1'
+        label: '海军基地'
       },
       {
-        id: 6,
-        label: 'Level two 2-2'
-      }
+        label: '军营院校',
+        children: [
+          {
+            label: '德里克堡军事基地',
+          },
+          {
+            label: '德里克堡军事基地',
+          }
+        ]
+      },
+      {
+        label: '指挥机构'
+      },
+      {
+        label: '空军基地以及机场'
+      },
     ]
   },
   {
-    id: 3,
-    label: 'Level one 3',
+    label: '动目标',
     children: [
       {
-        id: 7,
-        label: 'Level two 3-1'
+        label: '导弹'
       },
       {
-        id: 8,
-        label: 'Level two 3-2'
+        label: '舰艇',
+        children: [
+          {
+            label: '舰艇1',
+          },
+          {
+            label: '舰艇2',
+          }
+        ]
       },
       {
-        id: 8,
-        label: 'Level two 3-2'
+        label: '飞机'
       },
       {
-        id: 8,
-        label: 'Level two 3-2'
+        label: '火箭炮'
+      },
+    ]
+  },
+  {
+    label: '遥感任务',
+    children: [
+      {
+        label: 'SAR',
+        children: [
+          {
+            label: '尖兵一号星',
+          },
+          {
+            label: '尖兵一号星',
+          }
+        ]
       },
       {
-        id: 8,
-        label: 'Level two 3-2'
+        label: '光学',
+        children: [
+          {
+            label: '舰艇1',
+          },
+          {
+            label: '舰艇2',
+          }
+        ]
+      },
+      {
+        label: '电子'
       }
     ]
   }
+
 ]);
 const state = reactive({
   searchForm: {
