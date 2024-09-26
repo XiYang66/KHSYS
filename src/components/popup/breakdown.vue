@@ -89,16 +89,19 @@ $color3: white;
 
 <style lang="scss" scoped>
 @import '@/assets/css/_var.scss';
+@import '@/assets/css/element.scss';
 
 .breakdown {
     width: $popupWidth;
-    height: calc(#{$popupHeight} - #{$popupHeadHeight}*1.5);
+    height: calc(#{$popupHeight}*1.02);
     font-family: 'Source Han Sans CN';
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
     background-color: $color1;
-    overflow-y: scroll;
+    overflow: auto;
+    // overflow-x: visible; 
+    // max-width: 500px;   
 
     /* 应用于特定元素的滚动条样式 */
     &::-webkit-scrollbar {
@@ -120,11 +123,23 @@ $color3: white;
     background-color: $color2;
     height: 28px;
     line-height: 28px;
-    color: $color3
+    color: $color3;
+    background-color: rgb(180, 77, 77);
+    text-align: center;
+    text-shadow: 0 0 5px $active-color, 0 0 5px $active-color,
 }
 
 .text {
+    color: rgba(236, 161, 161, 0.813);
     padding: 10px;
+    border: 1px solid $system-light;
+
+
+    &:hover {
+        box-shadow: inset 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
+        text-shadow: 0 0 5px black, 0 0 5px black,
+    }
+
 }
 </style>
 

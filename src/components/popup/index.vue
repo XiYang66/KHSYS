@@ -69,6 +69,10 @@ $bus.on('contextmenu/closePopup', () => {
 @import '@/assets/css/popup.scss';
 @import '@/assets/css/_var.scss';
 
+::v-deep .el-tab-pane {
+    height: auto;
+}
+
 .popup {
     @include popupBasic;
     pointer-events: auto;
@@ -90,9 +94,11 @@ $bus.on('contextmenu/closePopup', () => {
 
         .close-btn {
             @include popupCloseBtn;
+
             .close-btn-tag {
                 color: wheat;
                 background-color: gray;
+                height: 14px;
 
                 &:hover {
                     color: wheat;

@@ -1,11 +1,11 @@
 <template>
     <div class="taskManage">
-        <el-row>
+        <el-row class="title1 row0">
             <el-col :span="24">任务</el-col>
         </el-row>
-        <el-row class="name row" align="right">
+        <el-row class="row row1" align="right">
             <el-col class="label col" :span="24">
-                <div class="chart" style="width:450px ; height: 137px; text-align: center; line-height: 137px;">
+                <div class="chart">
                     <div class="innerChart" id="chart-bubblechart"
                         style="width:95% ; height:98%; text-align: center; line-height: 137px; background-color: rgb(91, 91, 169);">
                     </div>
@@ -13,7 +13,7 @@
             </el-col>
         </el-row>
         <el-row>
-            <el-col :span="24">
+            <el-col :span="24" class="table">
                 <el-table :data="tableData" style="width: 100%" max-height="250" stripe>
                     <el-table-column fixed prop="date" label="Date" width="150" />
                     <el-table-column prop="name" label="Name" width="120" />
@@ -73,7 +73,7 @@ const tableData = ref([
 ])
 
 onMounted(() => {
-    
+
 })
 
 </script>
@@ -83,14 +83,40 @@ onMounted(() => {
 @import '@/assets/css/_var.scss';
 
 .taskManage {
-    width: 480px;
-    height: 474px;
+    width: $popupWidth;
+    height: $popupHeight;
     background-color: $color1;
+
+    .row0 {
+        text-align: center;
+        font-size: $fontSize*1.3;
+        color: $color3;
+        text-shadow: 0 0 5px $active-color, 0 0 5px $active-color,
+    }
+
+    .row1 {
+        width: 100%;
+        height: 50%;
+    }
 }
 
-.chart,
-.innerChart {
+.chart {
+    height: 100%;
+    width: 100%;
     margin: 0 auto;
+    margin-top: 2%;
+
+    .innerChart {
+        margin: 0 auto;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+
+.table {
+    margin-top: 5%;
+    width: 90%;
 }
 </style>
 
