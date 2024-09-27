@@ -234,89 +234,18 @@ const treeData = reactive([
     label: '动目标',
     children: [
       {
-        label: '导弹',
-        children: [
-          {
-            label: '导弹1',
-          },
-          {
-            label: '导弹2',
-          }
-        ]
-      },
-      {
         label: '舰艇',
         children: [
           {
-            label: '舰艇1',
+            label: '尼米兹号',
           },
           {
-            label: '舰艇2',
-          }
-        ]
-      },
-      {
-        label: '飞机',
-        children: [
-          {
-            label: '飞机1',
-          },
-          {
-            label: '飞机2',
-          }
-        ]
-      },
-      {
-        label: '火箭炮',
-        children: [
-          {
-            label: '火箭炮1',
-          },
-          {
-            label: '火箭炮2',
+            label: '迪凯特号',
           }
         ]
       },
     ]
   },
-  {
-    label: '遥感任务',
-    children: [
-      {
-        label: 'SAR',
-        children: [
-          {
-            label: '尖兵一号星',
-          },
-          {
-            label: '尖兵一号星',
-          }
-        ]
-      },
-      {
-        label: '光学',
-        children: [
-          {
-            label: '光学1',
-          },
-          {
-            label: '光学2',
-          }
-        ]
-      },
-      {
-        label: '电子',
-        children: [
-          {
-            label: '电子1',
-          },
-          {
-            label: '电子2',
-          }
-        ]
-      }
-    ]
-  }
 
 ]);
 const state = reactive({
