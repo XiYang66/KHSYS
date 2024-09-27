@@ -23,6 +23,7 @@
     "monaco-editor": "0.28.1",
     "pinia": "^2.2.2",
     "pinia-plugin-persist": "^1.0.0",
+    "scrollreveal": "^4.0.9",
     "three": "^0.163.0",
     "vue": "^3.2.47",
     "vue-router": "^4.3.0"

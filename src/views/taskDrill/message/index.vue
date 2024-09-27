@@ -43,7 +43,7 @@
                 <div class="zhsj" v-show="state.active == 2">
 
                     <el-descriptions :column="1">
-                        <el-descriptions-item label="探测到目标：">XXXX</el-descriptions-item>
+                        <el-descriptions-item label="探测到目标数：">3</el-descriptions-item>
                     </el-descriptions>
 
                     <el-divider>目标名称</el-divider>

@@ -1,11 +1,10 @@
 <template>
     <div class="taskManage">
-        <el-row class="title1 row0">
+        <!-- <el-row class="title1 row0">
             <el-col :span="24">
                 <el-divider>任务</el-divider>
-
             </el-col>
-        </el-row>
+        </el-row> -->
         <!-- <el-row class="row row1" align="right">
             <el-col class="label col" :span="24">
                 <div class="chart">

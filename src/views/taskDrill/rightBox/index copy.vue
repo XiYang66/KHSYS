@@ -21,7 +21,7 @@
                 <span>气象环境约束条件</span>
             </div>
             <div class="contentBox">
-                <el-scrollbar ref="scrollContainer" class="scroll-container">
+                <el-scrollbar ref="scrollbar" @mouseenter="stopAutoScroll" @mouseleave="startAutoScroll">
                     <el-descriptions :column="1">
                         <el-descriptions-item label="风：">强风可能导致卫星成像时的运动模糊，影响图像清晰度。</el-descriptions-item>
                         <el-descriptions-item label="雨：">雨水可能在卫星传感器上形成水滴，导致图像失真或模糊。</el-descriptions-item>
@@ -40,7 +40,7 @@
                 <span>系统日志</span>
             </div>
             <div ref="xtrz" class="contentBox">
-                <el-scrollbar ref="scrollbar2">
+                <el-scrollbar ref="scrollbar2" @mouseenter="stopAutoScroll2" @mouseleave="startAutoScroll2">
                     <li v-for="(item) in state.xtrzList">
                         <p>{{ item.text }}</p>
                         <span>{{ item.time }}</span>
@@ -55,8 +55,6 @@
 // 引入vue3的api
 import { ref, reactive, onMounted, defineExpose, onBeforeUnmount, nextTick } from "vue"
 import * as echarts from 'echarts';
-import ScrollReveal from 'scrollreveal';
-
 import titleIcon from '@/assets/image/titleIcon.png'
 import Group from '@/assets/image/Group.png';
 import LD from '@/assets/image/ld.png'
@@ -578,47 +576,54 @@ let scrollInterval;
 let scrollInterval2;
 // 滚动条滚动
 const startAutoScroll = () => {
-    // const sr = ScrollReveal({
-    //     distance: '50px',
-    //     duration: 800,
-    //     easing: 'cubic-bezier(0.5, 0, 0.5, 1)',
-    //     viewFactor: 0.2, // 视口比例
-    // });
-    // // Reveal the descriptions items
-    // const descriptions = scrollContainer.value.querySelectorAll('.el-descriptions-item');
-    // descriptions.forEach((item) => {
-    //     sr.reveal(item);
-    // });
-    // state.scrollReveal.reveal('.el-descriptions-item', {
-    //     // 动画的时长
-    //     duration: 600,
-    //     // 延迟时间
-    //     delay: 500,
-    //     // 动画开始的位置，'bottom', 'left', 'top', 'right'
-    //     origin: 'bottom',
-    //     // 回滚的时候是否再次触发动画
-    //     reset: false,
-    //     // 延时执行方式（always（一直延时执行），once（只延时执行一次），onload（只在加载时延时执行））
-    //     // // useDelay: 'onload',
-    //     // 在移动端是否使用动画
-    //     mobile: true,
-    //     // 滚动的距离，单位可以用%，rem等
-    //     distance: '10px',
-    //     // 其他可用的动画效果
-    //     opacity: 0.001,
-    //     // 执行速度 线性函数啥的
-    //     easing: 'cubic-bezier(0.5, 0, 0, 1)',
-    //     // 执行方式（缩放）
-    //     scale: 0.9,
-    //     // 使用执行之前的回调函数
-    //     beforeReveal: function (ele) {
-    //         console.log(1);
-    //     }
-    // })
+    scrollInterval = setInterval(() => {
+        if (scrollbar.value) {
+            // 直接使用 scrollbar.value.scrollTop
+            const currentScrollTop = scrollbar.value.wrapRef.scrollTop;
+            const scrollHeight = scrollbar.value.$el.querySelector('.el-scrollbar__wrap').scrollHeight;
+            const clientHeight = scrollbar.value.$el.querySelector('.el-scrollbar__wrap').clientHeight;
+            // 向下滚动1px
+            scrollbar.value.scrollTo(0, currentScrollTop + 1);
+            // 如果已滚动到底部，重置到顶部
+            if (currentScrollTop >= scrollHeight - clientHeight) {
+                scrollbar.value.scrollTo(0, 0);
+            }
+        }
+    }, 100); // 每100ms更新一次
 }
 
+// 清除定时器
+const stopAutoScroll = () => {
+    if (scrollInterval) { // 确保定时器存在
+        clearInterval(scrollInterval);
+        scrollInterval = null; // 清除定时器后重置变量
+    }
+    // console.log("🚀 ~ stopAutoScroll ~ clearInterval:", clearInterval)
+};
+// 滚动条滚动
+const startAutoScroll2 = () => {
+    scrollInterval = setInterval(() => {
+        if (scrollbar2.value) {
+            // 直接使用 scrollbar.value.scrollTop
+            const currentScrollTop = scrollbar2.value.wrapRef.scrollTop;
+            const scrollHeight = scrollbar2.value.$el.querySelector('.el-scrollbar__wrap').scrollHeight;
+            const clientHeight = scrollbar2.value.$el.querySelector('.el-scrollbar__wrap').clientHeight;
+            // 向下滚动1px
+            scrollbar2.value.scrollTo(0, currentScrollTop + 1);
+            // 如果已滚动到底部，重置到顶部
+            if (currentScrollTop >= scrollHeight - clientHeight) {
+                scrollbar.value.scrollTo(0, 0);
+            }
+        }
+    }, 100); // 每100ms更新一次
+}
 
+// 清除定时器
+const stopAutoScroll2 = () => {
+    clearInterval(scrollInterval2); // 清除定时器
+};
 onBeforeUnmount(() => {
+    stopAutoScroll(); // 清除定时器
 });
 
 //暴露方法
