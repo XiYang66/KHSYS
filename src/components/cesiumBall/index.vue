@@ -17,6 +17,7 @@ import CesiumStore from "@/store/cesium";
 const CesiumStoreInit = CesiumStore()
 // import { addImageryProvider } from '@/utils/cesium/layers/imagery.js'
 import DatGui from '@/components/datGui/index.vue'
+import { all } from 'axios';
 let simpleCZML = '/models/simpleCZML.czml'
 let glb = '/models/fightWarship.glb'
 // 生命周期
@@ -35,12 +36,16 @@ onMounted(async () => {
     viewer.scene.skyAtmosphere.saturationShift = -0.7;  // Reduce the color saturation
     viewer.scene.skyAtmosphere.brightnessShift = -0.5;  // Reduce the brightness of the sky
     await CesiumStoreInit.SET_VIEWER(viewer);
-    loadShip(viewer, '/models/fightWarship.glb')
-    await loadCzml(viewer, '/models/simpleCZML.czml')
-    // console.log(viewer.dataSources)
-    lonLatList.value.forEach((item) => {
+    await loadShip(viewer, '/models/fightWarship.glb')
+    await sleep(300)//为了等到 shipSample
+    // console.log(shipSample)
+    await loadCzml(viewer, '/models/simpleCZML.czml', shipSample)
+
+lonLatList.value.forEach((item) => {
     
         addPline(viewer,item)
+
+
 })
 })
 let lonLatList = ref([
@@ -117,45 +122,102 @@ const names = [
     '光学十三号01星',
     '光学十三号02星',
     '光学十三号03星',
-    '尖兵八号改01组A星',
-    '尖兵八号改01组B星',
-    '尖兵八号改01组C星',
-    '尖兵八号改01组D星',
-    '尖兵十三号01星',
-    '尖兵十三号02星',
-    '尖兵十三号03星',
-    '尖兵十三号04星',
-    '光学十三号01星',
-    '光学十三号02星',
-    '光学十三号03星',
-    '尖兵八号改01组A星',
-    '尖兵八号改01组B星',
-    '尖兵八号改01组C星',
-    '尖兵八号改01组D星',
-    '尖兵十三号01星',
-    '尖兵十三号02星',
-    '尖兵十三号03星',
-    '尖兵十三号04星',
-    '光学十三号01星',
-    '光学十三号02星',
-    '光学十三号03星',
-    '尖兵八号改01组A星',
-    '尖兵八号改01组B星',
-    '尖兵八号改01组C星',
-    '尖兵八号改01组D星',
+    '尖兵八号改01组A1星',
+    '尖兵八号改01组B1星',
+    '尖兵八号改01组C1星',
+    '尖兵八号改01组D1星',
+    '尖兵十三号011星',
+    '尖兵十三号021星',
+    '尖兵十三号031星',
+    '尖兵十三号041星',
+    '光学十三号011星',
+    '光学十三号021星',
+    '光学十三号031星',
+    '尖兵八号改01组A2星',
+    '尖兵八号改01组B2星',
+    '尖兵八号改01组C2星',
+    '尖兵八号改01组D2星',
+    '尖兵十三号012星',
+    '尖兵十三号022星',
+    '尖兵十三号032星',
+    '尖兵十三号042星',
+    '光学十三号012星',
+    '光学十三号022星',
+    '光学十三号032星',
+    '尖兵八号改01组A3星',
+    '尖兵八号改01组B3星',
+    '尖兵八号改01组C3星',
+    '尖兵八号改01组D3星',
 ]
-async function loadCzml(viewer, czml) {
+let allSatellitesSamplePosArr = []
+let allSatellitesNameArr = []
+let satePos = []
+
+function convertToCartesian3(records) {
+    let positions = [];
+    for (let record of records) {
+        let longitude = parseFloat(record["JD"]);
+        let latitude = parseFloat(record["WD"]);
+        let position = Cesium.Cartesian3.fromDegrees(longitude, latitude, 0); // Assuming height 0
+        positions.push(position);
+    }
+    return positions;
+}
+function cart3ToCarto(cart3) {
+    let carto = Cesium.Cartographic.fromCartesian(cart3);
+    let longitude = Cesium.Math.toDegrees(carto.longitude);
+    let latitude = Cesium.Math.toDegrees(carto.latitude);
+    let height = carto.height;
+    return {
+        longitude,
+        latitude,
+        height
+    }
+}
+function getDistanceNoHeight(carto1, carto2, sateName) {
+    let point1 = Cesium.Cartesian3.fromDegrees(carto1.longitude, carto1.latitude, 0);
+    let point2 = Cesium.Cartesian3.fromDegrees(carto2.longitude, carto2.latitude, 0);
+    let distance = Cesium.Cartesian3.distance(point1, point2);
+    console.log(`distance： ${sateName} - warShip`, distance);
+    if (distance < 10000) alert("卫星侦察成功")
+    // return Cesium.Cartesian3.distance(cartesian1, cartesian2);
+}
+async function loadCzml(viewer, czml, shipSample) {
     Cesium.CzmlDataSource.load(czml).then(
         async (czmlDataSource) => {
             viewer.clock.shouldAnimate = true;
             viewer.dataSources.add(czmlDataSource);
             const allEntities = czmlDataSource.entities.values
+
             let index = 0
             allEntities.forEach(entity => {
                 const text = entity.label.text
                 text._value = names[index++]
-
+                // console.log(entity.position)
+                allSatellitesSamplePosArr.push(entity.position)
+                allSatellitesNameArr.push(text._value)
             })
+            // 卫星实时位置
+            // console.log(allSatellitesNameArr)
+            viewer.clock.onTick.addEventListener(function (clock) {
+                let currentTime = clock.currentTime;
+                for (let i = 0; i < allSatellitesNameArr.length - 1; i++) {
+                    let name = allSatellitesNameArr[i]
+                    let sample = allSatellitesSamplePosArr[i]
+                    let cur_cart3 = sample.getValue(currentTime)
+                    let cur_carto = cart3ToCarto(cur_cart3)
+                    satePos.push({
+                        name: name,
+                        carto: cur_carto
+                    })
+                }
+                let cur_shipCarto = cart3ToCarto(shipSample.getValue(currentTime))
+                satePos.forEach(sate => {
+                    // console.log(cur_shipCarto)
+                    // console.log(sate.carto)
+                    getDistanceNoHeight(cur_shipCarto, sate.carto, sate.name)
+                })
+            });
             handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
             handler.setInputAction((movement) => {
                 const pickedObject = viewer.scene.pick(movement.position);
@@ -215,17 +277,9 @@ const loadShip = (viewer, uri) => {
     })
 
 }
-function convertToCartesian3(records) {
-    let positions = [];
-    for (let record of records) {
-        let longitude = parseFloat(record["JD"]);
-        let latitude = parseFloat(record["WD"]);
-        let position = Cesium.Cartesian3.fromDegrees(longitude, latitude, 0); // Assuming height 0
-        positions.push(position);
-    }
-    return positions;
-}
 
+
+let shipSample = {}
 const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
     let customDataSource = new Cesium.CustomDataSource('customModels');
     viewer.dataSources.add(customDataSource);
@@ -243,6 +297,7 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
     viewer.clock.currentTime = startTime.clone();
     viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
     viewer.clock.multiplier = 10;
+    shipSample = positionProperty
     let modelEntity = customDataSource.entities.add({
         position: positionProperty,
         model: {
@@ -255,7 +310,7 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
             }, false),
             semiMinorAxis: new Cesium.CallbackProperty(function (time, result) {
                 return 100000.0 + Math.sin(Cesium.JulianDate.secondsDifference(time, startTime)) * 50000;
-            }, false), 
+            }, false),
             height: 100,
             material: new Cesium.ColorMaterialProperty(Cesium.Color.YELLOW.withAlpha(0.5)),  // Color of the circle
             outline: true,
