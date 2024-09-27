@@ -19,7 +19,7 @@
         </div>
         <div class="main">
             <div class="contentBox left">
-                <el-descriptions :column="1" style="margin-top: 20px; margin-left: 10px;">
+                <el-descriptions :column="1">
                     <!-- <el-descriptions-item v-for="(item, index) in Object.keys(props.data)" :label="item">: {{
                         props.data[item]
                     }}</el-descriptions-item> -->
@@ -83,6 +83,13 @@ $bus.on('taskReport/closePopup', () => {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-descriptions {
+    padding-left: 20px;
+    padding-top: 20px;
+    height: 100%;
+}
+
+
 .task-report {
     height: 100%;
     // border-radius: 5%;
@@ -97,7 +104,13 @@ $bus.on('taskReport/closePopup', () => {
     .left {
         width: 50%;
         height: 100%;
-        border: 0
+        border: 0;
+        margin: 0;
+        padding: 0;
+
+
+
+
     }
 
     .right {
