@@ -229,13 +229,13 @@ async function loadCzml(viewer, czml, shipSample) {
                         carto: cur_carto
                     })
                 }
-                console.log(satePos)
+                // console.log(satePos)
                 let cur_shipCarto = cart3ToCarto(shipSample.getValue(currentTime))
                 satePos.forEach(sate => {
                     // console.log(cur_shipCarto)
                     // console.log(sate.carto)
                     if (sate.name == "尖兵二号改01组A星") {
-                        console.log(sate.carto)
+                        // console.log(sate.carto)
                     }
                     getDistanceNoHeight(cur_shipCarto, sate.carto, sate.name)
                 })
