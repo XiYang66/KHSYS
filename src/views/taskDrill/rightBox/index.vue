@@ -22,15 +22,14 @@
             </div>
             <div class="contentBox">
                 <el-scrollbar ref="scrollContainer" class="scroll-container">
-                    <el-descriptions :column="1">
-                        <el-descriptions-item label="风：">强风可能导致卫星成像时的运动模糊，影响图像清晰度。</el-descriptions-item>
-                        <el-descriptions-item label="雨：">雨水可能在卫星传感器上形成水滴，导致图像失真或模糊。</el-descriptions-item>
-                        <el-descriptions-item label="云：">云层遮挡会阻碍地面目标的可视性，影响数据获取的完整性。</el-descriptions-item>
-                        <el-descriptions-item label="雪：">雪的反射率较高，可能影响地表特征的辨识，尤其是在覆盖范围大的情况下。</el-descriptions-item>
-                        <el-descriptions-item label="雾：">雾霾会降低可见光透过率，导致成像质量下降，特别是在低能见度情况下。</el-descriptions-item>
+                    <el-descriptions :column="2">
+                        <el-descriptions-item label="风：">10 m/s（36 km/h）</el-descriptions-item>
+                        <el-descriptions-item label="雨：">5 mm/h</el-descriptions-item>
+                        <el-descriptions-item label="云：">20%</el-descriptions-item>
+                        <el-descriptions-item label="雪：">0cm</el-descriptions-item>
+                        <el-descriptions-item label="雾：">1200m</el-descriptions-item>
                     </el-descriptions>
                 </el-scrollbar>
-
             </div>
         </div>
 
@@ -648,7 +647,7 @@ defineExpose({})
 
     .ystj {
         width: 100%;
-        height: 18%;
+        height: 19%;
     }
 
     .xtrz {
