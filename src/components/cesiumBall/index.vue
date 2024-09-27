@@ -7,7 +7,7 @@
 </template>
 <script setup>
 // 引入vue3的api
-import { ref, reactive, onMounted, computed } from 'vue';
+import { ref, reactive, onMounted, computed, onBeforeUnmount } from 'vue';
 import { init } from "@/utils/cesium/init.js";
 // import { satellite, loadSatelliteCzml } from "@/utils/cesium/tools/satellite.js";
 // 滑块工具
@@ -31,30 +31,62 @@ onMounted(async () => {
     await CesiumStoreInit.SET_VIEWER(viewer);
     await loadCzml(viewer, '/models/simpleCZML.czml')
     const model = loadModelWithPath(viewer, '/models/fightWarship.glb')
-    // viewer.dataSources.removeAll()
-    // console.log(model.name)
     await sleep(3000)
-    viewer.flyTo(model)
+    viewer.flyTo(model, {
+        duration: 2.0,
+        offset: new Cesium.HeadingPitchRange(20, Cesium.Math.toRadians(-50), 500000)
+    })
     await sleep(1000)
     viewer.trackedEntity = model;
+    await sleep(3000)
+    viewer.flyTo(czml)
 })
 
-function loadCzml(viewer, czml) {
-    Cesium.CzmlDataSource.load(czml).then((czmlDataSource) => {
-        viewer.clock.shouldAnimate = true;
-        viewer.dataSources.add(czmlDataSource);
-        viewer.flyTo(czmlDataSource)
-        return czmlDataSource;
-    }).catch((error) => {
-        console.error('Error loading CZML or model:', error);
-    });
+let handler;
+async function loadCzml(viewer, czml) {
+    Cesium.CzmlDataSource.load(czml).then(
+        async (czmlDataSource) => {
+            viewer.clock.shouldAnimate = true;
+            viewer.dataSources.add(czmlDataSource);
+            viewer.flyTo(czmlDataSource)
+            handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+            handler.setInputAction((movement) => {
+                const pickedObject = viewer.scene.pick(movement.position);
+                if (Cesium.defined(pickedObject) && pickedObject.id) {
+                    const entity = pickedObject.id;
+                    viewer.flyTo(entity, {
+                        duration: 2.0,
+                        offset: new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-45), 500)
+                    })
+                    viewer.trackedEntity = entity;
+                }
+            }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+            handler.setInputAction((movement) => {
+                viewer.camera.flyHome(2.0);
+            }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
+            viewer.flyTo(czmlDataSource)
+            await sleep(6000)
+            viewer.camera.flyHome(2.0);
+        }).catch((error) => {
+            console.error('Error loading CZML or model:', error);
+        });
 }
+
+
+
+
+
+
+
+
+
 
 const loadModelWithPath = (viewer, uri) => {
     viewer.clock.shouldAnimate = true
     let position = new Cesium.SampledPositionProperty();
     let startTime = Cesium.JulianDate.now();
-    let stopTime = Cesium.JulianDate.addSeconds(startTime, 60, new Cesium.JulianDate());
+    let stopTime = Cesium.JulianDate.addSeconds(startTime, 40, new Cesium.JulianDate());
     let point1 = Cesium.Cartesian3.fromDegrees(0, 0, 100); // 起点
     let point2 = Cesium.Cartesian3.fromDegrees(-100, -100, 100); // 中间点
     let point3 = Cesium.Cartesian3.fromDegrees(0, 0, 100); // 终点
@@ -78,7 +110,7 @@ const loadModelWithPath = (viewer, uri) => {
             uri: uri,
             minimumPixelSize: 128,
             maximumScale: 20000,
-            scale: 20000,
+            scale: 4000,
         },
         path: {
             resolution: 1,
@@ -93,7 +125,9 @@ const loadModelWithPath = (viewer, uri) => {
 }
 
 
-
+onBeforeUnmount(() => {
+    handler && handler.destroy()
+})
 
 
 
