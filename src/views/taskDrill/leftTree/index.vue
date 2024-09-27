@@ -69,28 +69,6 @@ import US from '@/assets/image/us.png'
 
 const treeData = reactive([
   {
-    label: '天体',
-    children: [
-      {
-        label: '太阳系',
-        children: [
-          {
-            label: '太阳系01',
-            type: 'cn',
-          },
-          {
-            label: '太阳系02',
-            type: 'cn',
-          },
-          {
-            label: '太阳系03',
-            type: 'cn',
-          }
-        ]
-      }
-    ]
-  },
-  {
     label: '航天器',
     children: [
       {
@@ -158,39 +136,31 @@ const treeData = reactive([
     label: '地面站',
     children: [
       {
-        label: '相控阵雷达'
+        label: '佳木斯站',
+        type: 'cn',
       },
       {
-        label: '雷达',
-        children: [
-          {
-            label: '佳木斯站',
-            type: 'cn',
-          },
-          {
-            label: '太原站',
-            type: 'cn',
-          },
-          {
-            label: '渭南站',
-            type: 'cn',
+        label: '太原站',
+        type: 'cn',
+      },
+      {
+        label: '渭南站',
+        type: 'cn',
 
-          },
-          {
-            label: '三亚站',
-            type: 'cn',
+      },
+      {
+        label: '三亚站',
+        type: 'cn',
 
-          },
-          {
-            label: '青岛站',
-            type: 'cn',
-          },
-        ]
-      }
+      },
+      {
+        label: '青岛站',
+        type: 'cn',
+      },
     ]
   },
   {
-    label: '静目标',
+    label: '固定目标',
     children: [
       {
         label: '海军基地'
@@ -231,7 +201,7 @@ const treeData = reactive([
     ]
   },
   {
-    label: '动目标',
+    label: '移动目标',
     children: [
       {
         label: '舰艇',
