@@ -2,7 +2,7 @@
   <!-- 标题 -->
   <div class="top">
     <span class="titleText">
-      考核实验室软件系统
+      任务汇集管理
     </span>
     <div class="time">{{ state.date }} {{ state.time }} {{ state.week }}</div>
   </div>

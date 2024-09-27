@@ -49,6 +49,9 @@
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">查询</el-button>
                     </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit">任务接入</el-button>
+                    </el-form-item>
                 </el-form>
             </div>
             <div class="table">
