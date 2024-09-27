@@ -99,7 +99,7 @@ $bus.on('taskReport/closePopup', () => {
     width: 100%;
     height: 100%;
     display: flex;
-    background: #161a1d;
+    background: #1e2022;
 
     .left {
         width: 50%;
