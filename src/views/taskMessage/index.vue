@@ -64,14 +64,18 @@
                     <el-table-column prop="date5" label="载荷类型" />
                     <el-table-column prop="date6" label="分辨率" />
                     <el-table-column prop="date7" label="观测时间" />
+                    <el-table-column prop="date8" label="优先级" />
                     <el-table-column prop="recover" label="操作" width='250px'>
                         <template #default="scope">
-                            <el-button type="primary">任务下达</el-button>
-                            <el-button type="primary">任务报告</el-button>
+                            <router-link to="/taskDrill">
+                                <el-button type="primary">任务下达</el-button>
+                            </router-link>
+                            <el-button type="primary" @click="setReportData(scope.row)">任务报告</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
+            <taskReport class="task-report animate__animated animate__flipInX" :data="reportData"></taskReport>
         </div>
         <div v-if="state.isBuilt" class="builtBox">
             <div class="title">
@@ -200,6 +204,8 @@ import { ref, reactive, onMounted } from 'vue';
 import titleIcon from '@/assets/image/titleIcon.png'
 import search from '@/assets/image/search.png'
 import add from '@/assets/image/add.png'
+import taskReport from '@/components/taskReport/index.vue'
+import $bus from '@/utils/mitter'
 
 import addone from '@/assets/image/add-one.png';
 import Delete from '@/assets/image/delete.png';
@@ -272,6 +278,7 @@ const tableData = ref([
         date5: 'SAR',
         date6: '0.3',
         date7: '2023-02-17 9:53:24',
+        date8: '高',
     },
     {
         date1: '拍摄韩雷达',
@@ -281,6 +288,7 @@ const tableData = ref([
         date5: 'SAR',
         date6: '0.3',
         date7: '2023-02-17 11:53:24',
+        date8: '高',
     },
     {
         date1: '拍摄美空基地',
@@ -290,6 +298,7 @@ const tableData = ref([
         date5: 'SAR',
         date6: '0.3',
         date7: '2023-02-17 10:54:24',
+        date8: '中',
     },
     {
         date1: '拍摄美空基地',
@@ -299,12 +308,36 @@ const tableData = ref([
         date5: 'SAR',
         date6: '0.3',
         date7: '2023-02-17 10:53:24',
+        date8: '低',
     }
 ])
 // 生命周期
 
+const reportData = ref([])
+function getRandom() {
+    return Math.floor(Math.random() * (4 - 0)) + 0
+}
+const stations = ['三亚站', '青岛站', '佳木斯站', '太原站', '渭南站']
+const setReportData = (data) => {
+    $bus.emit('taskReport/openPopup')
+    // console.log(data)
+    reportData.value = {
+        task: data.date1,
+        name: data.date2,
+        target: data.date3,
+        targetType: data.date4,
+        payloadType: data.date5,
+        resolution: data.date6,
+        time: data.date7,
+        priority: data.date8,
+        station: stations[getRandom() || 0]//模拟数据 - 接收站
+    }
+    // console.log(reportData.value)
+}
+
 onMounted(() => {
     console.log(Cesium)
+    $bus.emit('taskReport/closePopup')
 });
 const setTime = (data) => {
 const date = new Date(data);
@@ -516,5 +549,18 @@ const nodeClick = (data) => {
             // height: calc(100% - 35px);
         }
     }
+}
+
+.task-report {
+    position: fixed;
+    width: 30%;
+    height: 40%;
+    top: 20%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: #0f86cb;
+    box-shadow: 0px 0px 30px 0px #c1ccd6;
+    // border-radius: 5%;
 }
 </style>
