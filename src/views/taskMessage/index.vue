@@ -19,7 +19,8 @@
                                 {{ node.label }}
                             </span>
                             <div class="image" v-show="!data.children">
-                                <el-image :src="addone" @click="builtBut" style="height: 16px;margin: 0 5px;" fit="none" />
+                                <el-image :src="addone" @click="builtBut" style="height: 16px;margin: 0 5px;"
+                                    fit="none" />
                                 <el-image :src="Delete" style="height: 16px;" fit="cover" />
                             </div>
                         </span>
@@ -65,6 +66,7 @@
                     <el-table-column prop="date6" label="分辨率" />
                     <el-table-column prop="date7" label="观测时间" />
                     <el-table-column prop="date8" label="优先级" />
+                    <el-table-column prop="date9" label="任务状态" />
                     <el-table-column prop="recover" label="操作" width='250px'>
                         <template #default="scope">
                             <router-link to="/taskDrill">
@@ -84,19 +86,19 @@
             <div class="builtInfo">
                 <div class="linInfo">
 
-                      <span class="builtTitle">
+                    <span class="builtTitle">
                         任务名称
                     </span>
                     <div class="builtValue">
                         <el-input v-model="state.pushData.date1" placeholder="请输入关键字" clearable />
                     </div>
 
-                    
                     <span class="builtTitle">
                         卫星名称
                     </span>
                     <div class="builtValue">
-                         <el-select style="width: 190px !important;"  v-model="state.pushData.date2" placeholder="请选择目标类型" clearable>
+                        <el-select style="width: 190px !important;" v-model="state.pushData.date2" placeholder="请选择目标类型"
+                            clearable>
                             <el-option label="尖刀十三号04星" value="尖刀十三号04星" />
                             <el-option label="JL1GF03C01" value="JL1GF03C01" />
                             <el-option label="吉林一号高分03805" value="吉林一号高分03805" />
@@ -109,7 +111,8 @@
                         载荷类型
                     </span>
                     <div class="builtValue">
-                         <el-select style="width: 190px !important;"  v-model="state.pushData.date5" placeholder="请选择目标类型" clearable>
+                        <el-select style="width: 190px !important;" v-model="state.pushData.date5" placeholder="请选择目标类型"
+                            clearable>
                             <el-option label="可见光" value="可见光" />
                             <el-option label="SAR" value="SAR" />
                         </el-select>
@@ -118,8 +121,9 @@
                         开始时间
                     </span>
                     <div class="builtValue">
-                        <el-date-picker style="width: 190px !important;" v-model="state.pushData.date7" type="datetime" format="YYYY-MM-DD HH:mm:ss"
-                            date-format="MMM DD, YYYY" time-format="HH:mm" placeholder="请输入观测时间" clearable />
+                        <el-date-picker style="width: 190px !important;" v-model="state.pushData.date7" type="datetime"
+                            format="YYYY-MM-DD HH:mm:ss" date-format="MMM DD, YYYY" time-format="HH:mm"
+                            placeholder="请输入观测时间" clearable />
                     </div>
                 </div>
                 <div class="linInfo">
@@ -133,8 +137,9 @@
                         结束时间
                     </span>
                     <div class="builtValue">
-                        <el-date-picker style="width: 190px !important;" v-model="state.pushData.date9" type="datetime" format="YYYY-MM-DD HH:mm:ss"
-                            date-format="MMM DD, YYYY" time-format="HH:mm" placeholder="请输入观测时间" clearable />
+                        <el-date-picker style="width: 190px !important;" v-model="state.pushData.date9" type="datetime"
+                            format="YYYY-MM-DD HH:mm:ss" date-format="MMM DD, YYYY" time-format="HH:mm"
+                            placeholder="请输入观测时间" clearable />
                     </div>
                 </div>
                 <div class="linInfo">
@@ -148,7 +153,8 @@
                         观测目标
                     </span>
                     <div class="builtValue">
-                         <el-select style="width: 190px !important;"  v-model="state.pushData.date3" placeholder="请选择目标类型" clearable>
+                        <el-select style="width: 190px !important;" v-model="state.pushData.date3" placeholder="请选择目标类型"
+                            clearable>
                             <el-option label="水原空军基地" value="水原空军基地" />
                             <el-option label="尊帝山雷达站" value="尊帝山雷达站" />
                             <el-option label="阿尔特斯空军基地" value="阿尔特斯空军基地" />
@@ -167,7 +173,7 @@
                         任务优先级
                     </span>
                     <div class="builtValue">
-                        <el-select style="width: 190px !important;"  v-model="state.pushData.date11" placeholder="请选择目标类型" clearable>
+                        <el-select style="width: 190px !important;"  v-model="state.pushData.date8" placeholder="请选择目标类型" clearable>
                             <el-option label="高" value="高" />
                             <el-option label="中" value="中" />
                             <el-option label="低" value="低" />
@@ -179,7 +185,7 @@
                         添加场景
                     </span>
                     <div class="builtValue">
-                        <el-select style="width: 190px !important;"  v-model="state.pushData.date8" placeholder="请选择目标类型" clearable>
+                        <el-select style="width: 190px !important;"  v-model="state.pushData.date14" placeholder="请选择目标类型" clearable>
                             <el-option label="海上目标搜索" value="海上目标搜索" />
                         </el-select>
                     </div>
@@ -188,7 +194,7 @@
                 <div class="linInfo builtBut"> 
                     <el-button type="primary" @click="() => {
                         state.pushData = {
-        date4:'空军基地'
+        date4:'空军基地',date9:'未开始'
     }}">重置</el-button>
                     <el-button style="margin-right: 100px;" type="primary">筛选</el-button>
                     <el-button @click="state.isBuilt=false" type="primary">取消</el-button>
@@ -203,7 +209,6 @@
 import { ref, reactive, onMounted } from 'vue';
 import titleIcon from '@/assets/image/titleIcon.png'
 import search from '@/assets/image/search.png'
-import add from '@/assets/image/add.png'
 import taskReport from '@/components/taskReport/index.vue'
 import $bus from '@/utils/mitter'
 
@@ -215,7 +220,8 @@ const state = reactive({
         name: ''
     },
     pushData: {
-        date4:'空军基地'
+        date4: '空军基地',
+        date9:'未开始'
     },
     isBuilt:false // 是否新增
 })
@@ -279,6 +285,7 @@ const tableData = ref([
         date6: '0.3',
         date7: '2023-02-17 9:53:24',
         date8: '高',
+        date9:'已完成'
     },
     {
         date1: '拍摄韩雷达',
@@ -289,6 +296,7 @@ const tableData = ref([
         date6: '0.3',
         date7: '2023-02-17 11:53:24',
         date8: '高',
+        date9:'已完成'
     },
     {
         date1: '拍摄美空基地',
@@ -299,6 +307,7 @@ const tableData = ref([
         date6: '0.3',
         date7: '2023-02-17 10:54:24',
         date8: '中',
+        date9:'已完成'
     },
     {
         date1: '拍摄美空基地',
@@ -309,6 +318,7 @@ const tableData = ref([
         date6: '0.3',
         date7: '2023-02-17 10:53:24',
         date8: '低',
+        date9:'已完成'
     }
 ])
 // 生命周期
@@ -348,12 +358,10 @@ const setTime = (data) => {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始，需加1
         const day = String(date.getDate()).padStart(2, '0');
-        
         // 获取小时、分钟和秒
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
         const seconds = String(date.getSeconds()).padStart(2, '0');
-        
         // 格式化成所需的字符串
         const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
         return formattedDate
@@ -367,7 +375,8 @@ const sureCLick = () => {
     state.pushData.date7 = setTime(state.pushData.date7)
     newTable.value.push(state.pushData)
     state.pushData = {
-        date4:'空军基地'
+        date4: '空军基地',
+        date9:'未开始'
     }
     state.isBuilt =false
 }
@@ -378,23 +387,23 @@ const builtBut = () => {
 let newTable = ref(JSON.parse(JSON.stringify(tableData.value)))
 // 查询按钮
 const onSubmit = () => {
-     if (
-    !state.searchForm.name &&
-         !state.searchForm.region
-  ) {
-   newTable.value = tableData.value;
-  }
-  newTable.value= tableData.value.filter((item) => {
-    // 如果 type 不为空，进行 type 筛选
-    const typeMatch =
-      !state.searchForm.region || item.date4 === state.searchForm.region;
-    const nameMatch =
-      !state.searchForm.name ||
-      (item.date1 && item.date1.includes(state.searchForm.name));
+    if (
+        !state.searchForm.name &&
+        !state.searchForm.region
+    ) {
+        newTable.value = tableData.value;
+    }
+    newTable.value = tableData.value.filter((item) => {
+        // 如果 type 不为空，进行 type 筛选
+        const typeMatch =
+            !state.searchForm.region || item.date4 === state.searchForm.region;
+        const nameMatch =
+            !state.searchForm.name ||
+            (item.date1 && item.date1.includes(state.searchForm.name));
 
-    // 只有当 type 和 name 都匹配时才返回
-    return typeMatch && nameMatch
-  });
+        // 只有当 type 和 name 都匹配时才返回
+        return typeMatch && nameMatch
+    });
 }
 const nodeClick = (data) => {
     if (data.label == '移动目标') {
@@ -407,6 +416,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 10:53:24',
+                date8:'中',
+                date9:'已完成'
             },
             {
                 date1: '拍摄驱逐舰',
@@ -416,6 +427,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 10:48:24',
+                date8:'高',
+                date9:'已完成'
             },
             {
                 date1: '拍摄美航母',
@@ -425,6 +438,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 10:48:24',
+                date8:'低',
+                date9:'已完成'
             }
         ]
     } else {
@@ -437,6 +452,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 9:53:24',
+                date8:'高',
+                date9:'已完成'
             },
             {
                 date1: '拍摄韩雷达',
@@ -446,6 +463,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 11:53:24',
+                date8:'低',
+                date9:'已完成'
             },
             {
                 date1: '拍摄美空基地',
@@ -455,6 +474,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 10:54:24',
+                date8:'中',
+                date9:'已完成'
             },
             {
                 date1: '拍摄美空基地',
@@ -464,10 +485,28 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 10:53:24',
+                date8:'低',
+                date9:'已完成'
             }
         ]
     }
-    newTable.value= tableData.value
+    newTable.value = tableData.value
+}
+// 添加
+const add = () => {
+    tableData.value.push({
+        date1: 'XXXXX',
+        date2: 'XXXXX',
+        date3: 'XXXXX',
+        date4: 'XXXXX',
+        date5: 'SAR',
+        date6: '0.3',
+        date7: '2023-02-17 9:53:24'
+    })
+}
+// 删除
+const del = () => {
+    tableData.value.pop()
 }
 </script>
 
