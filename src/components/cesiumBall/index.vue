@@ -115,8 +115,8 @@ async function loadCzml(viewer, czml) {
                     // console.log('Picked Entity:', entity)
                     if (entity && entity.billboard && entity.billboard.scale) {
                         //satellite
-                        scale = entity.billboard.scale
-                        entity.billboard.scale = 20
+                        // scale = entity.billboard.scale
+                        // entity.billboard.scale = 20
                         viewer.trackedEntity = entity;
                     } else {
                         //glb
@@ -127,7 +127,7 @@ async function loadCzml(viewer, czml) {
             }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
             handler.setInputAction((movement) => {
-                entity.billboard && entity.billboard.scale && (entity.billboard.scale = scale)
+                // entity.billboard && entity.billboard.scale && (entity.billboard.scale = scale)
                 viewer.camera.flyHome(2.0);
             }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
             viewer.camera.flyHome(2.0);
