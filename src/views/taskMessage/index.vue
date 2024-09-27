@@ -137,7 +137,7 @@
                         结束时间
                     </span>
                     <div class="builtValue">
-                        <el-date-picker style="width: 190px !important;" v-model="state.pushData.date9" type="datetime"
+                        <el-date-picker style="width: 190px !important;" v-model="state.pushData.date29" type="datetime"
                             format="YYYY-MM-DD HH:mm:ss" date-format="MMM DD, YYYY" time-format="HH:mm"
                             placeholder="请输入观测时间" clearable />
                     </div>
