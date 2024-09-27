@@ -19,8 +19,8 @@
                                 {{ node.label }}
                             </span>
                             <div class="image" v-show="!data.children">
-                                <el-image :src="addone" style="height: 16px;margin: 0 5px;" fit="none" />
-                                <el-image :src="Delete" style="height: 16px;" fit="cover" />
+                                <el-image @click.stop="add()" :src="addone" style="height: 16px;margin: 0 5px;" fit="none" />
+                                <el-image @click.stop="del" :src="Delete" style="height: 16px;" fit="cover" />
                             </div>
                         </span>
                     </template>
@@ -80,7 +80,6 @@
 import { ref, reactive, onMounted } from 'vue';
 import titleIcon from '@/assets/image/titleIcon.png'
 import search from '@/assets/image/search.png'
-import add from '@/assets/image/add.png'
 
 import addone from '@/assets/image/add-one.png';
 import Delete from '@/assets/image/delete.png';
@@ -254,6 +253,22 @@ const nodeClick = (data) => {
             }
         ]
     }
+}
+// 添加
+const add = () => {
+    tableData.value.push({
+            date1: 'XXXXX',
+            date2: 'XXXXX',
+            date3: 'XXXXX',
+            date4: 'XXXXX',
+            date5: 'SAR',
+            date6: '0.3',
+            date7: '2023-02-17 9:53:24'
+        })
+}
+// 修改
+const del=()=>{
+    tableData.value.pop()
 }
 </script>
 
