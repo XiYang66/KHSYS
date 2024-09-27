@@ -80,7 +80,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 // 引入vue3的api
 import { ref, reactive, onMounted, defineExpose, nextTick, onBeforeUnmount } from "vue"
 import * as echarts from 'echarts';

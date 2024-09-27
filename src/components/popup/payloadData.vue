@@ -32,7 +32,7 @@ import {
     Star,
 } from '@element-plus/icons-vue'
 import { init } from '@/utils/cesium/init'
-const urls = ['遥感影像帧/a.png','遥感影像帧/b.tif','遥感影像帧/c.tif','遥感影像帧/d.tif']
+const urls = ['ygyx/1.png','ygyx/2.png','ygyx/3.png','ygyx/4.png',]
 
 
 onMounted(async () => {

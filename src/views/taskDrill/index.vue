@@ -15,7 +15,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 // 引入vue3的api
 import { ref, reactive, onMounted, defineExpose } from "vue"
 import LeftTree from '@/views/taskDrill/leftTree/index.vue'

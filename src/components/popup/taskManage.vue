@@ -25,7 +25,7 @@
                     <el-table-column prop="recover" label="恢复在线模式">
                         <template #default="scope">
                             <el-button  type="primary" size="small" @click.prevent="deleteRow(scope.$index)">
-                                任务重伤
+                                任务重仿
                             </el-button>
                         </template>
                     </el-table-column>
