@@ -93,20 +93,20 @@ const treeData = reactive([
         label: 'SAR',
         children: [
           {
-            label: '北京二号',
+            label: '尖兵十三号01星',
             type: 'cn',
           },
           {
             type: 'cn',
-            label: '复旦一号',
+            label: '尖兵十三号02星',
           },
           {
             type: 'cn',
-            label: '高分一号',
+            label: '尖兵十三号03星',
           },
           {
             type: 'cn',
-            label: '高分三号',
+            label: '尖兵十三号04星',
           },
         ]
       },
@@ -115,15 +115,15 @@ const treeData = reactive([
         children: [
           {
             type: 'cn',
-            label: 'xpg',
+            label: '光学十三号01星',
           },
           {
             type: 'cn',
-            label: 'xpg2.0',
+            label: '光学十三号02星',
           },
           {
             type: 'cn',
-            label: 'xpg2.1',
+            label: '光学十三号03星',
           }
         ]
       },

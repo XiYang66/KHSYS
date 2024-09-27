@@ -43,26 +43,85 @@ onMounted(async () => {
 })
 
 let handler;
+let entity;//picked
+let scale;
+const names = [
+    '尖兵十三号01星',
+    '尖兵十三号02星',
+    '尖兵十三号03星',
+    '尖兵十三号04星',
+    '光学十三号01星',
+    '光学十三号02星',
+    '光学十三号03星',
+    '尖兵八号改01组A星',
+    '尖兵八号改01组B星',
+    '尖兵八号改01组C星',
+    '尖兵八号改01组D星',
+    '尖兵十三号01星',
+    '尖兵十三号02星',
+    '尖兵十三号03星',
+    '尖兵十三号04星',
+    '光学十三号01星',
+    '光学十三号02星',
+    '光学十三号03星',
+    '尖兵八号改01组A星',
+    '尖兵八号改01组B星',
+    '尖兵八号改01组C星',
+    '尖兵八号改01组D星',
+    '尖兵十三号01星',
+    '尖兵十三号02星',
+    '尖兵十三号03星',
+    '尖兵十三号04星',
+    '光学十三号01星',
+    '光学十三号02星',
+    '光学十三号03星',
+    '尖兵八号改01组A星',
+    '尖兵八号改01组B星',
+    '尖兵八号改01组C星',
+    '尖兵八号改01组D星',
+    '尖兵十三号01星',
+    '尖兵十三号02星',
+    '尖兵十三号03星',
+    '尖兵十三号04星',
+    '光学十三号01星',
+    '光学十三号02星',
+    '光学十三号03星',
+    '尖兵八号改01组A星',
+    '尖兵八号改01组B星',
+    '尖兵八号改01组C星',
+    '尖兵八号改01组D星',
+]
 async function loadCzml(viewer, czml) {
     Cesium.CzmlDataSource.load(czml).then(
         async (czmlDataSource) => {
             viewer.clock.shouldAnimate = true;
             viewer.dataSources.add(czmlDataSource);
             viewer.flyTo(czmlDataSource)
+            const allEntities = czmlDataSource.entities.values
+            let index = 0
+            allEntities.forEach(entity => {
+                const text = entity.label.text
+                text._value = names[index++]
+
+            })
             handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
             handler.setInputAction((movement) => {
                 const pickedObject = viewer.scene.pick(movement.position);
                 if (Cesium.defined(pickedObject) && pickedObject.id) {
-                    const entity = pickedObject.id;
+                    entity = pickedObject.id;
                     viewer.flyTo(entity, {
                         duration: 2.0,
                         offset: new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-45), 500)
                     })
+                    // console.log('Picked Entity:', entity)
+                    scale = entity.billboard.scale
+                    entity.billboard.scale = 20
                     viewer.trackedEntity = entity;
                 }
             }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
             handler.setInputAction((movement) => {
+                entity.billboard.scale = scale
                 viewer.camera.flyHome(2.0);
             }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
             viewer.flyTo(czmlDataSource)
@@ -83,29 +142,13 @@ async function loadCzml(viewer, czml) {
 
 
 const loadModelWithPath = (viewer, uri) => {
-    viewer.clock.shouldAnimate = true
     let position = new Cesium.SampledPositionProperty();
-    let startTime = Cesium.JulianDate.now();
-    let stopTime = Cesium.JulianDate.addSeconds(startTime, 40, new Cesium.JulianDate());
-    let point1 = Cesium.Cartesian3.fromDegrees(0, 0, 100); // 起点
-    let point2 = Cesium.Cartesian3.fromDegrees(-100, -100, 100); // 中间点
-    let point3 = Cesium.Cartesian3.fromDegrees(0, 0, 100); // 终点
-    position.addSample(startTime, point1);
-    position.addSample(Cesium.JulianDate.addSeconds(startTime, 20, new Cesium.JulianDate()), point2);
-    position.addSample(Cesium.JulianDate.addSeconds(startTime, 40, new Cesium.JulianDate()), point3);
-    viewer.clock.startTime = startTime.clone();
-    viewer.clock.stopTime = stopTime.clone();
-    viewer.clock.currentTime = startTime.clone();
-    viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP; // 循环播放
-    viewer.clock.multiplier = 1;
-
     const pos = Cesium.Cartesian3.fromDegrees(0, 0, 0)
     let model = viewer.entities.add({
         name: 'ship',
         position: new Cesium.CallbackProperty(() => {
             return pos
         }, false),
-        // position: position,
         model: {
             uri: uri,
             minimumPixelSize: 128,
