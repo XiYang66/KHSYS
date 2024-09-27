@@ -230,7 +230,7 @@ onBeforeUnmount(() => {
 
 <style>
 .cesium-timeline-main {
-    /* opacity: 0;
-    pointer-events: none; */
+    opacity: 0;
+    pointer-events: none;
 }
 </style>
