@@ -35,7 +35,7 @@
                     <el-descriptions-item label="结论:"> 该任务可行</el-descriptions-item>
                 </el-descriptions>
             </div>
-            <div class="right"></div>
+            <div class="right animate__animated animate__flip"></div>
         </div>
     </div>
 </template>
