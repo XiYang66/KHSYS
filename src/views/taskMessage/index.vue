@@ -3,7 +3,11 @@
         <div class="left">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
-                <span>训练任务列表</span>
+                <span style="  font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">训练任务列表</span>
             </div>
             <div ref="cjgk" class="contentBox">
                 <el-tree default-expand-all :data="data" node-key="id" :props="defaultProps" @node-click='nodeClick'>
@@ -67,7 +71,6 @@
             </div>
         </div>
     </div>
-
 </template>
 <script setup>
 // 引入vue3的api
