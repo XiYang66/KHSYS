@@ -5,7 +5,7 @@
             "interval": "2024-06-04T00:00:00+00:00/2024-06-05T00:00:00+00:00",
             "currentTime": "2024-06-04T00:00:00+00:00",
             "step": "SYSTEM_CLOCK_MULTIPLIER",
-            "multiplier": 10,
+            "multiplier": 100,
             "range": "LOOP_STOP"
         },
         "id": "document"
