@@ -30,7 +30,7 @@ onMounted(async () => {
     });
     viewer.clock.shouldAnimate = true
     await CesiumStoreInit.SET_VIEWER(viewer);
-    const model = loadShip(viewer, '/models/fightWarship.glb')
+    loadShip(viewer, '/models/fightWarship.glb')
 
     await sleep(5000)
 
@@ -134,7 +134,6 @@ const loadShip = (viewer, uri) => {
             positions_ship = convertToCartesian3(data.RECORDS);
             // console.log(positions_ship);
             loadShipDynamic2(viewer, uri, positions_ship)
-            // 
             viewer.entities.add({
                 polyline: {
                     positions: positions_ship,
@@ -142,6 +141,8 @@ const loadShip = (viewer, uri) => {
                     material: Cesium.Color.YELLOW
                 }
             })
+            setTimeout(loadShipDynamic1(viewer, uri, positions_ship[120]), 5000)//弥补model被加载的czml影响~~
+
         })
     })
 
@@ -180,14 +181,6 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
             uri,
             scale: 30000,
         },
-        path: {
-            resolution: 1,
-            material: new Cesium.PolylineGlowMaterialProperty({
-                glowPower: 0.5,
-                color: Cesium.Color.YELLOW
-            }),
-            width: 10
-        }
     });
     viewer.flyTo(modelEntity, {
         duration: 2.0,
@@ -198,8 +191,19 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
         )
     });
     // viewer.trackedEntity = modelEntity;
-
+    // return positionProperty;
     return modelEntity;
+}
+
+
+const loadShipDynamic1 = (viewer, uri, position) => {
+    viewer.entities.add({
+        position: position,
+        model: {
+            uri,
+            scale: 30000,
+        },
+    });
 }
 onBeforeUnmount(() => {
     handler && handler.destroy()
