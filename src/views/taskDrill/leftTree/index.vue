@@ -47,11 +47,13 @@
 
     <popup style="position: fixed; top: 0%; left: 50%; transform: translateX(-50%);"></popup>
   </div>
+  <investigate class="investigate" v-draggable></investigate>
 </template>
 
 <script setup>
 // 引入vue3的api
 import { ref, reactive, onMounted, defineExpose, onBeforeUnmount } from "vue"
+import investigate from '@/components/investigate/index.vue'
 import $bus from '@/utils/mitter'
 import popup from '@/components/popup/index.vue'
 import dialog from '@/components/dialog/index.vue'
@@ -231,8 +233,11 @@ const defaultProps = {
 let data = ref(0);
 
 // 生命周期
-onMounted(() => {
+onMounted(async () => {
   $bus.emit('contextmenu/closePopup')
+  $bus.emit('investigate/closePopup')
+  await sleep(5 * 60 * 1000)
+  $bus.emit('investigate/openPopup')
 })
 // 定义方法
 const fun1 = () => {
@@ -351,5 +356,19 @@ defineExpose({})
     }
 
   }
+}
+
+.investigate {
+  position: fixed;
+  width: 20%;
+  height: 30%;
+  top: 30%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: #0f86cb;
+  box-shadow: 0px 0px 30px 0px #c1ccd6;
+  // border-radius: 5%;
+  pointer-events: visible;
 }
 </style>

@@ -6,6 +6,7 @@
     <!-- <DatGui /> -->
 </template>
 <script setup>
+import $bus from '@/utils/mitter'
 // 引入vue3的api
 import { ref, reactive, onMounted, computed, onBeforeUnmount } from 'vue';
 import { init } from "@/utils/cesium/init.js";
@@ -25,6 +26,7 @@ function sleep(time) {
     return new Promise(resolve => setTimeout(resolve, time))
 }
 onMounted(async () => {
+    $bus.emit('investigate/closePopup')
     let viewer = await init({
         container: 'cesiumContainer',
         timeline: true,
@@ -187,8 +189,9 @@ function getDistanceNoHeight(carto1, carto2, sateName) {
     let point1 = Cesium.Cartesian3.fromDegrees(carto1.longitude, carto1.latitude, 0);
     let point2 = Cesium.Cartesian3.fromDegrees(carto2.longitude, carto2.latitude, 0);
     let distance = Cesium.Cartesian3.distance(point1, point2);
-    console.log(`distance： ${sateName} - warShip`, distance);
-    if (distance < 50000) alert("卫星侦察成功")
+    // console.log(`distance： ${sateName} - warShip`, distance);
+    // if (distance < 50000) alert("卫星侦察成功")
+    if (distance < 50000) $bus.emit('investigate/openPopup')
     // return Cesium.Cartesian3.distance(cartesian1, cartesian2);
 }
 async function loadCzml(viewer, czml, shipSample) {
@@ -216,6 +219,7 @@ async function loadCzml(viewer, czml, shipSample) {
 
 
             viewer.clock.onTick.addEventListener(function (clock) {
+                viewer.clock.shouldAnimate = true;
                 let currentTime = clock.currentTime;
                 // console.log(allSatellitesNameArr[40], cart3ToCarto(allSatellitesSamplePosArr[40].getValue(currentTime)), Cesium.JulianDate.toIso8601(currentTime))
                 for (let i = 0; i < allSatellitesNameArr.length - 1; i++) {
@@ -319,7 +323,7 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
 
     // 
     positionProperty.setInterpolationOptions({
-        interpolationDegree: 2, 
+        interpolationDegree: 2,
         interpolationAlgorithm: Cesium.LagrangePolynomialApproximation
     });
 

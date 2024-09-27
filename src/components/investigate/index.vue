@@ -6,7 +6,7 @@
     margin-left: 10px;
     font-size: 20px;
     color: #FFFFFF;
-    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">任务报告</span>
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">侦察时间窗口</span>
 
             <div class="close-btn" @click="closePopup">
                 <!-- <el-tag class="close-btn-tag"></el-tag> -->
@@ -32,7 +32,6 @@
                     <el-descriptions-item label="雪量：">{{ props.data.snow }}</el-descriptions-item>
                 </el-descriptions>
             </div>
-            <div class="right animate__animated animate__flip"></div>
         </div>
     </div>
 </template>
@@ -45,12 +44,13 @@ const props = defineProps({
     data: {
         type: Object,
         default: {
-            name: '',
-            location: "",
-            start: "",
-            end: "",
-            cloudy: "",
-            snow: "",
+            name: '尖兵二号改01组A星',
+            location: "145.66569117286767，23.510123066996794",
+            start: "2024-06-04 00:23:23",
+            end: "2024-06-04 00:23:27",
+            last: '4s',
+            cloudy: "5",
+            snow: "0",
         }
     },
     isShow: {
