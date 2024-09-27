@@ -146,13 +146,22 @@ const names = [
     '光学十号03星',
     '尖兵二号改01组A星',
     '尖兵二号改01组B星',
-    '尖兵二号改01组C星',
-    '尖兵二号改01组D星',
 ]
 let allSatellitesSamplePosArr = []
 let allSatellitesNameArr = []
 let satePos = []
 
+function updateOrPush(satePos, name, cur_carto) {
+    let existingItem = satePos.find(item => item.name === name);
+    if (existingItem) {
+        existingItem.carto = cur_carto;
+    } else {
+        satePos.push({
+            name: name,
+            carto: cur_carto
+        });
+    }
+}
 function convertToCartesian3(records) {
     let positions = [];
     for (let record of records) {
@@ -214,20 +223,8 @@ async function loadCzml(viewer, czml, shipSample) {
                     let sample = allSatellitesSamplePosArr[i]
                     let cur_cart3 = sample.getValue(currentTime)
                     let cur_carto = cart3ToCarto(cur_cart3)
-                    // satePos.forEach(sate => {
-                    //     if (sate.name == name) {
-                    //         sate.carto = cur_carto
-                    //     } else {
-                    //         satePos.push({
-                    //             name: name,
-                    //             carto: cur_carto
-                    //         })
-                    //     }
-                    // })
-                    satePos.push({
-                        name: name,
-                        carto: cur_carto
-                    })
+                    // console.log(name, cur_carto.longitude)
+                    updateOrPush(satePos, name, cur_carto)
                 }
                 console.log(satePos)
                 let cur_shipCarto = cart3ToCarto(shipSample.getValue(currentTime))
@@ -235,7 +232,7 @@ async function loadCzml(viewer, czml, shipSample) {
                     // console.log(cur_shipCarto)
                     // console.log(sate.carto)
                     if (sate.name == "尖兵二号改01组A星") {
-                        console.log(sate.carto)
+                        // console.log(sate.carto)
                     }
                     getDistanceNoHeight(cur_shipCarto, sate.carto, sate.name)
                 })
