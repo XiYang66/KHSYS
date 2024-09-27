@@ -45,7 +45,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 // 引入vue3的api
 import { ref, reactive, onMounted, defineExpose, onBeforeUnmount } from "vue"
 import $bus from '@/utils/mitter'
@@ -136,15 +136,15 @@ const treeData = reactive([
           },
           {
             type: 'cn',
-            label: '尖兵八号改01组A星',
+            label: '尖兵八号改01组B星',
           },
           {
             type: 'cn',
-            label: '尖兵八号改01组A星',
+            label: '尖兵八号改01组C星',
           },
           {
             type: 'cn',
-            label: '尖兵八号改01组A星',
+            label: '尖兵八号改01组D星',
           },
         ]
       },
