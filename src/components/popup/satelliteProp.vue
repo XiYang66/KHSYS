@@ -69,7 +69,11 @@ import {
     Search,
     Star,
 } from '@element-plus/icons-vue'
-
+const props = defineProps({
+    target: {
+        type:String
+    }
+})
 const gutter = ref(0);//折叠项间距
 const collapsedNames = ref([])
 
@@ -93,7 +97,7 @@ const layout = [
             {
                 label: '卫星名称',
                 span: 3,
-                content: '尖兵十三号03星',
+                content: props.target,
 
             },
             {

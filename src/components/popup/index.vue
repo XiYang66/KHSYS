@@ -4,7 +4,7 @@
             <div class="main popup-tabs" v-if="isTabsPopup">
                 <el-tabs v-model="activeTab" @tab-click="handleTabClick" type="card">
                     <el-tab-pane label="卫星属性" name="properties">
-                        <satelliteProp></satelliteProp>
+                        <satelliteProp :target="target"></satelliteProp>
                     </el-tab-pane>
                     <el-tab-pane label="故障说明" name="breakdown">
                         <breakdown></breakdown>
