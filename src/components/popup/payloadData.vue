@@ -1,6 +1,6 @@
 <template>
     <div class="payloadData">
-        <el-row class="title row0">
+        <!-- <el-row class="title row0">
             <el-col :span="24">任务</el-col>
         </el-row>
         <el-row class="name row1">
@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </el-col>
-        </el-row>
+        </el-row> -->
         <el-row class="title row2">
             <el-col :span="24">遥感影像帧</el-col>
         </el-row>
