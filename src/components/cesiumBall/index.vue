@@ -38,9 +38,62 @@ onMounted(async () => {
     loadShip(viewer, '/models/fightWarship.glb')
     await loadCzml(viewer, '/models/simpleCZML.czml')
     // console.log(viewer.dataSources)
-
-
+    lonLatList.value.forEach((item) => {
+    
+        addPline(viewer,item)
 })
+})
+let lonLatList = ref([
+    {
+        name: '佳木斯站',
+        lon: 129.97,
+        lat:46.80
+    },
+    {
+        name: '太原站',
+        lon: 111.3,
+        lat:38
+    },
+    {
+        name: '渭南站',
+        lon: 109,
+        lat:34.55
+    },
+    {
+        name: '三亚站',
+        lon: 109,
+        lat:18.2
+    },
+    {
+        name: '青岛站',
+        lon: 120.2,
+        lat:36.4
+    },
+])
+const addPline = (viewer,row) => {
+// 指定经纬度
+// 添加闪烁的点
+const blinkingPoint = viewer.entities.add({
+    position: Cesium.Cartesian3.fromDegrees(row.lon, row.lat),
+       point: {
+        pixelSize: 5,
+        color: Cesium.Color.RED,
+        outlineColor: Cesium.Color.YELLOW,
+        outlineWidth: 2,
+       },
+     label: {
+        text: row.name,
+        fillColor: Cesium.Color.YELLOW,
+        font: '25px sans-serif'
+      },
+});
+
+// 创建闪烁效果
+    setInterval(() => {
+    if(blinkingPoint.point.outlineWidth>10) blinkingPoint.point.outlineWidth=1
+    blinkingPoint.point.outlineWidth+=1
+}, 100); // 每500毫秒切换一次
+}
 
 let handler;
 let entity;//picked
