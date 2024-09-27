@@ -340,21 +340,26 @@ onMounted(() => {
     $bus.emit('taskReport/closePopup')
 });
 const setTime = (data) => {
-const date = new Date(data);
-
-// 获取年份、月份和日期
-const year = date.getFullYear();
-const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始，需加1
-const day = String(date.getDate()).padStart(2, '0');
-
-// 获取小时、分钟和秒
-const hours = String(date.getHours()).padStart(2, '0');
-const minutes = String(date.getMinutes()).padStart(2, '0');
-const seconds = String(date.getSeconds()).padStart(2, '0');
-
-// 格式化成所需的字符串
-const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-return formattedDate
+    if (!!data) {
+        
+        const date = new Date(data);
+        
+        // 获取年份、月份和日期
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始，需加1
+        const day = String(date.getDate()).padStart(2, '0');
+        
+        // 获取小时、分钟和秒
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+        
+        // 格式化成所需的字符串
+        const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        return formattedDate
+    } else {
+        return ''
+    }
 
 }
 // 确认按钮
