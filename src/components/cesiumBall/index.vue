@@ -210,10 +210,10 @@ async function loadCzml(viewer, czml, shipSample) {
             // console.log(allSatellitesNameArr)
 
 
-            // mock 尖兵二号改01组A星
-            // let mockTime = Cesium.JulianDate.fromIso8601('2024-06-04T06:25:39.62264150942792185Z')
-            // console.log(allSatellitesNameArr[40], cart3ToCarto(allSatellitesSamplePosArr[40].getValue(mockTime)))
-            // 171.97990029075828,-79.06715245518568 mock经纬度
+            // mock 
+            // 尖兵二号改01组A星 ~ 145.66569117286767 - 23.510123066996794 # 2024-06-04T00:23:23.7735849056625739Z
+
+
 
             viewer.clock.onTick.addEventListener(function (clock) {
                 let currentTime = clock.currentTime;
@@ -226,7 +226,9 @@ async function loadCzml(viewer, czml, shipSample) {
                     // console.log(name, cur_carto.longitude)
                     updateOrPush(satePos, name, cur_carto)
                 }
-                console.log(satePos)
+
+                console.log(satePos[40].name, '~', satePos[40].carto.longitude, '-', satePos[40].carto.latitude, '#', Cesium.JulianDate.toIso8601(currentTime))
+
                 let cur_shipCarto = cart3ToCarto(shipSample.getValue(currentTime))
                 satePos.forEach(sate => {
                     // console.log(cur_shipCarto)
@@ -311,8 +313,8 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
         positionProperty.addSample(time, cartesianPositions[i]);
     }
 
-    let mockTime = Cesium.JulianDate.fromIso8601('2024-06-04T06:25:39.62264150942792185Z')
-    let mockCarto = Cesium.Cartesian3.fromDegrees(171.97990029075828, -79.06715245518568, 0)
+    let mockTime = Cesium.JulianDate.fromIso8601('2024-06-04T00:23:23.7735849056625739Z')
+    let mockCarto = Cesium.Cartesian3.fromDegrees(-145.66569117286767, 23.510123066996794, 0)
     positionProperty.addSample(mockTime, mockCarto)
     let stopTime = Cesium.JulianDate.addSeconds(startTime, cartesianPositions.length * timeInterval, new Cesium.JulianDate());
     viewer.clock.startTime = startTime.clone();
