@@ -3,14 +3,22 @@
         <div class="cjgk">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
-                <span>场景概括</span>
+                <span style="font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">场景概括</span>
             </div>
             <div ref="cjgk" class="contentBox"></div>
         </div>
         <div class="xdll">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
-                <span>星地链路</span>
+                <span style="  font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">星地链路</span>
             </div>
             <div ref="xdll" class="contentBox">
             </div>
@@ -18,7 +26,11 @@
         <div class="ystj">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
-                <span>气象环境约束条件</span>
+                <span style="  font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">气象环境约束条件</span>
             </div>
             <div class="contentBox">
                 <el-scrollbar ref="scrollContainer" class="scroll-container">
@@ -36,7 +48,11 @@
         <div class="xtrz">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
-                <span>系统日志</span>
+                <span style="  font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">系统日志</span>
             </div>
             <div ref="xtrz" class="contentBox">
                 <el-scrollbar>

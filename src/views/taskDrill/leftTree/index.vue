@@ -3,7 +3,11 @@
 
     <div class="titleBox">
       <el-image :src="titleIcon" fit="cover" />
-      <span>场景列表</span>
+      <span style="  font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">场景列表</span>
     </div>
 
     <div class="contentBox">
