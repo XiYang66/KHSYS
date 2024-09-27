@@ -349,7 +349,7 @@ const nodeClick = (data) => {
     transform: translate(-50%, -50%);
     z-index: 9999;
     background-color: #0f86cb;
-    box-shadow: 0px 0px 30px 0px #c1ccd6;
+    box-shadow: 0px 50px 30px 0px #c1ccd6;
     // border-radius: 5%;
 }
 </style>
