@@ -121,7 +121,7 @@ async function loadCzml(viewer, czml) {
                     } else {
                         //glb
                         console.log('glb clicked')
-                        viewer.flyTo(entity)
+                        viewer.zoomTo(entity)
                     }
                 }
             }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
@@ -189,7 +189,7 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
     viewer.clock.stopTime = stopTime.clone();
     viewer.clock.currentTime = startTime.clone();
     viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
-    viewer.clock.multiplier = 80;
+    viewer.clock.multiplier = 10;
     let modelEntity = customDataSource.entities.add({
         position: positionProperty,
         model: {
@@ -197,8 +197,12 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
             scale: 5000,
         },
         ellipse: {
-            semiMajorAxis: 300000.0,
-            semiMinorAxis: 300000.0,
+            semiMajorAxis: new Cesium.CallbackProperty(function (time, result) {
+                return 100000.0 + Math.sin(Cesium.JulianDate.secondsDifference(time, startTime)) * 50000;
+            }, false),
+            semiMinorAxis: new Cesium.CallbackProperty(function (time, result) {
+                return 100000.0 + Math.sin(Cesium.JulianDate.secondsDifference(time, startTime)) * 50000;
+            }, false), 
             height: 100,
             material: new Cesium.ColorMaterialProperty(Cesium.Color.YELLOW.withAlpha(0.5)),  // Color of the circle
             outline: true,
