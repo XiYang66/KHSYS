@@ -65,6 +65,7 @@
                     <el-table-column prop="date6" label="分辨率" />
                     <el-table-column prop="date7" label="观测时间" />
                     <el-table-column prop="date8" label="优先级" />
+                    <el-table-column prop="date9" label="任务状态" />
                     <el-table-column prop="recover" label="操作" width='250px'>
                         <template #default="scope">
                             <router-link to="/taskDrill">
@@ -133,7 +134,7 @@
                         结束时间
                     </span>
                     <div class="builtValue">
-                        <el-date-picker style="width: 190px !important;" v-model="state.pushData.date9" type="datetime" format="YYYY-MM-DD HH:mm:ss"
+                        <el-date-picker style="width: 190px !important;" v-model="state.pushData.date19" type="datetime" format="YYYY-MM-DD HH:mm:ss"
                             date-format="MMM DD, YYYY" time-format="HH:mm" placeholder="请输入观测时间" clearable />
                     </div>
                 </div>
@@ -167,7 +168,7 @@
                         任务优先级
                     </span>
                     <div class="builtValue">
-                        <el-select style="width: 190px !important;"  v-model="state.pushData.date11" placeholder="请选择目标类型" clearable>
+                        <el-select style="width: 190px !important;"  v-model="state.pushData.date8" placeholder="请选择目标类型" clearable>
                             <el-option label="高" value="高" />
                             <el-option label="中" value="中" />
                             <el-option label="低" value="低" />
@@ -179,7 +180,7 @@
                         添加场景
                     </span>
                     <div class="builtValue">
-                        <el-select style="width: 190px !important;"  v-model="state.pushData.date8" placeholder="请选择目标类型" clearable>
+                        <el-select style="width: 190px !important;"  v-model="state.pushData.date14" placeholder="请选择目标类型" clearable>
                             <el-option label="海上目标搜索" value="海上目标搜索" />
                         </el-select>
                     </div>
@@ -188,7 +189,7 @@
                 <div class="linInfo builtBut"> 
                     <el-button type="primary" @click="() => {
                         state.pushData = {
-        date4:'空军基地'
+        date4:'空军基地',date9:'未开始'
     }}">重置</el-button>
                     <el-button style="margin-right: 100px;" type="primary">筛选</el-button>
                     <el-button @click="state.isBuilt=false" type="primary">取消</el-button>
@@ -215,7 +216,8 @@ const state = reactive({
         name: ''
     },
     pushData: {
-        date4:'空军基地'
+        date4: '空军基地',
+        date9:'未开始'
     },
     isBuilt:false // 是否新增
 })
@@ -279,6 +281,7 @@ const tableData = ref([
         date6: '0.3',
         date7: '2023-02-17 9:53:24',
         date8: '高',
+        date9:'已完成'
     },
     {
         date1: '拍摄韩雷达',
@@ -289,6 +292,7 @@ const tableData = ref([
         date6: '0.3',
         date7: '2023-02-17 11:53:24',
         date8: '高',
+        date9:'已完成'
     },
     {
         date1: '拍摄美空基地',
@@ -299,6 +303,7 @@ const tableData = ref([
         date6: '0.3',
         date7: '2023-02-17 10:54:24',
         date8: '中',
+        date9:'已完成'
     },
     {
         date1: '拍摄美空基地',
@@ -309,6 +314,7 @@ const tableData = ref([
         date6: '0.3',
         date7: '2023-02-17 10:53:24',
         date8: '低',
+        date9:'已完成'
     }
 ])
 // 生命周期
@@ -367,7 +373,8 @@ const sureCLick = () => {
     state.pushData.date7 = setTime(state.pushData.date7)
     newTable.value.push(state.pushData)
     state.pushData = {
-        date4:'空军基地'
+        date4: '空军基地',
+        date9:'未开始'
     }
     state.isBuilt =false
 }
@@ -407,6 +414,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 10:53:24',
+                date8:'中',
+                date9:'已完成'
             },
             {
                 date1: '拍摄驱逐舰',
@@ -416,6 +425,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 10:48:24',
+                date8:'高',
+                date9:'已完成'
             },
             {
                 date1: '拍摄美航母',
@@ -425,6 +436,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 10:48:24',
+                date8:'低',
+                date9:'已完成'
             }
         ]
     } else {
@@ -437,6 +450,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 9:53:24',
+                date8:'高',
+                date9:'已完成'
             },
             {
                 date1: '拍摄韩雷达',
@@ -446,6 +461,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 11:53:24',
+                date8:'低',
+                date9:'已完成'
             },
             {
                 date1: '拍摄美空基地',
@@ -455,6 +472,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 10:54:24',
+                date8:'中',
+                date9:'已完成'
             },
             {
                 date1: '拍摄美空基地',
@@ -464,6 +483,8 @@ const nodeClick = (data) => {
                 date5: 'SAR',
                 date6: '0.3',
                 date7: '2023-02-17 10:53:24',
+                date8:'低',
+                date9:'已完成'
             }
         ]
     }
