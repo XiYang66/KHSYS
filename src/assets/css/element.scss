@@ -35,6 +35,83 @@ $border-light: #235b91; // 边框 浅
     }
   }
 }
+// select
+.el-select {
+  width: 160px !important;
+  .el-select__wrapper {
+    background: transparent;
+    background: $system-middle;
+    box-shadow: none;
+    box-shadow: 0 0 0 1px $active-color;
+    &:hover,
+    .is-hovering {
+      box-shadow: 0 0 0 1px $active-color;
+    }
+    &.is-hovering:not(.is-focused) {
+      box-shadow: 0 0 0 1px $active-color;
+    }
+  }
+}
+// 下拉框
+.el-popper {
+  border: solid 1px $active-color !important;
+  .el-select-dropdown {
+    background: transparent;
+    overflow: hidden;
+
+    .el-scrollbar {
+      background: transparent;
+      .el-select-dropdown__wrap {
+        background: transparent;
+        .el-select-dropdown__list {
+          background-color: rgba($color: $system-strong, $alpha: 0.99);
+          // background: rgba(17, 38, 69, 0.7);
+          .el-select-dropdown__item {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: Source Han Sans CN;
+
+            &.is-hovering {
+              background: linear-gradient(to right, transparent 0%, $active-color 50%, transparent 100%);
+              text-shadow:
+                0 0 5px $border-light,
+                0 0 5px $border-light,
+                0 0 5px $border-light,
+                0 0 5px $border-light;
+              margin-right: 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+  // 背景色
+  &.is-light {
+    background: transparent !important;
+    // 小三角
+    .el-popper__arrow {
+      &::before {
+        border: solid 1px $active-color !important;
+        background-color: rgba($color: $system-strong, $alpha: 0.99) !important;
+      }
+    }
+  }
+}
+// 日期选择器
+.el-date-picker{
+  background-color: rgba($color: $system-strong, $alpha: 0.99) !important;
+  color: #fff !important;
+  .el-picker-panel__body-wrapper{
+    .el-picker-panel__body{
+
+    }
+  }
+  .el-picker-panel__footer{
+    background: transparent;
+  }
+}
 // 文本域
 .el-textarea {
   .el-textarea__inner {
@@ -487,4 +564,23 @@ $border-light: #235b91; // 边框 浅
   padding: 0 !important;
   background: $bg4;
   width: auto;
+}
+
+// form表单
+.el-form {
+  .el-form-item {
+    .el-form-item__label {
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: Source Han Sans CN;
+      text-shadow:
+        0 0 5px $border-light,
+        0 0 5px $border-light,
+        0 0 5px $border-light,
+        0 0 5px $border-light;
+      margin-right: 0px;
+    }
+  }
 }

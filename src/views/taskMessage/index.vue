@@ -6,17 +6,46 @@
                 <span>训练任务列表</span>
             </div>
             <div ref="cjgk" class="contentBox">
-                <el-tree default-expand-all :data="data" node-key="id" :props="defaultProps" @node-click='nodeClick' />
+                <el-tree default-expand-all :data="data" node-key="id" :props="defaultProps" @node-click='nodeClick'>
+                    <template #default="{ node, data }">
+                        <span class="tree-node">
+                            <span class="label" @contextmenu="handleClickRight($event, node.label, node.isLeaf)"
+                                @click="handleClick">
+
+                                {{ node.label }}
+                            </span>
+                            <div class="image" v-show="!data.children">
+                                <el-image :src="addone" style="height: 16px;margin: 0 5px;" fit="none" />
+                                <el-image :src="Delete" style="height: 16px;" fit="cover" />
+                            </div>
+                        </span>
+                    </template>
+                </el-tree>
             </div>
 
         </div>
         <div class="right">
-            <div class="button">
-                <el-button type="primary">任务标准化下达</el-button>
-                <el-button type="primary">任务信息同步</el-button>
-                <el-button type="primary">任务查询管理</el-button>
-                <el-button type="primary">任务评估报告显示</el-button>
-                <el-button type="primary">任务优先级制定</el-button>
+            <div class="search">
+                <el-form :inline="true" :model="state.searchForm" class="demo-form-inline">
+                    <el-form-item label="任务名称">
+                        <el-input v-model="state.searchForm.name" placeholder="请输入关键字" clearable />
+
+                    </el-form-item>
+                    <el-form-item label="目标类型">
+                        <el-select v-model="state.searchForm.region" placeholder="请选择目标类型" clearable>
+                            <el-option label="机场" value="机场" />
+                            <el-option label="侦查预警" value="侦查预警" />
+                        </el-select>
+                    </el-form-item>
+
+                    <el-form-item label="观测时间">
+                        <el-date-picker v-model="state.searchForm.date" type="datetime" format="YYYY-MM-DD HH:mm:ss"
+                            date-format="MMM DD, YYYY" time-format="HH:mm" placeholder="请输入观测时间" clearable />
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit">查询</el-button>
+                    </el-form-item>
+                </el-form>
             </div>
             <div class="table">
                 <el-table :data="tableData" height="100%" stripe :header-cell-style="{ 'text-align': 'center' }"
@@ -28,19 +57,34 @@
                     <el-table-column prop="date5" label="载荷类型" />
                     <el-table-column prop="date6" label="分辨率" />
                     <el-table-column prop="date7" label="观测时间" />
-
+                    <el-table-column prop="recover" label="操作" width='250px'>
+                        <template #default="scope">
+                            <el-button type="primary">任务下达</el-button>
+                            <el-button type="primary">任务报告</el-button>
+                        </template>
+                    </el-table-column>
                 </el-table>
             </div>
         </div>
     </div>
 
 </template>
-
 <script setup>
 // 引入vue3的api
 import { ref, reactive, onMounted } from 'vue';
 import titleIcon from '@/assets/image/titleIcon.png'
+import search from '@/assets/image/search.png'
+import add from '@/assets/image/add.png'
+
+import addone from '@/assets/image/add-one.png';
+import Delete from '@/assets/image/delete.png';
 // 定义变量
+const state = reactive({
+    searchForm: {
+        name: ''
+    }
+})
+    ;
 const data = reactive([
     {
         id: 1,
@@ -244,7 +288,8 @@ const nodeClick = (data) => {
         box-sizing: border-box;
         padding: 10px;
 
-        .buttonBox {
+        .buttonBox,
+        .search {
             // height: 15px;
         }
 
