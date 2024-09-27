@@ -19,7 +19,7 @@
                                 {{ node.label }}
                             </span>
                             <div class="image" v-show="!data.children">
-                                <el-image :src="addone" @click="builtBut" style="height: 16px;margin: 0 5px;"
+                                <el-image :src="addone" @click.stop="builtBut" style="height: 16px;margin: 0 5px;"
                                     fit="none" />
                                 <el-image :src="Delete" style="height: 16px;" fit="cover" />
                             </div>
