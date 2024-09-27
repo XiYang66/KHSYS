@@ -40,7 +40,7 @@
                 <span>系统日志</span>
             </div>
             <div ref="xtrz" class="contentBox">
-                <el-scrollbar ref="scrollbar2">
+                <el-scrollbar>
                     <li v-for="(item) in state.xtrzList">
                         <p>{{ item.text }}</p>
                         <span>{{ item.time }}</span>
@@ -116,7 +116,6 @@ const state = reactive({
     ]
 })
 const scrollbar = ref(null)
-const scrollbar2 = ref(null)
 
 // 生命周期
 onMounted(() => {
