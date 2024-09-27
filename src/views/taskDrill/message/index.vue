@@ -82,7 +82,7 @@
 
 <script lang="ts" setup>
 // 引入vue3的api
-import { ref, reactive, onMounted, defineExpose, nextTick } from "vue"
+import { ref, reactive, onMounted, defineExpose, nextTick, onBeforeUnmount } from "vue"
 import * as echarts from 'echarts';
 import titleIcon from '@/assets/image/titleIcon.png'
 import Group from '@/assets/image/Group.png';
@@ -286,6 +286,62 @@ const axis = (step = 200) => ({
         },
     },
 })
+
+
+// 模拟实时数据更新
+// 最大展示数
+const maxItems = 8;
+let timer1
+function getRandomData(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+const dynamicChart = (chart, xLabel, res1, res2, currentZoom) => {
+    timer1 = setInterval(() => {
+        // 获取当前时间，模拟X轴新数据
+        const now = new Date();
+        const time = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+
+        // 在X轴和系列数据中推入新的数据点
+        xLabel.push(time); // 新的X轴数据
+        res1.push(getRandomData(80, 90)); // 新的Y轴数据 (随机值)
+        res2.push(getRandomData(50, 60)); // 新的Y轴数据 (随机值)
+
+
+        if (xLabel.length > maxItems) {
+            xLabel.shift();
+            res1.shift();
+            res2.shift();
+        }
+
+        // console.log(xLabel.length, res1.length, res2.length);
+
+        // // 动态更新图表
+        chart.setOption({
+            animation: true,
+            // dataZoom: currentZoom,
+            xAxis: {
+                data: xLabel
+            },
+            yAxis: {
+                type: 'value',
+                position: 'right',
+            },
+            series: [
+                {
+                    name: 's1',
+                    data: res1,
+                },
+                {
+                    name: 's2',
+                    data: res2,
+                }
+            ]
+        }, {
+            notMerge: false
+        });
+    }, 200);
+}
+
 const initWX = () => {
 
     let chart = echarts.init(WX.value);
@@ -309,6 +365,15 @@ const initWX = () => {
         },
         tooltip: {
             trigger: 'axis',
+            textStyle: {
+                align: 'left',
+                color: '#fff'
+            },
+            backgroundColor: '#09365e', // 设置背景色
+            borderColor: '#1a7bf9', // 边框颜色
+            borderWidth: 1, // 边框宽度
+            padding: 10, // 内边距
+            extraCssText: 'box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);', // 添加阴影效果
         },
         grid: {
             left: '4%',
@@ -385,7 +450,6 @@ const initWX = () => {
         ],
     };
     chart.clear();
-
     chart.setOption(option);
     window.onresize = function () {
         //自适应大小
@@ -473,6 +537,15 @@ const initGD = () => {
         },
         tooltip: {
             trigger: 'axis',
+            textStyle: {
+                align: 'left',
+                color: '#fff'
+            },
+            backgroundColor: '#09365e', // 设置背景色
+            borderColor: '#1a7bf9', // 边框颜色
+            borderWidth: 1, // 边框宽度
+            padding: 10, // 内边距
+            extraCssText: 'box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);', // 添加阴影效果
         },
 
         grid: {
@@ -559,6 +632,15 @@ const initMK = () => {
         },
         tooltip: {
             trigger: 'axis',
+            textStyle: {
+                align: 'left',
+                color: '#fff'
+            },
+            backgroundColor: '#09365e', // 设置背景色
+            borderColor: '#1a7bf9', // 边框颜色
+            borderWidth: 1, // 边框宽度
+            padding: 10, // 内边距
+            extraCssText: 'box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);', // 添加阴影效果
         },
 
         grid: {
@@ -648,8 +730,25 @@ const initMK = () => {
 const initFW = () => {
     let chart = echarts.init(FW.value);
     chart.resize();
-    let xLabel = ['2021.07.26', '2021.07.27', '2021.07.28', '2021.07.29', '2021.07.30', '2021.07.31', '2021.08.01']
+    let xLabel = []
+    const data1 = []
+    const data2 = []
     let option = {
+        animation: true, // 关闭所有动画效果
+        dataZoom: [
+            {
+                type: 'slider', // 拖动条的类型
+                start: 0,       // 起始位置
+                end: 100,       // 结束位置，100% 表示显示所有数据
+                xAxisIndex: 0,  // 表示控制X轴
+            },
+            {
+                type: 'inside', // 内置的拖动缩放
+                start: 0,
+                end: 100,
+                xAxisIndex: 0,
+            }
+        ],
         title: {
             text: '方位/俯仰角(°)',
             textStyle: {
@@ -662,6 +761,15 @@ const initFW = () => {
         },
         tooltip: {
             trigger: 'axis',
+            textStyle: {
+                align: 'left',
+                color: '#fff'
+            },
+            backgroundColor: '#09365e', // 设置背景色
+            borderColor: '#1a7bf9', // 边框颜色
+            borderWidth: 1, // 边框宽度
+            padding: 10, // 内边距
+            extraCssText: 'box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);', // 添加阴影效果
         },
 
         grid: {
@@ -671,62 +779,118 @@ const initFW = () => {
             top: '16%',
             containLabel: true,
         },
-
         ...axis(50),
-        series: [{
-            name: '注册总量',
-            type: 'line',
-            smooth: true, //是否平滑
-            showAllSymbol: true,
-            // symbol: 'image://./static/images/guang-circle.png',
-            symbol: 'circle',
-            symbolSize: 15,
-            lineStyle: {
-                normal: {
+        series: [
+            {
+                name: 's1',
+                type: 'line',
+                smooth: true, //是否平滑
+                animationDurationUpdate: 50, // 数据更新时的动画时长
+                animationEasingUpdate: 'linear', // 数据更新时的动画过渡效果
+                showAllSymbol: true,
+                // symbol: 'image://./static/images/guang-circle.png',
+                symbol: 'circle',
+                symbolSize: 2,
+                lineStyle: {
+                    normal: {
+                        color: "red",
+                        shadowColor: 'rgba(0, 0, 0, .3)',
+                        shadowBlur: 0,
+                        shadowOffsetY: 5,
+                        shadowOffsetX: 5,
+                    },
+                },
+                label: {
+                    show: false,
+                    position: 'bottom',
+                    textStyle: {
+                        color: '#00b3f4',
+                    }
+                },
+                itemStyle: {
                     color: "#00b3f4",
+                    borderColor: "#fff",
+                    borderWidth: 3,
                     shadowColor: 'rgba(0, 0, 0, .3)',
                     shadowBlur: 0,
-                    shadowOffsetY: 5,
-                    shadowOffsetX: 5,
+                    shadowOffsetY: 2,
+                    shadowOffsetX: 2,
                 },
-            },
-            label: {
-                show: true,
-                position: 'top',
-                textStyle: {
-                    color: '#00b3f4',
-                }
-            },
-            itemStyle: {
-                color: "#00b3f4",
-                borderColor: "#fff",
-                borderWidth: 3,
-                shadowColor: 'rgba(0, 0, 0, .3)',
-                shadowBlur: 0,
-                shadowOffsetY: 2,
-                shadowOffsetX: 2,
-            },
-            tooltip: {
-                show: false
-            },
-            areaStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: 'rgba(0,179,244,0.3)'
-                    },
-                    {
-                        offset: 1,
-                        color: 'rgba(0,179,244,0)'
+                tooltip: {
+                    show: false
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: 'rgba(0,179,244,0.3)'
+                        },
+                        {
+                            offset: 1,
+                            color: 'rgba(0,179,244,0)'
+                        }
+                        ], false),
+                        shadowColor: 'rgba(0,179,244, 0.9)',
+                        shadowBlur: 20
                     }
-                    ], false),
-                    shadowColor: 'rgba(0,179,244, 0.9)',
-                    shadowBlur: 20
-                }
+                },
+                data: data1
             },
-            data: ["40", "60", "22", "85", "50", "40", "42"]
-        },
-
+            {
+                name: 's2',
+                type: 'line',
+                smooth: true, //是否平滑
+                animationDurationUpdate: 50, // 数据更新时的动画时长
+                animationEasingUpdate: 'linear', // 数据更新时的动画过渡效果
+                showAllSymbol: true,
+                // symbol: 'image://./static/images/guang-circle.png',
+                symbol: 'circle',
+                symbolSize: 2,
+                lineStyle: {
+                    normal: {
+                        color: "blue",
+                        shadowColor: 'rgba(0, 0, 0, .3)',
+                        shadowBlur: 0,
+                        shadowOffsetY: 5,
+                        shadowOffsetX: 5,
+                    },
+                },
+                label: {
+                    show: false,
+                    position: 'bottom',
+                    textStyle: {
+                        color: '#00b3f4',
+                    }
+                },
+                itemStyle: {
+                    color: "#00b3f4",
+                    borderColor: "#fff",
+                    borderWidth: 3,
+                    shadowColor: 'rgba(0, 0, 0, .3)',
+                    shadowBlur: 0,
+                    shadowOffsetY: 2,
+                    shadowOffsetX: 2,
+                },
+                tooltip: {
+                    show: false
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: 'rgba(0,179,244,0.3)'
+                        },
+                        {
+                            offset: 1,
+                            color: 'rgba(0,179,244,0)'
+                        }
+                        ], false),
+                        shadowColor: 'rgba(0,179,244, 0.9)',
+                        shadowBlur: 20
+                    }
+                },
+                data: data2
+            },
         ]
     };
     chart.clear();
@@ -735,9 +899,16 @@ const initFW = () => {
         //自适应大小
         chart.resize();
     };
+    // 获取当前 dataZoom 状态
+    const currentZoom = chart.getOption().dataZoom;
+    dynamicChart(chart, xLabel, data1, data2, currentZoom)
 }
 //暴露方法
 defineExpose({})
+
+onBeforeUnmount(() => {
+    clearInterval(timer1)
+})
 </script>
 
 <style lang="scss" scoped>
