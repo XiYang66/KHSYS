@@ -290,12 +290,12 @@ const axis = (step = 200) => ({
 
 // 模拟实时数据更新
 // 最大展示数
-const maxItems = 30;
+const maxItems = 8;
 let timer1
 function getRandomData(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-const dynamicChart = (chart, xLabel, res1, res2) => {
+const dynamicChart = (chart, xLabel, res1, res2, currentZoom) => {
     timer1 = setInterval(() => {
         // 获取当前时间，模拟X轴新数据
         const now = new Date();
@@ -303,8 +303,8 @@ const dynamicChart = (chart, xLabel, res1, res2) => {
 
         // 在X轴和系列数据中推入新的数据点
         xLabel.push(time); // 新的X轴数据
-        res1.push(getRandomData(0, 180)); // 新的Y轴数据 (随机值)
-        res2.push(getRandomData(0, 180)); // 新的Y轴数据 (随机值)
+        res1.push(getRandomData(80, 110)); // 新的Y轴数据 (随机值)
+        res2.push(getRandomData(50, 100)); // 新的Y轴数据 (随机值)
 
 
         if (xLabel.length > maxItems) {
@@ -313,23 +313,33 @@ const dynamicChart = (chart, xLabel, res1, res2) => {
             res2.shift();
         }
 
+        // console.log(xLabel.length, res1.length, res2.length);
+
         // // 动态更新图表
         chart.setOption({
-            // xAxis: {
-            //     data: xLabel
-            // },
-            // series: [{
-            //     name: 's1',
-            //     data: res1
-            // },
-            // {
-            //     name: 's2',
-            //     data: res2
-            // }]
+            animation: true,
+            // dataZoom: currentZoom,
+            xAxis: {
+                data: xLabel
+            },
+            yAxis: {
+                type: 'value',
+                position: 'right',
+            },
+            series: [
+                {
+                    name: 's1',
+                    data: res1,
+                },
+                {
+                    name: 's2',
+                    data: res2,
+                }
+            ]
         }, {
-            notMerge: true
+            notMerge: false
         });
-    }, 1000);
+    }, 200);
 }
 
 const initWX = () => {
@@ -720,10 +730,25 @@ const initMK = () => {
 const initFW = () => {
     let chart = echarts.init(FW.value);
     chart.resize();
-    let xLabel = ['2021.07.26', '2021.07.27', '2021.07.28', '2021.07.29', '2021.07.30', '2021.07.31', '2021.08.01']
-    const data1 = ["40", "60", "22", "85", "50", "40", "42"]
-    const data2 = ["40", "60", "22", "85", "50", "40", "42"]
+    let xLabel = []
+    const data1 = []
+    const data2 = []
     let option = {
+        animation: true, // 关闭所有动画效果
+        dataZoom: [
+            {
+                type: 'slider', // 拖动条的类型
+                start: 0,       // 起始位置
+                end: 100,       // 结束位置，100% 表示显示所有数据
+                xAxisIndex: 0,  // 表示控制X轴
+            },
+            {
+                type: 'inside', // 内置的拖动缩放
+                start: 0,
+                end: 100,
+                xAxisIndex: 0,
+            }
+        ],
         title: {
             text: '方位/俯仰角(°)',
             textStyle: {
@@ -754,30 +779,18 @@ const initFW = () => {
             top: '16%',
             containLabel: true,
         },
-        // dataZoom: [
-        //     {
-        //         type: 'slider', // 拖动条的类型
-        //         start: 0,       // 起始位置
-        //         end: 100,       // 结束位置，100% 表示显示所有数据
-        //         xAxisIndex: 0,  // 表示控制X轴
-        //     },
-        //     {
-        //         type: 'inside', // 内置的拖动缩放
-        //         start: 0,
-        //         end: 100,
-        //         xAxisIndex: 0,
-        //     }
-        // ],
         ...axis(50),
         series: [
             {
                 name: 's1',
                 type: 'line',
                 smooth: true, //是否平滑
+                animationDurationUpdate: 50, // 数据更新时的动画时长
+                animationEasingUpdate: 'linear', // 数据更新时的动画过渡效果
                 showAllSymbol: true,
                 // symbol: 'image://./static/images/guang-circle.png',
                 symbol: 'circle',
-                symbolSize: 15,
+                symbolSize: 2,
                 lineStyle: {
                     normal: {
                         color: "red",
@@ -789,7 +802,7 @@ const initFW = () => {
                 },
                 label: {
                     show: true,
-                    position: 'top',
+                    position: 'bottom',
                     textStyle: {
                         color: '#00b3f4',
                     }
@@ -827,10 +840,12 @@ const initFW = () => {
                 name: 's2',
                 type: 'line',
                 smooth: true, //是否平滑
+                animationDurationUpdate: 50, // 数据更新时的动画时长
+                animationEasingUpdate: 'linear', // 数据更新时的动画过渡效果
                 showAllSymbol: true,
                 // symbol: 'image://./static/images/guang-circle.png',
                 symbol: 'circle',
-                symbolSize: 15,
+                symbolSize: 2,
                 lineStyle: {
                     normal: {
                         color: "blue",
@@ -842,7 +857,7 @@ const initFW = () => {
                 },
                 label: {
                     show: true,
-                    position: 'top',
+                    position: 'bottom',
                     textStyle: {
                         color: '#00b3f4',
                     }
@@ -876,17 +891,17 @@ const initFW = () => {
                 },
                 data: data2
             },
-
         ]
     };
     chart.clear();
-    chart.setOption(option, { notMerge: true });
+    chart.setOption(option);
     window.onresize = function () {
         //自适应大小
         chart.resize();
     };
-
-    // dynamicChart(chart, xLabel, data1, data2)
+    // 获取当前 dataZoom 状态
+    const currentZoom = chart.getOption().dataZoom;
+    dynamicChart(chart, xLabel, data1, data2, currentZoom)
 }
 //暴露方法
 defineExpose({})
