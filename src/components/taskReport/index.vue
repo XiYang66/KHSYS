@@ -99,7 +99,7 @@ $bus.on('taskReport/closePopup', () => {
     width: 100%;
     height: 100%;
     display: flex;
-    background: #0f86cb;
+    background: #161a1d;
 
     .left {
         width: 50%;
@@ -116,7 +116,7 @@ $bus.on('taskReport/closePopup', () => {
     .right {
         width: 50%;
         height: 100%;
-        background-color: #0f86cb;
+        background-color: #030e14;
         background: url("../../assets/image/已批准.png") no-repeat;
         background-size: 100% 80%;
         background-position: center;
