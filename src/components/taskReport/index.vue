@@ -99,27 +99,14 @@ $bus.on('taskReport/closePopup', () => {
     width: 100%;
     height: 100%;
     display: flex;
-    background: #0f86cb;
+    background: #1e2022;
 
     .left {
-        width: 50%;
+        width: 100%;
         height: 100%;
         border: 0;
         margin: 0;
         padding: 0;
-
-
-
-
-    }
-
-    .right {
-        width: 50%;
-        height: 100%;
-        background-color: #0f86cb;
-        background: url("../../assets/image/已批准.png") no-repeat;
-        background-size: 100% 80%;
-        background-position: center;
     }
 }
 
