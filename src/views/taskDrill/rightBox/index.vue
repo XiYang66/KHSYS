@@ -123,7 +123,6 @@ onMounted(() => {
     initXdll()
     nextTick(() => {
         startAutoScroll()
-        startAutoScroll2()
     });
 
 })
