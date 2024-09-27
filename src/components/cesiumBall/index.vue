@@ -141,7 +141,7 @@ const loadShip = (viewer, uri) => {
                     material: Cesium.Color.YELLOW
                 }
             })
-            setTimeout(loadShipDynamic1(viewer, uri, positions_ship[120]), 5000)//弥补model被加载的czml影响~~
+            // setTimeout(loadShipDynamic1(viewer, uri, positions_ship[120]), 5000)
 
         })
     })
@@ -163,7 +163,7 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
     viewer.dataSources.add(customDataSource);
     viewer.clock.shouldAnimate = true;
     let positionProperty = new Cesium.SampledPositionProperty();
-    let startTime = Cesium.JulianDate.now();
+    let startTime = Cesium.JulianDate.fromIso8601("2024-06-04T00:00:00+00:00");
     let timeInterval = 10;
     for (let i = 0; i < cartesianPositions.length; i++) {
         let time = Cesium.JulianDate.addSeconds(startTime, i * timeInterval, new Cesium.JulianDate());
@@ -174,12 +174,12 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
     viewer.clock.stopTime = stopTime.clone();
     viewer.clock.currentTime = startTime.clone();
     viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
-    viewer.clock.multiplier = 200;
+    viewer.clock.multiplier = 100;
     let modelEntity = customDataSource.entities.add({
         position: positionProperty,
         model: {
             uri,
-            scale: 30000,
+            scale: 5000,
         },
     });
     viewer.flyTo(modelEntity, {
@@ -230,7 +230,7 @@ onBeforeUnmount(() => {
 
 <style>
 .cesium-timeline-main {
-    opacity: 0;
-    pointer-events: none;
+    /* opacity: 0;
+    pointer-events: none; */
 }
 </style>
