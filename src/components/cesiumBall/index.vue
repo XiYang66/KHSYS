@@ -29,11 +29,13 @@ onMounted(async () => {
         timeline: true,
     });
     viewer.clock.shouldAnimate = true
+    viewer.scene.globe.enableLighting = false; // Disable globe lighting to prevent it from being too bright
+    viewer.scene.globe.baseColor = Cesium.Color.DARKGRAY; // Set the base color of the globe to a darker shade
+    viewer.scene.skyAtmosphere.hueShift = -0.8;  // Darken the atmosphere
+    viewer.scene.skyAtmosphere.saturationShift = -0.7;  // Reduce the color saturation
+    viewer.scene.skyAtmosphere.brightnessShift = -0.5;  // Reduce the brightness of the sky
     await CesiumStoreInit.SET_VIEWER(viewer);
     loadShip(viewer, '/models/fightWarship.glb')
-
-    await sleep(5000)
-
     await loadCzml(viewer, '/models/simpleCZML.czml')
     // console.log(viewer.dataSources)
 
@@ -111,14 +113,21 @@ async function loadCzml(viewer, czml) {
                         offset: new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-45), 500)
                     })
                     // console.log('Picked Entity:', entity)
-                    scale = entity.billboard.scale
-                    entity.billboard.scale = 20
-                    viewer.trackedEntity = entity;
+                    if (entity && entity.billboard && entity.billboard.scale) {
+                        //satellite
+                        scale = entity.billboard.scale
+                        entity.billboard.scale = 20
+                        viewer.trackedEntity = entity;
+                    } else {
+                        //glb
+                        console.log('glb clicked')
+                        viewer.flyTo(entity)
+                    }
                 }
             }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
             handler.setInputAction((movement) => {
-                entity.billboard.scale = scale
+                entity.billboard && entity.billboard.scale && (entity.billboard.scale = scale)
                 viewer.camera.flyHome(2.0);
             }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
             viewer.camera.flyHome(2.0);
@@ -138,7 +147,13 @@ const loadShip = (viewer, uri) => {
                 polyline: {
                     positions: positions_ship,
                     width: 1,
-                    material: Cesium.Color.YELLOW
+                    material: Cesium.PolylineDashMaterialProperty({
+                        glowPower: 0.8,
+                        color: Cesium.Color.YELLOW,
+                        gapColor: Cesium.Color.TRANSPARENT,
+                        dashLength: 16.0,
+                        dashPattern: 255
+                    }),
                 }
             })
             // setTimeout(loadShipDynamic1(viewer, uri, positions_ship[120]), 5000)
@@ -174,13 +189,21 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
     viewer.clock.stopTime = stopTime.clone();
     viewer.clock.currentTime = startTime.clone();
     viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
-    viewer.clock.multiplier = 100;
+    viewer.clock.multiplier = 80;
     let modelEntity = customDataSource.entities.add({
         position: positionProperty,
         model: {
             uri,
             scale: 5000,
         },
+        ellipse: {
+            semiMajorAxis: 300000.0,
+            semiMinorAxis: 300000.0,
+            height: 100,
+            material: new Cesium.ColorMaterialProperty(Cesium.Color.YELLOW.withAlpha(0.5)),  // Color of the circle
+            outline: true,
+            outlineColor: Cesium.Color.RED
+        }
     });
     viewer.flyTo(modelEntity, {
         duration: 2.0,
