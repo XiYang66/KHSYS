@@ -41,63 +41,63 @@ onMounted(async () => {
     // console.log(shipSample)
     await loadCzml(viewer, '/models/simpleCZML.czml', shipSample)
 
-lonLatList.value.forEach((item) => {
-    
-        addPline(viewer,item)
+    lonLatList.value.forEach((item) => {
+
+        addPline(viewer, item)
 
 
-})
+    })
 })
 let lonLatList = ref([
     {
         name: '佳木斯站',
         lon: 129.97,
-        lat:46.80
+        lat: 46.80
     },
     {
         name: '太原站',
         lon: 111.3,
-        lat:38
+        lat: 38
     },
     {
         name: '渭南站',
         lon: 109,
-        lat:34.55
+        lat: 34.55
     },
     {
         name: '三亚站',
         lon: 109,
-        lat:18.2
+        lat: 18.2
     },
     {
         name: '青岛站',
         lon: 120.2,
-        lat:36.4
+        lat: 36.4
     },
 ])
-const addPline = (viewer,row) => {
-// 指定经纬度
-// 添加闪烁的点
-const blinkingPoint = viewer.entities.add({
-    position: Cesium.Cartesian3.fromDegrees(row.lon, row.lat),
-       point: {
-        pixelSize: 5,
-        color: Cesium.Color.RED,
-        outlineColor: Cesium.Color.YELLOW,
-        outlineWidth: 2,
-       },
-     label: {
-        text: row.name,
-        fillColor: Cesium.Color.YELLOW,
-        font: '25px sans-serif'
-      },
-});
+const addPline = (viewer, row) => {
+    // 指定经纬度
+    // 添加闪烁的点
+    const blinkingPoint = viewer.entities.add({
+        position: Cesium.Cartesian3.fromDegrees(row.lon, row.lat),
+        point: {
+            pixelSize: 5,
+            color: Cesium.Color.RED,
+            outlineColor: Cesium.Color.YELLOW,
+            outlineWidth: 2,
+        },
+        label: {
+            text: row.name,
+            fillColor: Cesium.Color.YELLOW,
+            font: '25px sans-serif'
+        },
+    });
 
-// 创建闪烁效果
+    // 创建闪烁效果
     setInterval(() => {
-    if(blinkingPoint.point.outlineWidth>10) blinkingPoint.point.outlineWidth=1
-    blinkingPoint.point.outlineWidth+=1
-}, 100); // 每500毫秒切换一次
+        if (blinkingPoint.point.outlineWidth > 10) blinkingPoint.point.outlineWidth = 1
+        blinkingPoint.point.outlineWidth += 1
+    }, 100); // 每500毫秒切换一次
 }
 
 let handler;
@@ -178,7 +178,7 @@ function getDistanceNoHeight(carto1, carto2, sateName) {
     let point1 = Cesium.Cartesian3.fromDegrees(carto1.longitude, carto1.latitude, 0);
     let point2 = Cesium.Cartesian3.fromDegrees(carto2.longitude, carto2.latitude, 0);
     let distance = Cesium.Cartesian3.distance(point1, point2);
-    console.log(`distance： ${sateName} - warShip`, distance);
+    // console.log(`distance： ${sateName} - warShip`, distance);
     if (distance < 10000) alert("卫星侦察成功")
     // return Cesium.Cartesian3.distance(cartesian1, cartesian2);
 }
@@ -199,22 +199,44 @@ async function loadCzml(viewer, czml, shipSample) {
             })
             // 卫星实时位置
             // console.log(allSatellitesNameArr)
+
+
+            // mock 尖兵二号改01组A星
+            // let mockTime = Cesium.JulianDate.fromIso8601('2024-06-04T06:25:39.62264150942792185Z')
+            // console.log(allSatellitesNameArr[40], cart3ToCarto(allSatellitesSamplePosArr[40].getValue(mockTime)))
+            // 171.97990029075828,-79.06715245518568 mock经纬度
+
             viewer.clock.onTick.addEventListener(function (clock) {
                 let currentTime = clock.currentTime;
+                // console.log(allSatellitesNameArr[40], cart3ToCarto(allSatellitesSamplePosArr[40].getValue(currentTime)), Cesium.JulianDate.toIso8601(currentTime))
                 for (let i = 0; i < allSatellitesNameArr.length - 1; i++) {
                     let name = allSatellitesNameArr[i]
                     let sample = allSatellitesSamplePosArr[i]
                     let cur_cart3 = sample.getValue(currentTime)
                     let cur_carto = cart3ToCarto(cur_cart3)
+                    // satePos.forEach(sate => {
+                    //     if (sate.name == name) {
+                    //         sate.carto = cur_carto
+                    //     } else {
+                    //         satePos.push({
+                    //             name: name,
+                    //             carto: cur_carto
+                    //         })
+                    //     }
+                    // })
                     satePos.push({
                         name: name,
                         carto: cur_carto
                     })
                 }
+                console.log(satePos)
                 let cur_shipCarto = cart3ToCarto(shipSample.getValue(currentTime))
                 satePos.forEach(sate => {
                     // console.log(cur_shipCarto)
                     // console.log(sate.carto)
+                    if (sate.name == "尖兵二号改01组A星") {
+                        console.log(sate.carto)
+                    }
                     getDistanceNoHeight(cur_shipCarto, sate.carto, sate.name)
                 })
             });
@@ -291,6 +313,10 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
         let time = Cesium.JulianDate.addSeconds(startTime, i * timeInterval, new Cesium.JulianDate());
         positionProperty.addSample(time, cartesianPositions[i]);
     }
+
+    let mockTime = Cesium.JulianDate.fromIso8601('2024-06-04T06:25:39.62264150942792185Z')
+    let mockCarto = Cesium.Cartesian3.fromDegrees(171.97990029075828, -79.06715245518568, 0)
+    positionProperty.addSample(mockTime, mockCarto)
     let stopTime = Cesium.JulianDate.addSeconds(startTime, cartesianPositions.length * timeInterval, new Cesium.JulianDate());
     viewer.clock.startTime = startTime.clone();
     viewer.clock.stopTime = stopTime.clone();
@@ -365,7 +391,7 @@ onBeforeUnmount(() => {
 
 <style>
 .cesium-timeline-main {
-    opacity: 0;
-    pointer-events: none;
+    /* opacity: 0;
+    pointer-events: none; */
 }
 </style>
