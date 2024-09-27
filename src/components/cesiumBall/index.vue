@@ -17,6 +17,7 @@ import CesiumStore from "@/store/cesium";
 const CesiumStoreInit = CesiumStore()
 // import { addImageryProvider } from '@/utils/cesium/layers/imagery.js'
 import DatGui from '@/components/datGui/index.vue'
+import { all } from 'axios';
 let simpleCZML = '/models/simpleCZML.czml'
 let glb = '/models/fightWarship.glb'
 // 生命周期
@@ -37,7 +38,8 @@ onMounted(async () => {
     await CesiumStoreInit.SET_VIEWER(viewer);
     loadShip(viewer, '/models/fightWarship.glb')
     await loadCzml(viewer, '/models/simpleCZML.czml')
-    // console.log(viewer.dataSources)
+
+
 
 
 })
@@ -91,18 +93,55 @@ const names = [
     '尖兵八号改01组C星',
     '尖兵八号改01组D星',
 ]
+let allSatellitesSamplePosArr = []
+let allSatellitesNameArr = []
+let satePos = []
+function cart3ToCarto(cart3) {
+    let carto = Cesium.Cartographic.fromCartesian(cart3);
+    let longitude = Cesium.Math.toDegrees(carto.longitude);
+    let latitude = Cesium.Math.toDegrees(carto.latitude);
+    let height = carto.height;
+    return {
+        longitude,
+        latitude,
+        height
+    }
+}
 async function loadCzml(viewer, czml) {
     Cesium.CzmlDataSource.load(czml).then(
         async (czmlDataSource) => {
             viewer.clock.shouldAnimate = true;
             viewer.dataSources.add(czmlDataSource);
             const allEntities = czmlDataSource.entities.values
+
             let index = 0
             allEntities.forEach(entity => {
                 const text = entity.label.text
                 text._value = names[index++]
-
+                // console.log(entity.position)
+                allSatellitesSamplePosArr.push(entity.position)
+                allSatellitesNameArr.push(text._value)
             })
+            // 卫星实时位置
+            // console.log(allSatellitesNameArr)
+            viewer.clock.onTick.addEventListener(function (clock) {
+                let currentTime = clock.currentTime;
+                // console.log("Current simulation time: " + Cesium.JulianDate.toIso8601(currentTime););
+                // let cart3 = allSatellitesSamplePosArr[0].getValue(currentTime)
+                // let carto = cart3ToCarto(cart3)
+                // console.log(carto.latitude)
+                for (let i = 0; i < allSatellitesNameArr.length - 1; i++) {
+                    let name = allSatellitesNameArr[i]
+                    let sample = allSatellitesSamplePosArr[i]
+                    let cur_cart3 = sample.getValue(currentTime)
+                    let cur_carto = cart3ToCarto(cur_cart3)
+                    satePos.push({
+                        name: name,
+                        carto: cur_carto
+                    })
+                }
+                // console.log(satePos)
+            });
             handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
             handler.setInputAction((movement) => {
                 const pickedObject = viewer.scene.pick(movement.position);
@@ -202,7 +241,7 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
             }, false),
             semiMinorAxis: new Cesium.CallbackProperty(function (time, result) {
                 return 100000.0 + Math.sin(Cesium.JulianDate.secondsDifference(time, startTime)) * 50000;
-            }, false), 
+            }, false),
             height: 100,
             material: new Cesium.ColorMaterialProperty(Cesium.Color.YELLOW.withAlpha(0.5)),  // Color of the circle
             outline: true,
