@@ -303,8 +303,8 @@ const dynamicChart = (chart, xLabel, res1, res2, currentZoom) => {
 
         // 在X轴和系列数据中推入新的数据点
         xLabel.push(time); // 新的X轴数据
-        res1.push(getRandomData(80, 110)); // 新的Y轴数据 (随机值)
-        res2.push(getRandomData(50, 100)); // 新的Y轴数据 (随机值)
+        res1.push(getRandomData(80, 90)); // 新的Y轴数据 (随机值)
+        res2.push(getRandomData(50, 60)); // 新的Y轴数据 (随机值)
 
 
         if (xLabel.length > maxItems) {
@@ -801,7 +801,7 @@ const initFW = () => {
                     },
                 },
                 label: {
-                    show: true,
+                    show: false,
                     position: 'bottom',
                     textStyle: {
                         color: '#00b3f4',
@@ -856,7 +856,7 @@ const initFW = () => {
                     },
                 },
                 label: {
-                    show: true,
+                    show: false,
                     position: 'bottom',
                     textStyle: {
                         color: '#00b3f4',
