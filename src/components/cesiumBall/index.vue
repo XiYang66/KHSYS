@@ -32,7 +32,10 @@ onMounted(async () => {
     await loadCzml(viewer, '/models/simpleCZML.czml')
     const model = loadModelWithPath(viewer, '/models/fightWarship.glb')
     await sleep(3000)
-    viewer.flyTo(model)
+    viewer.flyTo(model, {
+        duration: 2.0,
+        offset: new Cesium.HeadingPitchRange(20, Cesium.Math.toRadians(-50), 500000)
+    })
     await sleep(1000)
     viewer.trackedEntity = model;
     await sleep(3000)
@@ -58,9 +61,13 @@ async function loadCzml(viewer, czml) {
                     viewer.trackedEntity = entity;
                 }
             }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+            handler.setInputAction((movement) => {
+                viewer.camera.flyHome(2.0);
+            }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
             viewer.flyTo(czmlDataSource)
-            await sleep(10000)
-            viewer.flyTo(czmlDataSource)
+            await sleep(6000)
+            viewer.camera.flyHome(2.0);
         }).catch((error) => {
             console.error('Error loading CZML or model:', error);
         });
