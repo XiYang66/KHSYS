@@ -17,106 +17,84 @@ import CesiumStore from "@/store/cesium";
 const CesiumStoreInit = CesiumStore()
 // import { addImageryProvider } from '@/utils/cesium/layers/imagery.js'
 import DatGui from '@/components/datGui/index.vue'
-
+let simpleCZML = '/models/simpleCZML.czml'
+let glb = '/models/fightWarship.glb'
 // 生命周期
+function sleep(time) {
+    return new Promise(resolve => setTimeout(resolve, time))
+}
 onMounted(async () => {
     let viewer = await init({
         container: 'cesiumContainer',
+        timeline: true,
     });
     await CesiumStoreInit.SET_VIEWER(viewer);
-    setupTimeline(viewer)
-    loadSatelliteCzml(viewer)
-});
+    await loadCzml(viewer, '/models/simpleCZML.czml')
+    const model = loadModelWithPath(viewer, '/models/fightWarship.glb')
+    // viewer.dataSources.removeAll()
+    // console.log(model.name)
+    await sleep(3000)
+    viewer.flyTo(model)
+    await sleep(1000)
+    viewer.trackedEntity = model;
+})
+
+function loadCzml(viewer, czml) {
+    Cesium.CzmlDataSource.load(czml).then((czmlDataSource) => {
+        viewer.clock.shouldAnimate = true;
+        viewer.dataSources.add(czmlDataSource);
+        viewer.flyTo(czmlDataSource)
+        return czmlDataSource;
+    }).catch((error) => {
+        console.error('Error loading CZML or model:', error);
+    });
+}
+
+const loadModelWithPath = (viewer, uri) => {
+    viewer.clock.shouldAnimate = true
+    let position = new Cesium.SampledPositionProperty();
+    let startTime = Cesium.JulianDate.now();
+    let stopTime = Cesium.JulianDate.addSeconds(startTime, 60, new Cesium.JulianDate());
+    let point1 = Cesium.Cartesian3.fromDegrees(0, 0, 100); // 起点
+    let point2 = Cesium.Cartesian3.fromDegrees(-100, -100, 100); // 中间点
+    let point3 = Cesium.Cartesian3.fromDegrees(0, 0, 100); // 终点
+    position.addSample(startTime, point1);
+    position.addSample(Cesium.JulianDate.addSeconds(startTime, 20, new Cesium.JulianDate()), point2);
+    position.addSample(Cesium.JulianDate.addSeconds(startTime, 40, new Cesium.JulianDate()), point3);
+    viewer.clock.startTime = startTime.clone();
+    viewer.clock.stopTime = stopTime.clone();
+    viewer.clock.currentTime = startTime.clone();
+    viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP; // 循环播放
+    viewer.clock.multiplier = 1;
+
+    const pos = Cesium.Cartesian3.fromDegrees(0, 0, 0)
+    let model = viewer.entities.add({
+        name: 'ship',
+        position: new Cesium.CallbackProperty(() => {
+            return pos
+        }, false),
+        // position: position,
+        model: {
+            uri: uri,
+            minimumPixelSize: 128,
+            maximumScale: 20000,
+            scale: 20000,
+        },
+        path: {
+            resolution: 1,
+            material: new Cesium.PolylineGlowMaterialProperty({
+                glowPower: 1,
+                color: Cesium.Color.YELLOW
+            }),
+            width: 100
+        }
+    });
+    return model;
+}
 
 
 
 
-// 加载卫星 CZML 数据，并让卫星在轨道上移动
-const start = ref(null);
-const stop = ref(null);
-let simpleCZML = '/models/simpleCZML.czml'
-const loadSatelliteCzml = (viewer) => {
-    viewer.shouldAnimate = true
-    const satelliteNames = ["Satellite/xpg2.0"];
-    const satelliteAll = [];
-    viewer.dataSources.removeAll(); // 清除所有现有数据源
-    viewer.dataSources
-        .add(Cesium.CzmlDataSource.load(simpleCZML))
-        .then((dataSource) => {
-            for (let i = 0; i < satelliteNames.length; i++) {
-                satelliteAll.push(dataSource.entities.getById(satelliteNames[i]));
-            }
-            for (let i = 0; i < satelliteAll.length; i++) {
-                // 更新卫星位置
-                const updatePosition = () => {
-                    const positions = satelliteAll[i].position.getValue(
-                        viewer.clock.currentTime
-                    );
-                    if (positions) {
-                        const cartographic =
-                            viewer.scene.globe.ellipsoid.cartesianToCartographic(
-                                positions
-                            );
-                        const lat = Cesium.Math.toDegrees(cartographic.latitude);
-                        const lng = Cesium.Math.toDegrees(cartographic.longitude);
-                        const hei = parseFloat(cartographic.height / 2.1);
-                        return Cesium.Cartesian3.fromDegrees(lng, lat, hei);
-                    }
-                };
-
-                // 更新卫星高度
-                const updateHeight = () => {
-                    const positions = satelliteAll[i].position.getValue(
-                        viewer.clock.currentTime
-                    );
-                    if (positions) {
-                        const cartographic =
-                            viewer.scene.globe.ellipsoid.cartesianToCartographic(
-                                positions
-                            );
-                        return parseFloat(cartographic.height);
-                    }
-                };
-
-                // 添加实体，显示卫星的可视化模型
-                viewer.entities.add({
-                    id: "Satellitegreen",
-                    position: new Cesium.CallbackProperty(updatePosition, false),
-                    cylinder: {
-                        HeightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-                        length: new Cesium.CallbackProperty(updateHeight, false),
-                        topRadius: 0.0,
-                        bottomRadius:
-                            new Cesium.CallbackProperty(updateHeight, false).getValue() /
-                            6,
-                        material: Cesium.Color.GREEN.withAlpha(0.8),
-                        outline: true,
-                        numberOfVerticalLines: 0,
-                        outlineColor: Cesium.Color.GREEN.withAlpha(0.8),
-                    },
-                });
-            }
-        });
-};
-const setupTimeline = (viewer) => {
-    start.value = Cesium.JulianDate.addHours(
-        Cesium.JulianDate.fromDate(new Date()),
-        8, // 东八区时间
-        new Cesium.JulianDate()
-    );
-    stop.value = Cesium.JulianDate.addSeconds(
-        start.value,
-        1000, // 持续时间 1000 秒
-        new Cesium.JulianDate()
-    );
-
-    viewer.clock.startTime = start.value.clone();
-    viewer.clock.stopTime = stop.value.clone();
-    viewer.clock.currentTime = start.value.clone();
-    viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP; // 停止后不循环
-    viewer.clock.multiplier = 2; // 时间倍速
-    // viewer.timeline.zoomTo(start.value, stop.value); // 缩放时间线范围
-};
 
 
 
@@ -133,5 +111,12 @@ const setupTimeline = (viewer) => {
         height: 100%;
         // background-color: pink;
     }
+}
+</style>
+
+<style>
+.cesium-timeline-main {
+    /* opacity: 0;
+    pointer-events: none; */
 }
 </style>

@@ -54,7 +54,7 @@
 // 引入vue3的api
 import { ref, reactive, onMounted, defineExpose, onBeforeUnmount, nextTick } from "vue"
 import * as echarts from 'echarts';
-import ScrollReveal from 'scrollreveal';
+
 
 import titleIcon from '@/assets/image/titleIcon.png'
 import Group from '@/assets/image/Group.png';
