@@ -146,13 +146,22 @@ const names = [
     '光学十号03星',
     '尖兵二号改01组A星',
     '尖兵二号改01组B星',
-    '尖兵二号改01组C星',
-    '尖兵二号改01组D星',
 ]
 let allSatellitesSamplePosArr = []
 let allSatellitesNameArr = []
 let satePos = []
 
+function updateOrPush(satePos, name, cur_carto) {
+    let existingItem = satePos.find(item => item.name === name);
+    if (existingItem) {
+        existingItem.carto = cur_carto;
+    } else {
+        satePos.push({
+            name: name,
+            carto: cur_carto
+        });
+    }
+}
 function convertToCartesian3(records) {
     let positions = [];
     for (let record of records) {
@@ -178,8 +187,8 @@ function getDistanceNoHeight(carto1, carto2, sateName) {
     let point1 = Cesium.Cartesian3.fromDegrees(carto1.longitude, carto1.latitude, 0);
     let point2 = Cesium.Cartesian3.fromDegrees(carto2.longitude, carto2.latitude, 0);
     let distance = Cesium.Cartesian3.distance(point1, point2);
-    // console.log(`distance： ${sateName} - warShip`, distance);
-    if (distance < 10000) alert("卫星侦察成功")
+    console.log(`distance： ${sateName} - warShip`, distance);
+    if (distance < 50000) alert("卫星侦察成功")
     // return Cesium.Cartesian3.distance(cartesian1, cartesian2);
 }
 async function loadCzml(viewer, czml, shipSample) {
@@ -201,10 +210,10 @@ async function loadCzml(viewer, czml, shipSample) {
             // console.log(allSatellitesNameArr)
 
 
-            // mock 尖兵二号改01组A星
-            // let mockTime = Cesium.JulianDate.fromIso8601('2024-06-04T06:25:39.62264150942792185Z')
-            // console.log(allSatellitesNameArr[40], cart3ToCarto(allSatellitesSamplePosArr[40].getValue(mockTime)))
-            // 171.97990029075828,-79.06715245518568 mock经纬度
+            // mock 
+            // 尖兵二号改01组A星 ~ 145.66569117286767 - 23.510123066996794 # 2024-06-04T00:23:23.7735849056625739Z
+
+
 
             viewer.clock.onTick.addEventListener(function (clock) {
                 let currentTime = clock.currentTime;
@@ -214,30 +223,20 @@ async function loadCzml(viewer, czml, shipSample) {
                     let sample = allSatellitesSamplePosArr[i]
                     let cur_cart3 = sample.getValue(currentTime)
                     let cur_carto = cart3ToCarto(cur_cart3)
-                    // satePos.forEach(sate => {
-                    //     if (sate.name == name) {
-                    //         sate.carto = cur_carto
-                    //     } else {
-                    //         satePos.push({
-                    //             name: name,
-                    //             carto: cur_carto
-                    //         })
-                    //     }
-                    // })
-                    satePos.push({
-                        name: name,
-                        carto: cur_carto
-                    })
+                    // console.log(name, cur_carto.longitude)
+                    updateOrPush(satePos, name, cur_carto)
                 }
-                // console.log(satePos)
+
+                // console.log(satePos[40].name, '~', satePos[40].carto.longitude, '-', satePos[40].carto.latitude, '#', Cesium.JulianDate.toIso8601(currentTime))
+
                 let cur_shipCarto = cart3ToCarto(shipSample.getValue(currentTime))
                 satePos.forEach(sate => {
                     // console.log(cur_shipCarto)
                     // console.log(sate.carto)
                     if (sate.name == "尖兵二号改01组A星") {
                         // console.log(sate.carto)
+                        getDistanceNoHeight(cur_shipCarto, sate.carto, sate.name)
                     }
-                    getDistanceNoHeight(cur_shipCarto, sate.carto, sate.name)
                 })
             });
             handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
@@ -312,11 +311,18 @@ const loadShipDynamic2 = (viewer, uri, cartesianPositions) => {
     for (let i = 0; i < cartesianPositions.length; i++) {
         let time = Cesium.JulianDate.addSeconds(startTime, i * timeInterval, new Cesium.JulianDate());
         positionProperty.addSample(time, cartesianPositions[i]);
-    }
 
-    let mockTime = Cesium.JulianDate.fromIso8601('2024-06-04T06:25:39.62264150942792185Z')
-    let mockCarto = Cesium.Cartesian3.fromDegrees(171.97990029075828, -79.06715245518568, 0)
+    }
+    let mockTime = Cesium.JulianDate.fromIso8601('2024-06-04T00:23:23.7735849056625739Z')
+    let mockCarto = Cesium.Cartesian3.fromDegrees(-145.66569117286767, 23.510123066996794, 0)
     positionProperty.addSample(mockTime, mockCarto)
+
+    // 
+    positionProperty.setInterpolationOptions({
+        interpolationDegree: 2, 
+        interpolationAlgorithm: Cesium.LagrangePolynomialApproximation
+    });
+
     let stopTime = Cesium.JulianDate.addSeconds(startTime, cartesianPositions.length * timeInterval, new Cesium.JulianDate());
     viewer.clock.startTime = startTime.clone();
     viewer.clock.stopTime = stopTime.clone();
