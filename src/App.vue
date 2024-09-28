@@ -2,7 +2,7 @@
   <!-- 标题 -->
   <div class="top">
     <span class="titleText">
-      考核实验室软件系统
+      考核实验室软件
     </span>
     <div class="time">{{ state.date }} {{ state.time }} {{ state.week }}</div>
   </div>
@@ -26,7 +26,7 @@
 
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { ref, reactive, onMounted, onBeforeMount, watch } from 'vue';
 import CesiumBall from '@/components/cesiumBall/index.vue'
@@ -34,7 +34,7 @@ import CesiumBall from '@/components/cesiumBall/index.vue'
 import { getDateTime } from '@/utils'
 const router = useRouter();
 const route = useRoute();
-let routerList: any = reactive([]);
+let routerList = reactive([]);
 
 routerList = router.options.routes;
 const state = reactive({

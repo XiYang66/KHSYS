@@ -3,14 +3,22 @@
         <div class="cjgk">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
-                <span>场景概括</span>
+                <span style="font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">场景概括</span>
             </div>
             <div ref="cjgk" class="contentBox"></div>
         </div>
         <div class="xdll">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
-                <span>星地链路</span>
+                <span style="  font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">星地链路</span>
             </div>
             <div ref="xdll" class="contentBox">
             </div>
@@ -18,26 +26,33 @@
         <div class="ystj">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
-                <span>气象环境约束条件</span>
+                <span style="  font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">气象环境约束条件</span>
             </div>
             <div class="contentBox">
                 <el-scrollbar ref="scrollContainer" class="scroll-container">
-                    <el-descriptions :column="1">
-                        <el-descriptions-item label="风：">强风可能导致卫星成像时的运动模糊，影响图像清晰度。</el-descriptions-item>
-                        <el-descriptions-item label="雨：">雨水可能在卫星传感器上形成水滴，导致图像失真或模糊。</el-descriptions-item>
-                        <el-descriptions-item label="云：">云层遮挡会阻碍地面目标的可视性，影响数据获取的完整性。</el-descriptions-item>
-                        <el-descriptions-item label="雪：">雪的反射率较高，可能影响地表特征的辨识，尤其是在覆盖范围大的情况下。</el-descriptions-item>
-                        <el-descriptions-item label="雾：">雾霾会降低可见光透过率，导致成像质量下降，特别是在低能见度情况下。</el-descriptions-item>
+                    <el-descriptions :column="2">
+                        <el-descriptions-item label="风：">10 m/s（36 km/h）</el-descriptions-item>
+                        <el-descriptions-item label="雨：">5 mm/h</el-descriptions-item>
+                        <el-descriptions-item label="云：">20%</el-descriptions-item>
+                        <el-descriptions-item label="雪：">0cm</el-descriptions-item>
+                        <el-descriptions-item label="雾：">1200m</el-descriptions-item>
                     </el-descriptions>
                 </el-scrollbar>
-
             </div>
         </div>
 
         <div class="xtrz">
             <div class="titleBox">
                 <el-image :src="titleIcon" fit="cover" lazy />
-                <span>系统日志</span>
+                <span style="  font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">系统日志</span>
             </div>
             <div ref="xtrz" class="contentBox">
                 <el-scrollbar>
@@ -51,7 +66,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 // 引入vue3的api
 import { ref, reactive, onMounted, defineExpose, onBeforeUnmount, nextTick } from "vue"
 import * as echarts from 'echarts';
@@ -648,7 +663,7 @@ defineExpose({})
 
     .ystj {
         width: 100%;
-        height: 18%;
+        height: 19%;
     }
 
     .xtrz {

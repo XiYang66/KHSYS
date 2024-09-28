@@ -1,6 +1,6 @@
 <template>
     <div class="payloadData">
-        <el-row class="title row0">
+        <!-- <el-row class="title row0">
             <el-col :span="24">任务</el-col>
         </el-row>
         <el-row class="name row1">
@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </el-col>
-        </el-row>
+        </el-row> -->
         <el-row class="title row2">
             <el-col :span="24">遥感影像帧</el-col>
         </el-row>
@@ -32,7 +32,7 @@ import {
     Star,
 } from '@element-plus/icons-vue'
 import { init } from '@/utils/cesium/init'
-const urls = ['zxy/1/0/0.jpg','zxy/1/0/1.jpg','zxy/1/1/0.jpg','zxy/1/1/1.jpg',]
+const urls = ['ygyx/1.png','ygyx/2.png','ygyx/3.png','ygyx/4.png',]
 
 
 onMounted(async () => {

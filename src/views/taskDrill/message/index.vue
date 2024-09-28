@@ -52,15 +52,15 @@
                         <el-tab-pane label="电子特性参数" name="first">
                             <el-descriptions :column="1">
                                 <el-descriptions-item label="目标雷达类型："> 警戒雷达</el-descriptions-item>
-                                <el-descriptions-item label="探测经纬高："> 经-159.124*纬19.793*</el-descriptions-item>
-                                <el-descriptions-item label="定位精度(m)："> 732.223</el-descriptions-item>
-                                <el-descriptions-item label="置信度(%)：">90.872 </el-descriptions-item>
-                                <el-descriptions-item label="到达时间：">0.007</el-descriptions-item>
-                                <el-descriptions-item label="脉宽(us)：">6.4</el-descriptions-item>
-                                <el-descriptions-item label="脉幅(dbm)：">-33.508 </el-descriptions-item>
-                                <el-descriptions-item label="载频(MHz)：">3300</el-descriptions-item>
-                                <el-descriptions-item label="方位角(°)：">0.739 </el-descriptions-item>
-                                <el-descriptions-item label="俯仰(°)：">0.056</el-descriptions-item>
+                                 <el-descriptions-item label="探测经纬高：">经度-{{Number(data1.coordinates[0]).toFixed(3) }}*纬度-{{ Number(data1.coordinates[1]).toFixed(3) }}</el-descriptions-item>
+                                    <el-descriptions-item label="定位精度(m)：">{{ data1.accuracy }}</el-descriptions-item>
+                                    <el-descriptions-item label="置信度(%)：">{{ data1.confidence }}</el-descriptions-item>
+                                    <el-descriptions-item label="到达时间：">{{ data1.arrivalTime }}</el-descriptions-item>
+                                    <el-descriptions-item label="脉宽(us)：">{{ data1.pulseWidth }}</el-descriptions-item>
+                                    <el-descriptions-item label="脉幅(dbm)：">{{ data1.pulseAmplitude }}</el-descriptions-item>
+                                    <el-descriptions-item label="载频(MHz)：">{{ data1.carrierFrequency }}</el-descriptions-item>
+                                    <el-descriptions-item label="方位角(°)：">{{ data1.azimuth }}</el-descriptions-item>
+                                    <el-descriptions-item label="俯仰(°)：">{{ data1.elevation }}</el-descriptions-item>
                             </el-descriptions>
 
                         </el-tab-pane>
@@ -80,7 +80,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 // 引入vue3的api
 import { ref, reactive, onMounted, defineExpose, nextTick, onBeforeUnmount } from "vue"
 import * as echarts from 'echarts';
@@ -94,26 +94,70 @@ let state = reactive({
     active: 1,
     textarea:
         `1.载荷开机
-XXXXXXXXXXXXXXXXXXXXXXXX
-2.载荷开机
 2024-08-24 04:12:54.968~2024-08-24 04:12:54.968
-3.载荷开机
+2.载荷开机
 2024-08-24 04:12:54.968~2024-08-24 04:12:54.968`,
     switch: true,
     activeName: 'first',
     isAnimating: false,
 });
+
+  let  generateCoordinates=()=> {
+      const longitude = randomFloat(-141, -140).toFixed(3);
+        const latitude = randomFloat(-78, -77).toFixed(3);
+    //   const longitude =lon + randomFloat(0, 0.01).toFixed(3)
+    // const latitude = lat +randomFloat(0, 0.01).toFixed(3)
+      //   return `经-${longitude}*纬${latitude}*`;
+      return [
+          longitude,
+        latitude]
+    
+    }
+
+ let randomFloat=(min, max)=> {
+      return Math.random() * (max - min) + min;
+    }
+   let randomInt=(min, max) =>{
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+let data1 = reactive({
+    //  coordinates:"经度-"+ generateCoordinates().lon +"*纬度" +  generateCoordinates().lat,
+     coordinates: generateCoordinates(),
+      accuracy: randomFloat(500, 1000).toFixed(3),
+      confidence: randomFloat(80, 100).toFixed(3),
+      arrivalTime: randomFloat(0, 0.1).toFixed(3),
+      pulseWidth: randomFloat(5, 10).toFixed(1),
+      pulseAmplitude: randomFloat(-40, -30).toFixed(3),
+      carrierFrequency: randomInt(3000, 3500),
+      azimuth: randomFloat(0, 360).toFixed(3),
+      elevation: randomFloat(-10, 10).toFixed(3)
+})
+let  generateRandomValues=()=> {
+      data1.coordinates = data1.coordinates.map((item)=>Number(item)+0.01);
+      data1.accuracy = randomFloat(900, 1000).toFixed(3);
+    //   data1.confidence = randomFloat(80, 100).toFixed(3);
+      data1.arrivalTime = randomFloat(0, 0.1).toFixed(3);
+    //   data1.pulseWidth = randomFloat(5, 10).toFixed(1);
+    //   data1.pulseAmplitude = randomFloat(-40, -30).toFixed(3);
+      data1.carrierFrequency = randomInt(3000, 3100);
+      data1.azimuth = randomFloat(0, 20).toFixed(3);
+      data1.elevation = randomFloat(0, 10).toFixed(3);
+    }
 const LL = ref()
 const WX = ref()
 const GD = ref()
 const MK = ref()
 const FW = ref()
-
+let interval 
 // 生命周期
 onMounted(() => {
     initEcharts()
+    interval = setInterval(generateRandomValues, 1000);
 });
-
+// onUnmounted(() => {
+//     clearInterval(interval);
+// })
 // 关闭弹框
 const closePopup = () => {
     $bus.emit('MessageFlag', false)

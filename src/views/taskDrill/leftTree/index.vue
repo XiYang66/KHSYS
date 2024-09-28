@@ -3,7 +3,11 @@
 
     <div class="titleBox">
       <el-image :src="titleIcon" fit="cover" />
-      <span>场景列表</span>
+      <span style="  font-family: PangMenZhengDao;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #158EFF, 0 0 20px #158EFF, 0 0 30px #158EFF, 0 0 40px #158EFF;">场景列表</span>
     </div>
 
     <div class="contentBox">
@@ -43,11 +47,13 @@
 
     <popup style="position: fixed; top: 0%; left: 50%; transform: translateX(-50%);"></popup>
   </div>
+  <investigate class="investigate" v-draggable></investigate>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 // 引入vue3的api
 import { ref, reactive, onMounted, defineExpose, onBeforeUnmount } from "vue"
+import investigate from '@/components/investigate/index.vue'
 import $bus from '@/utils/mitter'
 import popup from '@/components/popup/index.vue'
 import dialog from '@/components/dialog/index.vue'
@@ -64,28 +70,6 @@ import US from '@/assets/image/us.png'
 
 
 const treeData = reactive([
-  {
-    label: '天体',
-    children: [
-      {
-        label: '太阳系',
-        children: [
-          {
-            label: '太阳系01',
-            type: 'cn',
-          },
-          {
-            label: '太阳系02',
-            type: 'cn',
-          },
-          {
-            label: '太阳系03',
-            type: 'cn',
-          }
-        ]
-      }
-    ]
-  },
   {
     label: '航天器',
     children: [
@@ -136,15 +120,15 @@ const treeData = reactive([
           },
           {
             type: 'cn',
-            label: '尖兵八号改01组A星',
+            label: '尖兵八号改01组B星',
           },
           {
             type: 'cn',
-            label: '尖兵八号改01组A星',
+            label: '尖兵八号改01组C星',
           },
           {
             type: 'cn',
-            label: '尖兵八号改01组A星',
+            label: '尖兵八号改01组D星',
           },
         ]
       },
@@ -154,39 +138,31 @@ const treeData = reactive([
     label: '地面站',
     children: [
       {
-        label: '相控阵雷达'
+        label: '佳木斯站',
+        type: 'cn',
       },
       {
-        label: '雷达',
-        children: [
-          {
-            label: '佳木斯站',
-            type: 'cn',
-          },
-          {
-            label: '太原站',
-            type: 'cn',
-          },
-          {
-            label: '渭南站',
-            type: 'cn',
+        label: '太原站',
+        type: 'cn',
+      },
+      {
+        label: '渭南站',
+        type: 'cn',
 
-          },
-          {
-            label: '三亚站',
-            type: 'cn',
+      },
+      {
+        label: '三亚站',
+        type: 'cn',
 
-          },
-          {
-            label: '青岛站',
-            type: 'cn',
-          },
-        ]
-      }
+      },
+      {
+        label: '青岛站',
+        type: 'cn',
+      },
     ]
   },
   {
-    label: '静目标',
+    label: '固定目标',
     children: [
       {
         label: '海军基地'
@@ -227,92 +203,21 @@ const treeData = reactive([
     ]
   },
   {
-    label: '动目标',
+    label: '移动目标',
     children: [
-      {
-        label: '导弹',
-        children: [
-          {
-            label: '导弹1',
-          },
-          {
-            label: '导弹2',
-          }
-        ]
-      },
       {
         label: '舰艇',
         children: [
           {
-            label: '舰艇1',
+            label: '尼米兹号',
           },
           {
-            label: '舰艇2',
-          }
-        ]
-      },
-      {
-        label: '飞机',
-        children: [
-          {
-            label: '飞机1',
-          },
-          {
-            label: '飞机2',
-          }
-        ]
-      },
-      {
-        label: '火箭炮',
-        children: [
-          {
-            label: '火箭炮1',
-          },
-          {
-            label: '火箭炮2',
+            label: '迪凯特号',
           }
         ]
       },
     ]
   },
-  {
-    label: '遥感任务',
-    children: [
-      {
-        label: 'SAR',
-        children: [
-          {
-            label: '尖兵一号星',
-          },
-          {
-            label: '尖兵一号星',
-          }
-        ]
-      },
-      {
-        label: '光学',
-        children: [
-          {
-            label: '光学1',
-          },
-          {
-            label: '光学2',
-          }
-        ]
-      },
-      {
-        label: '电子',
-        children: [
-          {
-            label: '电子1',
-          },
-          {
-            label: '电子2',
-          }
-        ]
-      }
-    ]
-  }
 
 ]);
 const state = reactive({
@@ -328,8 +233,11 @@ const defaultProps = {
 let data = ref(0);
 
 // 生命周期
-onMounted(() => {
+onMounted(async () => {
   $bus.emit('contextmenu/closePopup')
+  $bus.emit('investigate/closePopup')
+  await sleep(5 * 60 * 1000)
+  $bus.emit('investigate/openPopup')
 })
 // 定义方法
 const fun1 = () => {
@@ -448,5 +356,19 @@ defineExpose({})
     }
 
   }
+}
+
+.investigate {
+  position: fixed;
+  width: 20%;
+  height: 30%;
+  top: 30%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: #0f86cb;
+  box-shadow: 0px 0px 30px 0px #c1ccd6;
+  // border-radius: 5%;
+  pointer-events: visible;
 }
 </style>
